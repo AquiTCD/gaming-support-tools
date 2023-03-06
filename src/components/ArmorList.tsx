@@ -1,17 +1,23 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, toggleFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
 import type { Loadout, Position, Armor } from '@/stores/armor-sim'
 
 export default function ArmorList(): JSX.Element {
   const $armorList = useStore(armorList)
   const $positionFilter = useStore(positionFilter)
+  const $skillFilter = useStore(skillFilter)
+  const allSkills = new Set($armorList.flatMap(armor => armor.skills ))
+
   const filteredArmorList = () => {
-    let filters = []
-    for (let [key, value] of Object.entries($positionFilter)) {
-      if(value) { filters.push(key) }
+    let list = $armorList
+    list = Object.values(list).filter(armor => $positionFilter.includes(armor.position))
+    if ($skillFilter.length > 0) {
+      list = Object.values(list).filter((armor) => {
+        return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
+      })
     }
-    return Object.values($armorList).filter((armor) => filters.includes(armor.position))
+    return list
   }
 
   const i18nPosition = {
@@ -64,12 +70,22 @@ export default function ArmorList(): JSX.Element {
       <div className="px-5 py-3 border-gray-500 border">
         <span>絞りこみ: </span>
         { positions.map((position, i) => {
-          const colorClasses = $positionFilter[position] ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
+          const colorClasses = $positionFilter.includes(position) ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
           const classes = `rounded-full text-sm px-4 py-1 mr-2 ${colorClasses}`
           return <button key={i}
             className={classes}
-          onClick={() => toggleFilter(position)}>{i18nPosition[position]}</button>
-        })}
+            onClick={() => togglePositionFilter(position)}>{i18nPosition[position]}</button>
+          })
+        }
+        <br />
+        { Array.from(allSkills).map((skill, i) => {
+          const colorClasses = $skillFilter.includes(skill) ? "bg-pink-200 text-gray-700 font-bold" : "bg-gray-200 text-gray-500"
+          const classes = `rounded-full text-sm px-4 py-1 mr-2 ${colorClasses}`
+          return <button key={i}
+            className={classes}
+            onClick={() => toggleSkillFilter(skill)}>{skill}</button>
+          })
+        }
       </div>
       <hr />
 
