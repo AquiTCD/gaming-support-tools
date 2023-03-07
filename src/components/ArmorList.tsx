@@ -62,21 +62,21 @@ export default function ArmorList(): JSX.Element {
       </div>
       <hr />
 
-      <table className="min-w-max w-full table-auto">
+      <table className="relative min-w-max w-full table-auto">
         <thead>
           <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-            <th className='py-2 px-4'>装備</th>
-            <th className='py-2 px-4'>部位</th>
-            <th className='py-2 px-4'>名称</th>
-            <th className='py-2 px-4'>流派</th>
-            <th className='py-2 px-4'>防御力</th>
-            <th className='py-2 px-4'>木耐性</th>
-            <th className='py-2 px-4'>火耐性</th>
-            <th className='py-2 px-4'>水耐性</th>
-            <th className='py-2 px-4'>風耐性</th>
-            <th className='py-2 px-4'>土耐性</th>
-            <th className='py-2 px-4'>技能</th>
-            <th className='py-2 px-4'>素材系統</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">装備</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">部位</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">名称</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">流派</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">防御力</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">木耐性</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">火耐性</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">水耐性</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">風耐性</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">土耐性</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">技能</th>
+            <th className="sticky top-0 bg-gray-200 py-2 px-4">素材系統</th>
           </tr>
         </thead>
         <tbody className="text-gray-600 text-sm">
