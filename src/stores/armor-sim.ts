@@ -1,40 +1,14 @@
 import { atom, map, computed, action } from 'nanostores'
 import allArmorList from '@/assets/wildhearts/armor_list.json'
+import type { Loadout, Position, Armor } from '@/types/types'
 
-const positions = ['head', 'body', 'arm', 'waist', 'leg']
+const positions: Position[] = ['head', 'body', 'arm', 'waist', 'leg']
 
-type Loadout = {
-  head: null | number,
-  body: null | number,
-  arm: null | number,
-  waist: null | number,
-  leg: null | number,
-}
-
-type Position = keyof Loadout
-
-type Armor = {
-  id: number,
-  name: string,
-  position: Position,
-  path: number,
-  defence: number,
-  woodResilience: number,
-  fireResilience: number,
-  waterResilience: number,
-  windResilience: number,
-  earthResilience: number,
-  skills: Array<string>,
-  materials: string
-}
-
-const initialValue: Loadout = { head: null, body: null, arm: null, waist: null, leg: null }
-
-const currentLoadout = map<Loadout>(initialValue)
-const armorList = map<typeof allArmorList>(allArmorList)
-
-const positionFilter = atom(['head', 'body', 'arm', 'waist', 'leg'])
-const skillFilter = atom([])
+// stores
+const currentLoadout = map<Loadout>({ head: undefined, body: undefined, arm: undefined, waist: undefined, leg: undefined })
+const armorList = map<Armor[]>(allArmorList as Armor[])
+const positionFilter = atom<Position[]>(['head', 'body', 'arm', 'waist', 'leg'])
+const skillFilter = atom<Array<string>>([])
 const resilienceFilter = map({
   defence: undefined,
   woodResilience: undefined,
@@ -49,7 +23,7 @@ const equip = (id:number, position: Position) => {
   currentLoadout.setKey(position, id)
 }
 const remove = (position:Position) => {
-  currentLoadout.setKey(position, null)
+  currentLoadout.setKey(position, undefined)
 }
 const togglePositionFilter = (position:Position) => {
   const current = positionFilter.get()
@@ -68,7 +42,4 @@ const toggleSkillFilter = (skill:string) => {
   }
 }
 
-
-
 export { positions, currentLoadout, armorList, positionFilter, skillFilter, equip, remove, togglePositionFilter, toggleSkillFilter }
-export type { Loadout, Position, Armor }
