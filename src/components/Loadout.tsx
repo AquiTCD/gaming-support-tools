@@ -49,23 +49,33 @@ export default function Loadout(): JSX.Element {
     return `${pathName}(${path}:${diff})`
   }
 
+  const cellClass = (options: string[]) => {
+    const base = "py-2 px-4"
+    let classes = base
+    if (options.includes('t-c')) { classes += " text-center" }
+    if (options.includes('t-l')) { classes += " text-left" }
+    if (options.includes('t-r')) { classes += " text-right" }
+    if (options.includes('b-l')) { classes += " border-l border-gray-200" }
+    if (options.includes('b-r')) { classes += " border-l border-gray-200" }
+    return classes
+  }
   return (
     <>
-      <table className="min-w-max w-full table-auto">
+      <table className="relative min-w-max w-full table-auto text-sm">
         <thead>
-          <tr className="bg-gray-700 text-gray-200 uppercase text-sm leading-normal">
-            <th className='py-2 px-4'>装備</th>
-            <th className='py-2 px-4'>部位</th>
-            <th className='py-2 px-4'>名称</th>
-            <th className='py-2 px-4'>流派</th>
-            <th className='py-2 px-4'>防御力</th>
-            <th className='py-2 px-4'>木耐性</th>
-            <th className='py-2 px-4'>火耐性</th>
-            <th className='py-2 px-4'>水耐性</th>
-            <th className='py-2 px-4'>風耐性</th>
-            <th className='py-2 px-4'>土耐性</th>
-            <th className='py-2 px-4'>技能</th>
-            <th className='py-2 px-4'>素材系統</th>
+          <tr className="bg-gray-700 text-gray-200 uppercase leading-normal">
+            <th className="py-2 px-4 rounded-tl-lg">装備</th>
+            <th className="py-2 px-4 border-l border-gray-500">部位</th>
+            <th className='py-2 px-4 border-l border-gray-500'>名称</th>
+            <th className='py-2 px-4 border-l border-gray-500'>流派</th>
+            <th className='py-2 px-4 border-l border-gray-500'>防御力</th>
+            <th className='py-2 px-4 border-l border-gray-500'>木耐性</th>
+            <th className='py-2 px-4 border-l border-gray-500'>火耐性</th>
+            <th className='py-2 px-4 border-l border-gray-500'>水耐性</th>
+            <th className='py-2 px-4 border-l border-gray-500'>風耐性</th>
+            <th className='py-2 px-4 border-l border-gray-500'>土耐性</th>
+            <th className='py-2 px-4 border-l border-gray-500'>技能</th>
+            <th className='py-2 px-4 border-l border-gray-500 rounded-tr-lg'>素材系統</th>
           </tr>
         </thead>
         <tbody className="text-gray-600">
@@ -75,35 +85,35 @@ export default function Loadout(): JSX.Element {
               if (armor) {
                 removeButton = <button onClick={() => remove(position)} className="rounded-full bg-gray-300 text-gray-700 text-sm px-2 py-1">外す</button>
               }
-
-              return <tr key={idx} className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="py-2 px-4 text-center">{removeButton}</td>
-                <td className="py-2 px-4 text-center">{i18nPosition[position]}</td>
-                <td className="py-2 px-4 text-left">{armor?.name}</td>
-                <td className="py-2 px-4 text-left">{pathValue(armor?.path)}</td>
-                <td className="py-2 px-4 text-right">{armor?.defence}</td>
-                <td className="py-2 px-4 text-right">{armor?.woodResilience}</td>
-                <td className="py-2 px-4 text-right">{armor?.fireResilience}</td>
-                <td className="py-2 px-4 text-right">{armor?.waterResilience}</td>
-                <td className="py-2 px-4 text-right">{armor?.windResilience}</td>
-                <td className="py-2 px-4 text-right">{armor?.earthResilience}</td>
-                <td className="py-2 px-4 text-left">{armor?.skills.map((skill:string, i:number) => <React.Fragment key={1}>{skill}<br /></React.Fragment>)}</td>
-                <td className="py-2 px-4 text-left">{armor?.materials}</td>
+              return <tr key={idx} className="border border-gray-300 hover:bg-gray-100">
+                <td className={cellClass(['t-c'])}>{removeButton}</td>
+                <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[position]}</td>
+                <td className={cellClass(['t-l', 'b-l'])}>{armor?.name}</td>
+                <td className={cellClass(['t-c', 'b-l'])}>{pathValue(armor?.path)}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.defence}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.woodResilience}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.fireResilience}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.waterResilience}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.windResilience}</td>
+                <td className={cellClass(['t-r', 'b-l'])}>{armor?.earthResilience}</td>
+                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={1}>{skill}<br /></React.Fragment>)}</td>
+                <td className={cellClass(['t-c', 'b-l'])}>{armor?.materials}</td>
               </tr>
           })}
-          <tr className="bg-gray-300 text-gray-800">
-            <td className="py-2 px-4 text-center">合計</td>
-            <td className="py-2 px-4 text-center">-</td>
-            <td className="py-2 px-4 text-center">-</td>
-            <td className="py-2 px-4 text-center">{pathCalc()}</td>
-            <td className="py-2 px-4 text-right">{calc('defence')}</td>
-            <td className="py-2 px-4 text-right">{calc('woodResilience')}</td>
-            <td className="py-2 px-4 text-right">{calc('fireResilience')}</td>
-            <td className="py-2 px-4 text-right">{calc('waterResilience')}</td>
-            <td className="py-2 px-4 text-right">{calc('windResilience')}</td>
-            <td className="py-2 px-4 text-right">{calc('earthResilience')}</td>
-            <td className="py-2 px-4 text-center">-</td>
-            <td className="py-2 px-4 text-center">-</td>
+
+          <tr className="bg-gray-300 text-gray-800 font-bold">
+            <td className="py-2 px-4 text-center rounded-bl-lg">合計</td>
+            <td className={cellClass(['t-c', 'b-l'])}>-</td>
+            <td className={cellClass(['t-c', 'b-l'])}>-</td>
+            <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('defence')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('woodResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('fireResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('waterResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('windResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{calc('earthResilience')}</td>
+            <td className={cellClass(['t-c', 'b-l'])}>-</td>
+            <td className="py-2 px-4 text-center rounded-br-lg border-l border-gray-200">-</td>
           </tr>
         </tbody>
       </table>
