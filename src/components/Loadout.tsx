@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
 import { positions, currentLoadout, armorList, remove } from '@/stores/armor-sim'
+import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
@@ -46,24 +47,6 @@ export default function Loadout(): JSX.Element {
     const pathName = diff < 50 ? '我流' : `${path}流${isPure ? '皆伝' : ''}`
 
     return `${pathName}(${path}:${diff})`
-  }
-  const i18nPosition = {
-    head: '頭',
-    body: '胴',
-    arm: '腕',
-    waist: '腰',
-    leg: '脚',
-  }
-
-  const pathValue = (path:number):string => {
-    switch (true){
-    case path > 0:
-      return `[獣]${Math.abs(path)}`
-    case path < 0:
-      return `[人]${Math.abs(path)}`
-    default:
-      return '-'
-    }
   }
 
   return (
