@@ -1,13 +1,20 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
 import { positions, currentLoadout, armorList, remove } from '@/stores/armor-sim'
+import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
   const $armorList = useStore(armorList)
 
   const currentArmor = () => {
-    const currentArmor = {
+    const currentArmor : {
+      head: undefined | Armor,
+      body: undefined | Armor,
+      arm: undefined | Armor,
+      waist: undefined | Armor,
+      leg: undefined | Armor,
+    } = {
       head: undefined,
       body: undefined,
       arm: undefined,
@@ -24,7 +31,7 @@ export default function Loadout(): JSX.Element {
     const current = currentArmor()
     let total:number = 0
     positions.forEach((position) => {
-      if (current[position]) {
+      if (current[position] !== undefined) {
         total += current[position][column]
       }
     })

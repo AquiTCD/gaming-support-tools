@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
 import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
-import type { Loadout, Position, Armor } from '@/stores/armor-sim'
+import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
   const $armorList = useStore(armorList)
