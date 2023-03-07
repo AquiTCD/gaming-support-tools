@@ -10,9 +10,9 @@ const { pageTitle } = Astro.props;
 <header class="header top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
     <!-- logo -->
     <h1 class="w-3/12">
-        <!-- <a href="">
+        <a href="/">
           Solunita Tools
-        </a> -->
+        </a>
     </h1>
 
     <!-- navigation -->
@@ -20,68 +20,16 @@ const { pageTitle } = Astro.props;
         <ul class="flex items-center">
             <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
               {pageTitle}
-            </li>
+            <li>
         </ul>
     </nav>
 
     <!-- buttons --->
     <div class="w-3/12 flex justify-end">
-      <Modal id="notice" open="お知らせ">
-        <section slot="main" class="grid grid-cols-2 gap-4">
-          <div>
-            <h2>更新履歴</h2>
-            <hr />
-            <h3>v0.1.0</h3>
-            <p>2023-03-07</p>
-            <p>技能フィルタを実装</p>
-            <hr />
-            <h4>v0.0.1</h4>
-            <p>2023-03-06</p>
-            <p>最小限の機能（一覧、装備、外す、部位によるフィルタ）のみでリリース</p>
-          </div>
-          <div>
-            <h2>TODO</h2>
-            <ul class="list-disc pl-4">
-              <li>機能など</li>
-              <li>
-                <ul class=>
-                  <li class="flex items-center">
-                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    広告表示
-                  </li>
-                  <li>フィルタ全体を開閉可能に</li>
-                  <li>並べ替え（ソート）</li>
-                  <li>一覧上で装備中のものは 「外す」を可能に</li>
-                  <li>発現しないスキルに打ち消し線</li>
-                  <li>装備欄でマイナス数値は赤色に</li>
-                  <li>現在の部位と照らし合わせて一覧側は赤色表示にできる設定</li>
-                  <li>クエリパラメータで装備品をプリセット</li>
-                  <li>装備済みの場所はリスト除外するロック機能</li>
-                  <li>技能の説明をツールチップ表示できる</li>
-                  <li>フィードバック受けれる仕組み</li>
-                  <li>スキルフィルタ選択時、一覧の該当スキルを強調表示</li>
-                </ul>
-              </li>
-              <li>フィルタ</li>
-              <li>
-                <ul class="max-w-md space-y-1 list-inside">
-                  <li class="flex items-center">
-                    <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    部位
-                  </li>
-                  <li>技能</li>
-                  <li class="flex items-center">
-                    <svg class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                    無改造、活人流改造、獣道流改造</li>
-                  <li>防御力、耐性の一定の数値以上</li>
-                  <li>活人、獣道属性</li>
-                  <li>素材</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <button slot="close">閉じる</button>
-      </Modal>
+      <ul class="flex items-end">
+        <li><a href="/whidhearts/armor-sim/changelog" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">更新履歴</a></li>
+        &nbsp;
+        <li><a href="/term-of-service" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">利用規約</a></li>
+      </ul>
     </div>
 </header>
