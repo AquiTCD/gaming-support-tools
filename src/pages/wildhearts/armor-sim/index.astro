@@ -1,10 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import GlobalHeader from '@/components/GlobalHeader.astro';
 import Loadout from '@/components/Loadout';
 import ArmorList from '@/components/ArmorList';
 ---
 
 <Layout title="WILDHEARTS 防具シミュレータ">
+  <GlobalHeader pageTitle='WILDHEARTS 防具シミュレータ' />
   <main>
     <Loadout client:load />
     <hr />
