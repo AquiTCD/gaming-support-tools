@@ -64,18 +64,18 @@ export default function Loadout(): JSX.Element {
       <table className="relative min-w-max w-full table-auto text-xs md:text-sm">
         <thead>
           <tr className="bg-gray-700 text-gray-200 leading-normal">
-            <th className="py-1 px-2 md:py-2 md:px-4 rounded-tl-lg">装備</th>
-            <th className="py-1 px-2 md:py-2 md:px-4 border-l border-gray-500">部位</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>名称</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>流派</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>防御力</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>木耐性</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>火耐性</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>水耐性</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>風耐性</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>土耐性</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>技能</th>
-            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500 rounded-tr-lg'>素材系統</th>
+            <th className="p-1 md:p-2 rounded-tl-lg">装備</th>
+            <th className="p-1 md:p-2 border-l border-gray-500">部位</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>名称</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>流派</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>防御力</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>木耐性</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>火耐性</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>水耐性</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>風耐性</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>土耐性</th>
+            <th className='p-1 md:p-2 border-l border-gray-500'>技能</th>
+            <th className='p-1 md:p-2 border-l border-gray-500 rounded-tr-lg'>素材系統</th>
           </tr>
         </thead>
         <tbody className="text-gray-600">
@@ -102,7 +102,7 @@ export default function Loadout(): JSX.Element {
           })}
 
           <tr className="bg-gray-300 text-gray-800 font-bold">
-            <td className="py-1 px-2 md:py-2 md:px-4 text-center rounded-bl-lg">合計</td>
+            <td className="p-1 md:p-2 text-center rounded-bl-lg">合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
