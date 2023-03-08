@@ -50,7 +50,7 @@ export default function Loadout(): JSX.Element {
   }
 
   const cellClass = (options: string[]) => {
-    const base = "py-2 px-4"
+    const base = "py-1 px-2 md:py-2 md:px-4"
     let classes = base
     if (options.includes('t-c')) { classes += " text-center" }
     if (options.includes('t-l')) { classes += " text-left" }
@@ -61,21 +61,21 @@ export default function Loadout(): JSX.Element {
   }
   return (
     <>
-      <table className="relative min-w-max w-full table-auto text-sm">
+      <table className="relative min-w-max w-full table-auto text-xs md:text-sm">
         <thead>
-          <tr className="bg-gray-700 text-gray-200 uppercase leading-normal">
-            <th className="py-2 px-4 rounded-tl-lg">装備</th>
-            <th className="py-2 px-4 border-l border-gray-500">部位</th>
-            <th className='py-2 px-4 border-l border-gray-500'>名称</th>
-            <th className='py-2 px-4 border-l border-gray-500'>流派</th>
-            <th className='py-2 px-4 border-l border-gray-500'>防御力</th>
-            <th className='py-2 px-4 border-l border-gray-500'>木耐性</th>
-            <th className='py-2 px-4 border-l border-gray-500'>火耐性</th>
-            <th className='py-2 px-4 border-l border-gray-500'>水耐性</th>
-            <th className='py-2 px-4 border-l border-gray-500'>風耐性</th>
-            <th className='py-2 px-4 border-l border-gray-500'>土耐性</th>
-            <th className='py-2 px-4 border-l border-gray-500'>技能</th>
-            <th className='py-2 px-4 border-l border-gray-500 rounded-tr-lg'>素材系統</th>
+          <tr className="bg-gray-700 text-gray-200 leading-normal">
+            <th className="py-1 px-2 md:py-2 md:px-4 rounded-tl-lg">装備</th>
+            <th className="py-1 px-2 md:py-2 md:px-4 border-l border-gray-500">部位</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>名称</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>流派</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>防御力</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>木耐性</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>火耐性</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>水耐性</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>風耐性</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>土耐性</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500'>技能</th>
+            <th className='py-1 px-2 md:py-2 md:px-4 border-l border-gray-500 rounded-tr-lg'>素材系統</th>
           </tr>
         </thead>
         <tbody className="text-gray-600">
@@ -83,7 +83,7 @@ export default function Loadout(): JSX.Element {
               const armor = currentArmor()[position]
               let removeButton = undefined
               if (armor) {
-                removeButton = <button onClick={() => remove(position)} className="rounded-full bg-gray-300 text-gray-700 text-sm px-2 py-1">外す</button>
+                removeButton = <button onClick={() => remove(position)} className="rounded-full bg-gray-300 text-gray-700 px-2 py-1">外す</button>
               }
               return <tr key={idx} className="border border-gray-300 hover:bg-gray-100">
                 <td className={cellClass(['t-c'])}>{removeButton}</td>
@@ -102,7 +102,7 @@ export default function Loadout(): JSX.Element {
           })}
 
           <tr className="bg-gray-300 text-gray-800 font-bold">
-            <td className="py-2 px-4 text-center rounded-bl-lg">合計</td>
+            <td className="py-1 px-2 md:py-2 md:px-4 text-center rounded-bl-lg">合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
@@ -113,7 +113,7 @@ export default function Loadout(): JSX.Element {
             <td className={cellClass(['t-r', 'b-l'])}>{calc('windResilience')}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{calc('earthResilience')}</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
-            <td className="py-2 px-4 text-center rounded-br-lg border-l border-gray-200">-</td>
+            <td className="py-1 px-2 md:py-2 md:px-4 text-center rounded-br-lg border-l border-gray-200">-</td>
           </tr>
         </tbody>
       </table>

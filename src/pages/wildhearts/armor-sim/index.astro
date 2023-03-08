@@ -10,10 +10,14 @@ import ArmorList from '@/components/ArmorList';
 <Layout title="WILDHEARTS 防具シミュレータ">
   <GlobalHeader pageTitle='WILDHEARTS 防具シミュレータ' />
   <main>
-    <Loadout client:load />
+    <div class="overflow-x-scroll">
+      <Loadout client:load />
+    </div>
     <Hr text="装備リスト" />
     <Filter client:load />
-    <ArmorList client:load />
+    <div class="overflow-x-scroll">
+      <ArmorList class="overflow-x-scroll" client:load />
+    </div>
 	</main>
 </Layout>
 
