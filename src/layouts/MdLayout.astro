@@ -1,4 +1,6 @@
 ---
+import GlobalHeader from '@/components/GlobalHeader.astro'
+
 export interface Props {
 	title: string;
   ad: boolean;
@@ -29,6 +31,7 @@ const { title, ad } = Astro.props;
       gtag('config', 'G-89Z8R7M51B');
     </script>
      <!-- contents -->
+    <!-- <GlobalHeader pageTitle={title} /> -->
     <slot />
   </body>
 </html>

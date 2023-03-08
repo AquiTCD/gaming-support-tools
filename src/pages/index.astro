@@ -1,22 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import Title from "../components/Title";
 
-let title = 'Solnita Tools'
+const title = "Solunita Tools"
+const description = "ここは僕が作りたいものを作りたいように作ってそれを公開しているところです。"
+const rootURL = 'https://tools.solunita.net'
+const ogp = {
+  canonicalURL: new URL(Astro.url.pathname, rootURL),
+  imageURL: new URL('/assets/ogp-solunita.jpg', rootURL),
+}
 ---
-
-<Layout title="Solnita Tools.">
+<Layout title={title} ogp={ogp} description={description}>
   <main>
     <h1><span class="text-gradient">{title}</span></h1>
-    <Title name={title} />
     <p class="instructions">
       ここは僕が作りたいものを作りたいように作ってそれを公開しているところです。
     </p>
     <ul role="list" class="link-card-grid">
       <Card
         href="/wildhearts/armor-sim"
-        title="WILDHEARTS 防具シミュレータ"
+        title="WILD HEARTS 防具シミュレータ"
         body="ワイルドハーツの防具装備をあれこれ考えるやつ"
       />
     </ul>

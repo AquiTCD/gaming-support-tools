@@ -21,7 +21,7 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
     return `${positionRowColorClass[position as Position]} text-gray-600 border border-gray-300 hover:bg-gray-100`
   }
   const cellClass = (options: string[]) => {
-    const base = "py-2 px-4"
+    const base = "p-1 md:p-2"
     let classes = base
     if (options.includes('t-c')) { classes += " text-center" }
     if (options.includes('t-l')) { classes += " text-left" }

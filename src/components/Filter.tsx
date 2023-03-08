@@ -1,13 +1,14 @@
 import { useStore } from '@nanostores/react'
-import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
+import React, { useState } from 'react'
+import { positions, positionFilter, togglePositionFilter, skillFilter } from '@/stores/armor-sim'
+import SkillModal from '@/components/SkillModal'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Filter(): JSX.Element {
-  const $armorList = useStore(armorList)
   const $positionFilter = useStore(positionFilter)
   const $skillFilter = useStore(skillFilter)
-  const allSkills = new Set($armorList.flatMap(armor => armor.skills ))
+  const [showSkillModal, setShowSkillModal] = useState(false)
 
   const positionButtonColorClass = {
     head: 'bg-orange-300',
@@ -26,23 +27,33 @@ export default function Filter(): JSX.Element {
           </li>
         </ul>
         <div id="defaultTabContent" className="px-4 py-4">
-          { positions.map((position, i) => {
-            const colorClasses = $positionFilter.includes(position) ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
-            const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
-            return <button key={i}
-              className={classes}
-              onClick={() => togglePositionFilter(position)}>{i18nPosition[position]}</button>
-            })
-          }
-          <br />
-          { Array.from(allSkills).map((skill, i) => {
-            const colorClasses = $skillFilter.includes(skill) ? "bg-pink-200 text-gray-700 font-bold" : "bg-gray-200 text-gray-500"
-            const classes = `rounded-full text-sm px-4 py-1 mr-2 ${colorClasses}`
-            return <button key={i}
-              className={classes}
-              onClick={() => toggleSkillFilter(skill)}>{skill}</button>
-            })
-          }
+          <div className="grid grid-cols-[max-content,1fr] gap-2">
+            <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">部位</div>
+            <div className="space-y-1">
+              { positions.map((position, i) => {
+                const colorClasses = $positionFilter.includes(position) ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
+                const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                return <button key={i}
+                  className={classes}
+                  onClick={() => togglePositionFilter(position)}>{i18nPosition[position]}</button>
+                })
+              }
+            </div>
+            <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">技能: </div>
+            <div className="space-y-1">
+              <SkillModal showSkillModal={showSkillModal} setShowSkillModal={setShowSkillModal} />
+              <button onClick={() => setShowSkillModal(true)}
+                className="block border mt-1 border-gray-500 text-gray-700 hover:text-gray-50 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg px-2 py-0.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                技能フィルタ設定
+              </button>
+              { $skillFilter.map((skill, i) => {
+                const classes = "rounded-full px-4 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
+                return <button key={i}
+                  className={classes} >{skill}</button>
+                })
+              }
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -1,23 +1,36 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import GlobalHeader from '@/components/GlobalHeader.astro';
 import Loadout from '@/components/Loadout';
 import Hr from '@/components/Hr.astro';
 import Filter from '@/components/Filter';
 import ArmorList from '@/components/ArmorList';
----
 
-<Layout title="WILDHEARTS 防具シミュレータ">
-  <GlobalHeader pageTitle='WILDHEARTS 防具シミュレータ' />
+const title = "WILD HEARTS 防具シミュレータ"
+const description = "WILD HEARTS 内で装備可能な防具とその数値や技能をつけかえて調べることができるシミュレータ"
+const rootURL = 'https://tools.solunita.net'
+const ogp = {
+  canonicalURL: new URL(Astro.url.pathname, rootURL),
+  imageURL: new URL('/assets/ogp_wildhearts_armor-sim.jpg', rootURL),
+}
+---
+<Layout title={title} ogp={ogp} description={description}>
   <main>
     <div class="overflow-x-scroll">
       <Loadout client:load />
     </div>
     <Hr text="装備リスト" />
     <Filter client:load />
-    <div class="overflow-x-scroll">
-      <ArmorList class="overflow-x-scroll" client:load />
+
+    <div class="overflow-x-scroll w-full h-screen">
+      <ArmorList client:load />
     </div>
+
+    <section class="mt-2 text-xs text-gray-500">
+      <ul>
+        <li>(C)コーエーテクモゲームス All rights reserved.</li>
+        <li>(C)2022 Electronic Arts Inc.</li>
+      </ul>
+    </section>
 	</main>
 </Layout>
 
