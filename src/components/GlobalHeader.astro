@@ -1,6 +1,4 @@
 ---
-import Modal from '@/components/Modal.astro';
-
 export interface Props {
   pageTitle: string
 }
@@ -24,12 +22,12 @@ const { pageTitle } = Astro.props;
     </ul>
   </nav>
 
-    <!-- buttons --->
-    <div class="w-3/12 flex justify-end text-xs md:text-base">
-      <ul class="flex items-end">
-        <li><a href="/wildhearts/armor-sim/chagelog" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">更新履歴</a></li>
-        &nbsp;
-        <li><a href="/term-of-service" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">利用規約</a></li>
-      </ul>
-    </div>
+  <!-- buttons --->
+  <div class="w-3/12 flex justify-end text-xs md:text-base">
+    <ul class="flex items-end">
+      <li><a href="/wildhearts/armor-sim/chagelog" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">更新履歴</a></li>
+      &nbsp;
+      <li><a href="/term-of-service" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">利用規約</a></li>
+    </ul>
+  </div>
 </header>
