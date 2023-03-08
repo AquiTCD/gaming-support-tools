@@ -1,6 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import GlobalHeader from '@/components/GlobalHeader.astro';
 import Loadout from '@/components/Loadout';
 import Hr from '@/components/Hr.astro';
 import Filter from '@/components/Filter';
@@ -8,7 +7,6 @@ import ArmorList from '@/components/ArmorList';
 ---
 
 <Layout title="WILD HEARTS 防具シミュレータ">
-  <GlobalHeader pageTitle='WILD HEARTS 防具シミュレータ' />
   <main>
     <div class="overflow-x-scroll">
       <Loadout client:load />
