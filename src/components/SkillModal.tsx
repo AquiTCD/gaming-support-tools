@@ -16,8 +16,8 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
     const ModalHeader = () => {
       if (title) {
         return (
-          <div className="flex items-start justify-between px-4 py-2 border-b rounded-t dark:border-gray-600">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <div className="flex items-start justify-between px-4 pt-2 pb-1 border-b rounded-t dark:border-gray-600">
+            <h3 className="text-base md:text-xl font-semibold text-gray-900 dark:text-white">
               {title}
             </h3>
             <button type="button" onClick={() => setShowSkillModal(false)} className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -32,14 +32,14 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
     }
     return (
       <>
-        <div className="fixed bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+        <div className="fixed text-xs md:text-sm bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
           <div className="relative w-full h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {ModalHeader()}
               <div className="px-4 py-2 space-y-2">
                 { Array.from(allSkills).map((skill, i) => {
                   const colorClasses = $skillFilter.includes(skill) ? "bg-pink-200 text-gray-700 font-bold" : "bg-gray-200 text-gray-500"
-                  const classes = `rounded-full text-sm px-4 py-1 mr-2 ${colorClasses}`
+                  const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
                   return <button key={i}
                     className={classes}
                     onClick={() => toggleSkillFilter(skill)}>{skill}</button>
