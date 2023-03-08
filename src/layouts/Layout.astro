@@ -13,7 +13,7 @@ export interface Props {
 const { title, ogp, description } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -37,7 +37,7 @@ const { title, ogp, description } = Astro.props;
 
     <!-- ogp -->
     <meta property="og:url" content={ogp.canonicalURL} />
-    <meta property="og:type" content="website" />z
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description ?? title} />
     <meta property="og:site_name" content={title} />
