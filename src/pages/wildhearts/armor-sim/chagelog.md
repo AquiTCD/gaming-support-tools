@@ -1,11 +1,11 @@
 ---
 layout: ../../../layouts/MdLayout.astro
-title: WILDHEARTS 防具シミュレータ 更新履歴とロードマップ
-description: WILDHEARTS 防具シミュレータ 更新履歴とロードマップ
+title: WILD HEARTS 防具シミュレータ 更新履歴とロードマップ
+description: WILD HEARTS 防具シミュレータ 更新履歴とロードマップ
 ---
-[WILDHEARTS 防具シミュレータに戻る](./)
+[WILD HEARTS 防具シミュレータに戻る](./)
 
-# WILDHEARTS 防具シミュレータ 更新履歴とロードマップ
+# WILD HEARTS 防具シミュレータ 更新履歴とロードマップ
 ## 更新履歴
 ### v0.1.2
 2023-03-08
@@ -50,4 +50,4 @@ description: WILDHEARTS 防具シミュレータ 更新履歴とロードマッ�
 - 活人、獣道属性
 - 素材
 
-[WILDHEARTS 防具シミュレータに戻る](./)
+[WILD HEARTS 防具シミュレータに戻る](./)
