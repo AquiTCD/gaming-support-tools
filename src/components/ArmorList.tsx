@@ -31,7 +31,7 @@ export default function ArmorList(): JSX.Element {
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">名称</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">流派</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">防御力</th>
-            <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">木耐性</th>
+            <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">樹耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">火耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">水耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">風耐性</th>
