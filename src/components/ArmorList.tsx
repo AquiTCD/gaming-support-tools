@@ -23,24 +23,24 @@ export default function ArmorList(): JSX.Element {
 
   return (
     <>
-      <table className="relative min-w-max w-full table-auto">
+      <table className="relative min-w-max w-full table-auto text-xs md:text-sm ">
         <thead>
-          <tr className="text-gray-600 uppercase text-sm leading-normal">
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">装備</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">部位</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">名称</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">流派</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">防御力</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">木耐性</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">火耐性</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">水耐性</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">風耐性</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">土耐性</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">技能</th>
-            <th className="sticky top-0 bg-gray-300 py-2 px-4 border-l border-gray-200">素材系統</th>
+          <tr className="text-gray-600 uppercase leading-normal">
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">装備</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">部位</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">名称</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">流派</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">防御力</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">木耐性</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">火耐性</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">水耐性</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">風耐性</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">土耐性</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">技能</th>
+            <th className="sticky top-0 bg-gray-300 py-1 px-2 md:py-2 md:px-4 border-l border-gray-200">素材系統</th>
           </tr>
         </thead>
-        <tbody className="text-gray-600 text-sm">
+        <tbody className="text-gray-600">
           <ArmorListRow list={filteredArmorList()} />
         </tbody>
       </table>

@@ -7,25 +7,25 @@ export interface Props {
 
 const { pageTitle } = Astro.props;
 ---
-<header class="header top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
-    <!-- logo -->
-    <h1 class="w-3/12">
-        <a href="/">
-          Solunita Tools
-        </a>
-    </h1>
+<header class="header top-0 bg-white shadow-md flex items-center justify-between px-8 py-02 text-xs md:text-base">
+  <!-- logo -->
+  <h1 class="w-3/12">
+      <a href="/">
+        Solunita Tools
+      </a>
+  </h1>
 
-    <!-- navigation -->
-    <nav class="nav font-semibold text-lg">
-        <ul class="flex items-center">
-            <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
-              {pageTitle}
-            <li>
-        </ul>
-    </nav>
+  <!-- navigation -->
+  <nav class="nav font-semibold text-base md:text-lg">
+    <ul class="flex items-center">
+      <li class="p-4 border-b-2 border-green-500 border-opacity-0 hover:border-opacity-100 hover:text-green-500 duration-200 cursor-pointer active">
+        {pageTitle}
+      <li>
+    </ul>
+  </nav>
 
     <!-- buttons --->
-    <div class="w-3/12 flex justify-end">
+    <div class="w-3/12 flex justify-end text-xs md:text-base">
       <ul class="flex items-end">
         <li><a href="/wildhearts/armor-sim/chagelog" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">更新履歴</a></li>
         &nbsp;
