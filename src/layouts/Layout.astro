@@ -3,20 +3,53 @@ import GlobalHeader from '@/components/GlobalHeader.astro'
 
 export interface Props {
 	title: string;
+  description?: string;
+  ogp: {
+    canonicalURL: URL;
+    imageURL: URL;
+  }
 }
 
-const { title } = Astro.props;
+const { title, ogp, description } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#">
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5201227009100177"
-     crossorigin="anonymous"></script>
+    <meta content='NOYDIR' name='ROBOTS' />
+    <meta content='NOODP' name='ROBOTS' />
+    <link media='handheld' rel='alternate' />
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <!-- / TODO: set varification -->
+    <!-- <meta name="google-site-verification" content="" /> -->
+    <!-- <meta property="fb:app_id" content=Settings.site.meta.fb.app_id> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    <!-- / webclip icon -->
+    <meta name="apple-mobile-web-app-capable" content='yes' />
+    <meta name="apple-mobile-web-app-status-bar-style" content='default' />
+    <link rel="apple-touch-icon" href="#{image_url(Settings.site.meta.webclip_icon)}" />
+
+    <!-- ogp -->
+    <meta property="og:url" content={ogp.canonicalURL} />
+    <meta property="og:type" content="website" />z
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description ?? title} />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:image" content={ogp.imageURL} />
+
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description ?? title} />
+    <meta name="twitter:image" content={ogp.imageURL} />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <title>{title}</title>
+    <meta name="description" content={description ?? title} />
   </head>
   <body>
     <!-- Google tag (gtag.js) -->

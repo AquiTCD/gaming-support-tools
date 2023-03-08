@@ -4,9 +4,16 @@ import Loadout from '@/components/Loadout';
 import Hr from '@/components/Hr.astro';
 import Filter from '@/components/Filter';
 import ArmorList from '@/components/ArmorList';
----
 
-<Layout title="WILD HEARTS 防具シミュレータ">
+const title = "WILD HEARTS 防具シミュレータ"
+const description = "WILD HEARTS 内で装備可能な防具とその数値や技能をつけかえて調べることができるシミュレータ"
+const rootURL = 'https://tools.solunita.net'
+const ogp = {
+  canonicalURL: new URL(Astro.url.pathname, rootURL),
+  imageURL: new URL('/assets/ogp_wildhearts_armor-sim.jpg', rootURL),
+}
+---
+<Layout title={title} ogp={ogp} description={description}>
   <main>
     <div class="overflow-x-scroll">
       <Loadout client:load />
