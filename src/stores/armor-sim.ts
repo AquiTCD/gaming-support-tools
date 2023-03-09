@@ -1,6 +1,6 @@
 import { atom, map, computed, action } from 'nanostores'
 import allArmorList from '@/assets/wildhearts/armor_list.json'
-import type { Loadout, Position, Armor } from '@/types/types'
+import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 const positions: Position[] = ['head', 'body', 'arm', 'waist', 'leg']
 
@@ -9,13 +9,13 @@ const currentLoadout = map<Loadout>({ head: undefined, body: undefined, arm: und
 const armorList = map<Armor[]>(allArmorList as Armor[])
 const positionFilter = atom<Position[]>(['head', 'body', 'arm', 'waist', 'leg'])
 const skillFilter = atom<Array<string>>([])
-const resilienceFilter = map({
-  defence: undefined,
-  woodResilience: undefined,
-  fireResilience: undefined,
-  waterResilience: undefined,
-  windResilience: undefined,
-  earthResilience: undefined,
+const resilienceFilter = map<{[key in Resilience]: number | ''}>({
+  defence: '',
+  woodResilience: '',
+  fireResilience: '',
+  waterResilience: '',
+  windResilience: '',
+  earthResilience: '',
 })
 
 // actions
@@ -41,5 +41,9 @@ const toggleSkillFilter = (skill:string) => {
     skillFilter.set([...current, skill])
   }
 }
+const changeResilience = (type:Resilience, value:string) => {
+  const convertedValue = value === '' ? '' : Number(value)
+  resilienceFilter.setKey(type, convertedValue)
+}
 
-export { positions, currentLoadout, armorList, positionFilter, skillFilter, equip, remove, togglePositionFilter, toggleSkillFilter }
+export { positions, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, changeResilience, equip, remove, togglePositionFilter, toggleSkillFilter }

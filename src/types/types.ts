@@ -20,5 +20,6 @@ type Armor = {
   skills: string[],
   materials: string
 }
+type Resilience = 'defence' | 'woodResilience' | 'fireResilience' | 'waterResilience' | 'windResilience' | 'earthResilience'
 
-export type { Loadout, Position, Armor }
+export type { Loadout, Position, Armor, Resilience }

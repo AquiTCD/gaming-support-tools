@@ -1,14 +1,15 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, resilienceFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import { i18nPosition } from '@/utils/utils'
-import type { Loadout, Position, Armor } from '@/types/types'
+import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
   const $armorList = useStore(armorList)
   const $positionFilter = useStore(positionFilter)
   const $skillFilter = useStore(skillFilter)
+  const $resilienceFilter = useStore(resilienceFilter)
 
   const filteredArmorList = () => {
     let list = $armorList
@@ -18,6 +19,11 @@ export default function ArmorList(): JSX.Element {
         return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
       })
     }
+    Object.entries($resilienceFilter).forEach(([key, value]) => {
+      if (value === '') { return }
+      list = Object.values(list).filter(armor =>  armor[key as Resilience] >= value )
+    })
+
     return list
   }
 
@@ -31,7 +37,7 @@ export default function ArmorList(): JSX.Element {
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">名称</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">流派</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">防御力</th>
-            <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">木耐性</th>
+            <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">樹耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">火耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">水耐性</th>
             <th className="sticky top-0 bg-gray-300 p-1 md:p-2 border-l border-gray-200">風耐性</th>
