@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, skillFilter, resilienceFilter } from '@/stores/armor-sim'
+import { positionFilter, armorList, equip, skillFilter, resilienceFilter, modifierFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
@@ -10,10 +10,13 @@ export default function ArmorList(): JSX.Element {
   const $positionFilter = useStore(positionFilter)
   const $skillFilter = useStore(skillFilter)
   const $resilienceFilter = useStore(resilienceFilter)
+  const $modifierFilter = useStore(modifierFilter)
 
   const filteredArmorList = () => {
     let list = $armorList
-    list = Object.values(list).filter(armor => $positionFilter.includes(armor.position))
+    if ($positionFilter.length < 5) {
+      list = Object.values(list).filter(armor => $positionFilter.includes(armor.position))
+    }
     if ($skillFilter.length > 0) {
       list = Object.values(list).filter((armor) => {
         return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
@@ -21,8 +24,34 @@ export default function ArmorList(): JSX.Element {
     }
     Object.entries($resilienceFilter).forEach(([key, value]) => {
       if (value === '') { return }
-      list = Object.values(list).filter(armor =>  armor[key as Resilience] >= value )
+      list = Object.values(list).filter(armor => armor[key as Resilience] >= value )
     })
+    if ($modifierFilter.length < 3) {
+      const f = $modifierFilter
+      switch(true) {
+        case f.includes('無改造') && f.includes('活人流改造'):
+          list = Object.values(list).filter(armor => !armor.name.endsWith('/獣'))
+          break;
+        case f.includes('無改造') && f.includes('獣道流改造'):
+          list = Object.values(list).filter(armor => !armor.name.endsWith('/人'))
+          break;
+        case f.includes('活人流改造') && f.includes('獣道流改造'):
+          list = Object.values(list).filter(armor => armor.name.endsWith('/人') || armor.name.endsWith('/獣'))
+          break;
+        case f.length === 1 && f.includes('無改造'):
+          list = Object.values(list).filter(armor => !(armor.name.endsWith('/人') || armor.name.endsWith('/獣')))
+          break;
+        case f.length === 1 && f.includes('活人流改造'):
+          list = Object.values(list).filter(armor => armor.name.endsWith('/人'))
+          break;
+        case f.length === 1 && f.includes('獣道流改造'):
+          list = Object.values(list).filter(armor => armor.name.endsWith('/獣'))
+          break;
+        default:
+          list = []
+          break;
+      }
+    }
 
     return list
   }
