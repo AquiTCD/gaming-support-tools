@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, resilienceFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, armorList, equip, skillFilter, resilienceFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'

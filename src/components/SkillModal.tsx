@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import { armorList, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
+import { armorList, skillFilter, toggleFilter } from '@/stores/armor-sim'
 
 type Props={
   showSkillModal: boolean;
@@ -42,7 +42,7 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
                   const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
                   return <button key={i}
                     className={classes}
-                    onClick={() => toggleSkillFilter(skill)}>{skill}</button>
+                    onClick={() => toggleFilter('skill', skill)}>{skill}</button>
                   })
                 }
               </div>

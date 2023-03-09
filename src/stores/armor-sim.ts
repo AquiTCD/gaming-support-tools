@@ -17,6 +17,9 @@ const resilienceFilter = map<{[key in Resilience]: number | ''}>({
   windResilience: '',
   earthResilience: '',
 })
+const modifiers = ['無改造', '活人流改造', '獣道流改造']
+const modifierFilter = atom<typeof modifiers>(modifiers)
+
 
 // actions
 const equip = (id:number) => {
@@ -41,26 +44,27 @@ const isEquipped = (id:number):boolean => {
   return Object.values(currentLoadout.get()).includes(id)
 }
 
+const toggleFilter = (
+    type:'position'| 'skill' | 'modifier',
+    item: Position|string
+  ) => {
+    const filterList = {
+      position: positionFilter,
+      skill: skillFilter,
+      modifier: modifierFilter,
+    }
+    const filter = filterList[type]
+    const current = filter.get()
+    if (current.includes(item)) {
+      filter.set(current.filter(p => p != item))
+    } else {
+      filter.set([...current, item])
+    }
+}
 
-const togglePositionFilter = (position:Position) => {
-  const current = positionFilter.get()
-  if (current.includes(position)) {
-    positionFilter.set(current.filter(p => p != position))
-  } else {
-    positionFilter.set([...current, position])
-  }
-}
-const toggleSkillFilter = (skill:string) => {
-  const current = skillFilter.get()
-  if (current.includes(skill)) {
-    skillFilter.set(current.filter(p => p != skill))
-  } else {
-    skillFilter.set([...current, skill])
-  }
-}
 const changeResilience = (type:Resilience, value:string) => {
   const convertedValue = value === '' ? '' : Number(value)
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, changeResilience, equip, remove, togglePositionFilter, toggleSkillFilter, changeEquip, isEquipped }
+export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, changeResilience, equip, remove, toggleFilter, changeEquip, isEquipped }
