@@ -5,12 +5,14 @@ const i18nPosition = {
   waist: '腰',
   leg: '脚',
 }
-const pathValue = (path:number) => {
+const pathValue = (path:number|undefined) => {
   switch (true){
-  case path > 0:
-    return `[獣]${Math.abs(path)}`
-  case path < 0:
-    return `[人]${Math.abs(path)}`
+  case path === undefined:
+    return '-'
+  case path! > 0:
+    return `[獣]${Math.abs(path!)}`
+  case path! < 0:
+    return `[人]${Math.abs(path!)}`
   default:
     return '-'
   }

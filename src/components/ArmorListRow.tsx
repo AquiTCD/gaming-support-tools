@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
+import { currentLoadout, changeEquip, isEquipped } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -8,6 +8,7 @@ type Props = {
   list: Armor[]
 }
 export default function ArmorListRow({ list }: Props): JSX.Element {
+  const $currentLoadout = useStore(currentLoadout)
 
   const positionRowColorClass = {
     head: 'bg-orange-50',
@@ -35,7 +36,9 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
     <>
       { list.map((armor) => {
           return <tr key={armor.id} className={positionClasses(armor.position)}>
-            <td onClick={() => equip(armor.id, armor.position)} className="py-2 px-4"><button className="rounded-full bg-gray-300 text-gray-700 text-sm px-2 py-1">装備</button></td>
+            <td className="p-1 md:p-2 text-center">
+              <input type="checkbox" onChange={() => changeEquip(armor.id, armor.position) } checked={isEquipped(armor.id)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
+            </td>
             <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[armor.position as Position]}</td>
             <td className={cellClass(['t-l', 'b-l'])}>{armor.name}</td>
             <td className={cellClass(['t-l', 'b-l'])}>{pathValue(armor.path)}</td>

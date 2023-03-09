@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, currentLoadout, armorList, remove } from '@/stores/armor-sim'
+import { positions, currentLoadout, armorList, remove, isEquipped } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -38,6 +38,22 @@ export default function Loadout(): JSX.Element {
     })
     return total
   }
+
+  const colorize = (value:number, low:number = 0, high:number = 999) => {
+    let color = ''
+    switch (true) {
+      case value < low:
+        color = 'text-red-600'
+        break;
+      case value > high:
+        color = 'text-blue-600'
+        break;
+      default:
+        break;
+      }
+    return <span className={color}>{value}</span>
+  }
+
 
   const pathCalc = () => {
     const sum = calc('path')
@@ -81,12 +97,8 @@ export default function Loadout(): JSX.Element {
         <tbody className="text-gray-600">
           { positions.map((position, idx) => {
               const armor = currentArmor()[position]
-              let removeButton = undefined
-              if (armor) {
-                removeButton = <button onClick={() => remove(position)} className="rounded-full bg-gray-300 text-gray-700 px-2 py-1">外す</button>
-              }
               return <tr key={idx} className="border border-gray-300 hover:bg-gray-100">
-                <td className={cellClass(['t-c'])}>{removeButton}</td>
+                <td className={cellClass(['t-c'])}><input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" /></td>
                 <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[position]}</td>
                 <td className={cellClass(['t-l', 'b-l'])}>{armor?.name}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{pathValue(armor?.path)}</td>
@@ -96,24 +108,25 @@ export default function Loadout(): JSX.Element {
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.waterResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.windResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.earthResilience}</td>
-                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={1}>{skill}<br /></React.Fragment>)}</td>
+                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={i}>{skill}<br /></React.Fragment>)}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{armor?.materials}</td>
               </tr>
           })}
 
+          {/* 合計 */}
           <tr className="bg-gray-300 text-gray-800 font-bold">
             <td className="p-1 md:p-2 text-center rounded-bl-lg">合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{calc('defence')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('woodResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('fireResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('waterResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('windResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('earthResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('woodResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('fireResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('waterResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('windResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('earthResilience'))}</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
-            <td className="py-1 px-2 md:py-2 md:px-4 text-center rounded-br-lg border-l border-gray-200">-</td>
+            <td className="p-1 md:p-2 text-center rounded-br-lg border-l border-gray-200">-</td>
           </tr>
         </tbody>
       </table>
