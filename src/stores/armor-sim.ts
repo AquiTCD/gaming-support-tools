@@ -19,12 +19,29 @@ const resilienceFilter = map<{[key in Resilience]: number | ''}>({
 })
 
 // actions
-const equip = (id:number, position: Position) => {
-  currentLoadout.setKey(position, id)
+const equip = (id:number) => {
+  const list = allArmorList as Armor[]
+  const found = list.find(armor => armor.id === id)
+  if (found) {
+    currentLoadout.setKey(found.position, id)
+  }
 }
 const remove = (position:Position) => {
   currentLoadout.setKey(position, undefined)
 }
+const changeEquip = (id: number, position: Position) => {
+  if (isEquipped(id)) {
+    remove(position)
+  } else {
+    equip(id)
+  }
+}
+
+const isEquipped = (id:number):boolean => {
+  return Object.values(currentLoadout.get()).includes(id)
+}
+
+
 const togglePositionFilter = (position:Position) => {
   const current = positionFilter.get()
   if (current.includes(position)) {
@@ -46,4 +63,4 @@ const changeResilience = (type:Resilience, value:string) => {
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, changeResilience, equip, remove, togglePositionFilter, toggleSkillFilter }
+export { positions, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, changeResilience, equip, remove, togglePositionFilter, toggleSkillFilter, changeEquip, isEquipped }
