@@ -54,7 +54,6 @@ export default function Loadout(): JSX.Element {
     return <span className={color}>{value}</span>
   }
 
-
   const pathCalc = () => {
     const sum = calc('path')
     const path = 0 < sum ? '獣道' : '活人'
@@ -75,6 +74,33 @@ export default function Loadout(): JSX.Element {
     if (options.includes('b-r')) { classes += " border-l border-gray-200" }
     return classes
   }
+
+  const decorateSkills = (skills: string[]|undefined) => {
+    if (skills === undefined) { return; }
+    const decoratedSkills = skills.map((skill:string, i:number) => {
+      let classes = "block"
+      const path = calc('path')
+      switch (true) {
+        case skill.startsWith('[活人皆伝]') && -150 < path:
+          classes += " line-through"
+          break;
+        case skill.startsWith('[活人]') && -50 < path:
+          classes += " line-through"
+          break;
+        case skill.startsWith('[獣道]') && path < 50:
+          classes += " line-through"
+          break;
+        case skill.startsWith('[獣道皆伝]') && path < 150:
+          classes += " line-through"
+          break;
+        default:
+          break;
+      }
+      return <span key={i} className={classes}>{skill}</span>
+    })
+    return <>{decoratedSkills}</>
+  }
+
   return (
     <>
       <table className="relative min-w-max w-full table-auto text-xs md:text-sm">
@@ -108,7 +134,7 @@ export default function Loadout(): JSX.Element {
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.waterResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.windResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.earthResilience}</td>
-                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={i}>{skill}<br /></React.Fragment>)}</td>
+                <td className={cellClass(['t-l', 'b-l'])}>{decorateSkills(armor?.skills)}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{armor?.materials}</td>
               </tr>
           })}
