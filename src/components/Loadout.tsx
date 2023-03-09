@@ -39,6 +39,22 @@ export default function Loadout(): JSX.Element {
     return total
   }
 
+  const colorize = (value:number, low:number = 0, high:number = 999) => {
+    let color = ''
+    switch (true) {
+      case value < low:
+        color = 'text-red-600'
+        break;
+      case value > high:
+        color = 'text-blue-600'
+        break;
+      default:
+        break;
+      }
+    return <span className={color}>{value}</span>
+  }
+
+
   const pathCalc = () => {
     const sum = calc('path')
     const path = 0 < sum ? '獣道' : '活人'
@@ -107,19 +123,20 @@ export default function Loadout(): JSX.Element {
               </tr>
           })}
 
+          {/* 合計 */}
           <tr className="bg-gray-300 text-gray-800 font-bold">
             <td className="p-1 md:p-2 text-center rounded-bl-lg">合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{calc('defence')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('woodResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('fireResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('waterResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('windResilience')}</td>
-            <td className={cellClass(['t-r', 'b-l'])}>{calc('earthResilience')}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('woodResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('fireResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('waterResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('windResilience'))}</td>
+            <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('earthResilience'))}</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
-            <td className="py-1 px-2 md:py-2 md:px-4 text-center rounded-br-lg border-l border-gray-200">-</td>
+            <td className="p-1 md:p-2 text-center rounded-br-lg border-l border-gray-200">-</td>
           </tr>
         </tbody>
       </table>
