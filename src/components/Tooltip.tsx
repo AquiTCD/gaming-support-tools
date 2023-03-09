@@ -1,4 +1,4 @@
-import { memo, useRef } from "react";
+import React, { memo, useRef} from "react";
 
 // ツールチップ内に表示するためのprops
 type Props = {
@@ -23,6 +23,12 @@ export const Tooltip: React.FC<Props> = memo((props) => {
     ref.current.style.opacity = "0";
     ref.current.style.visibility = "hidden";
   };
+  const toolTipText = (text:string) => {
+    const convertedText = text.split('\\n').map((item, i) => {
+      return (<React.Fragment key={i}>{item}<br /></React.Fragment>)
+    })
+    return convertedText
+  }
 
   return (
     <div className="flex relative items-center">
@@ -32,7 +38,7 @@ export const Tooltip: React.FC<Props> = memo((props) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {props.text}
+        {toolTipText(props.text)}
       </div>
       <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         {props.children}
