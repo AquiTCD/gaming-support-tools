@@ -18,7 +18,8 @@ const { title, ogp, description } = Astro.props;
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5201227009100177" crossorigin="anonymous"></script>
+
+    { !import.meta.env.DEV && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5201227009100177" crossorigin="anonymous"></script> }
     <meta content='NOYDIR' name='ROBOTS' />
     <meta content='NOODP' name='ROBOTS' />
     <link media='handheld' rel='alternate' />
