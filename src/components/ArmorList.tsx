@@ -1,14 +1,15 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, toggleSkillFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, armorList, equip, togglePositionFilter, skillFilter, resilienceFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import { i18nPosition } from '@/utils/utils'
-import type { Loadout, Position, Armor } from '@/types/types'
+import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
   const $armorList = useStore(armorList)
   const $positionFilter = useStore(positionFilter)
   const $skillFilter = useStore(skillFilter)
+  const $resilienceFilter = useStore(resilienceFilter)
 
   const filteredArmorList = () => {
     let list = $armorList
@@ -18,6 +19,11 @@ export default function ArmorList(): JSX.Element {
         return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
       })
     }
+    Object.entries($resilienceFilter).forEach(([key, value]) => {
+      if (value === '') { return }
+      list = Object.values(list).filter(armor =>  armor[key as Resilience] >= value )
+    })
+
     return list
   }
 
