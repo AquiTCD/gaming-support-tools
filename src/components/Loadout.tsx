@@ -102,7 +102,7 @@ export default function Loadout(): JSX.Element {
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.waterResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.windResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.earthResilience}</td>
-                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={1}>{skill}<br /></React.Fragment>)}</td>
+                <td className={cellClass(['t-l', 'b-l'])}>{armor?.skills.map((skill:string, i:number) => <React.Fragment key={i}>{skill}<br /></React.Fragment>)}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{armor?.materials}</td>
               </tr>
           })}
