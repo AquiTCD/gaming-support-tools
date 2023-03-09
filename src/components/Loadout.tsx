@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positions, currentLoadout, armorList, remove } from '@/stores/armor-sim'
+import { positions, currentLoadout, armorList, remove, isEquipped } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -97,18 +97,8 @@ export default function Loadout(): JSX.Element {
         <tbody className="text-gray-600">
           { positions.map((position, idx) => {
               const armor = currentArmor()[position]
-              let removeButton = undefined
-              if (armor) {
-                removeButton = (
-                  <span onClick={() => remove(position)}>
-                    <svg fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </span>
-                )
-              }
               return <tr key={idx} className="border border-gray-300 hover:bg-gray-100">
-                <td className={cellClass(['t-c'])}>{removeButton}</td>
+                <td className={cellClass(['t-c'])}><input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" /></td>
                 <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[position]}</td>
                 <td className={cellClass(['t-l', 'b-l'])}>{armor?.name}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{pathValue(armor?.path)}</td>
