@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { currentLoadout } from '@/stores/armor-sim'
+import React , { useEffect } from 'react'
+import { currentLoadout, equip } from '@/stores/armor-sim'
 
 type Props={
   baseUrl: URL;
@@ -7,6 +8,13 @@ type Props={
 
 export default function StateUrl({baseUrl}:Props): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    for (const [_key, value] of searchParams) {
+      equip(Number(value))
+    }
+  })
 
   const fullUrl = () => {
     const url = baseUrl.toString()
