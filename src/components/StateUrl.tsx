@@ -2,11 +2,7 @@ import { useStore } from '@nanostores/react'
 import { useEffect, useState } from 'react'
 import { currentLoadout, equip } from '@/stores/armor-sim'
 
-type Props={
-  baseUrl: URL;
-}
-
-export default function StateUrl({baseUrl}:Props): JSX.Element {
+export default function StateUrl(): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
   const [showChild, setShowChild] = useState(false);
 
@@ -14,6 +10,8 @@ export default function StateUrl({baseUrl}:Props): JSX.Element {
     setShowChild(true);
   }, []);
 
+  const rootUrl = import.meta.env.DEV ? 'http://localhost:3000' : 'https://tools.solunita.net'
+  const baseUrl = new URL('/wildhearts/armor-sim', rootUrl)
   const fullUrl = () => {
     const url = baseUrl.toString()
 
