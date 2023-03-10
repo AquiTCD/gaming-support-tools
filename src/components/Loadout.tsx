@@ -1,12 +1,19 @@
 import { useStore } from '@nanostores/react'
-import React from 'react'
-import { positions, currentLoadout, armorList, remove, isEquipped } from '@/stores/armor-sim'
+import { useEffect } from 'react'
+import { positions, currentLoadout, armorList, equip, remove } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
-import type { Loadout, Position, Armor } from '@/types/types'
+import type { Loadout, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
   const $armorList = useStore(armorList)
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    for (const [_key, value] of searchParams) {
+      equip(Number(value))
+    }
+  }, [])
 
   const currentArmor = () => {
     const currentArmor : {
