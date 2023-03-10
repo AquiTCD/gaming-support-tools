@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { currentLoadout, changeEquip, isEquipped } from '@/stores/armor-sim'
+import { currentLoadout, changeEquip, isEquipped, skillFilter } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -9,6 +9,7 @@ type Props = {
 }
 export default function ArmorListRow({ list }: Props): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
+  const $skillFilter = useStore(skillFilter)
 
   const positionRowColorClass = {
     head: 'bg-orange-50',
@@ -32,6 +33,34 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
     return classes
   }
 
+  const decorateSkills = (skills: string[]|undefined) => {
+    if (skills === undefined) { return; }
+    const decoratedSkills = skills.map((skill:string, i:number) => {
+      let classes = ""
+      switch (true) {
+        case skill.startsWith('[活人皆伝]'):
+          classes += "text-blue-600"
+          break;
+        case skill.startsWith('[活人]'):
+          classes += "text-blue-800"
+          break;
+        case skill.startsWith('[獣道]'):
+          classes += "text-red-800"
+          break;
+        case skill.startsWith('[獣道皆伝]'):
+          classes += "text-red-600"
+          break;
+        default:
+          break;
+      }
+      if($skillFilter.includes(skill)) {
+        classes += " font-bold"
+      }
+      return <li key={i} className={classes}>{skill}</li>
+    })
+    return <>{decoratedSkills}</>
+  }
+
   return (
     <>
       { list.map((armor) => {
@@ -48,7 +77,7 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
             <td className={cellClass(['t-r', 'b-l'])}>{armor.waterResilience}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{armor.windResilience}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{armor.earthResilience}</td>
-            <td className={cellClass(['t-l', 'b-l'])}>{armor.skills.map((skill:string, i:number) => <React.Fragment key={i}>{skill}<br /></React.Fragment>)}</td>
+            <td className={cellClass(['t-l', 'b-l'])}><ul>{decorateSkills(armor.skills)}</ul></td>
             <td className={cellClass(['t-c', 'b-l'])}>{armor.materials}</td>
           </tr>
       })}

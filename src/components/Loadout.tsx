@@ -78,25 +78,25 @@ export default function Loadout(): JSX.Element {
   const decorateSkills = (skills: string[]|undefined) => {
     if (skills === undefined) { return; }
     const decoratedSkills = skills.map((skill:string, i:number) => {
-      let classes = "block"
+      let classes = ""
       const path = calc('path')
       switch (true) {
         case skill.startsWith('[活人皆伝]') && -150 < path:
-          classes += " line-through"
+          classes += "line-through"
           break;
         case skill.startsWith('[活人]') && -50 < path:
-          classes += " line-through"
+          classes += "line-through"
           break;
         case skill.startsWith('[獣道]') && path < 50:
-          classes += " line-through"
+          classes += "line-through"
           break;
         case skill.startsWith('[獣道皆伝]') && path < 150:
-          classes += " line-through"
+          classes += "line-through"
           break;
         default:
           break;
       }
-      return <span key={i} className={classes}>{skill}</span>
+      return <li key={i} className={classes}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }
@@ -134,7 +134,7 @@ export default function Loadout(): JSX.Element {
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.waterResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.windResilience}</td>
                 <td className={cellClass(['t-r', 'b-l'])}>{armor?.earthResilience}</td>
-                <td className={cellClass(['t-l', 'b-l'])}>{decorateSkills(armor?.skills)}</td>
+                <td className={cellClass(['t-l', 'b-l'])}><ul>{decorateSkills(armor?.skills)}</ul></td>
                 <td className={cellClass(['t-c', 'b-l'])}>{armor?.materials}</td>
               </tr>
           })}
