@@ -50,7 +50,7 @@ const { title, ogp, description } = Astro.props;
     <meta name="twitter:image" content={ogp.imageURL} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <title>{title}</title>
+    <title>{import.meta.env.DEV ? `[DEV] ${title}` : title }</title>
     <meta name="description" content={description ?? title} />
   </head>
   <body>
