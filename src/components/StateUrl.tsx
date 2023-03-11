@@ -30,11 +30,14 @@ export default function StateUrl(): JSX.Element {
     }
   }
   const twitterUrl = () => {
+    // %20=space %23=# %26=& %0a=\n
     const twitterUrl = 'http://twitter.com/share'
     const url = fullUrl().replace(/&/g, '%26')
     const text = 'ワイルドハーツの防具はコレで決まり！'
-    const hashTags = 'PlayWildHearts,WILDHEARTS,WILDHEARTS防具シム'
-    return (showChild ? `${twitterUrl}?url=${url}&text=${text}&hashtags=${hashTags}` : undefined)
+    const hashTags = ['PlayWildHearts', 'WILDHEARTS', 'WILDHEARTS防具シム'].join('%0a%23')
+    const fullText = `${text}%0a%0a%23${hashTags}%0a${url}`
+    // return (showChild ? `${twitterUrl}?url=${url}&text=${text}&hashtags=%0a${hashTags}` : '#')
+    return (showChild ? `${twitterUrl}?&text=${fullText}` : '#')
   }
 
   return (
