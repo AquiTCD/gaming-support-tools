@@ -8,13 +8,9 @@ import ArmorList from '@/components/ArmorList';
 
 const title = "WILD HEARTS 防具シミュレータ"
 const description = "WILD HEARTS 内で装備可能な防具の数値や技能を調べたり組み合わせを調べることができるシミュレータ"
-const rootURL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://tools.solunita.net'
-const ogp = {
-  canonicalURL: new URL(Astro.url.pathname, rootURL),
-  imageURL: new URL('/assets/ogp_wildhearts_armor-sim.jpg', rootURL),
-}
+const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
 ---
-<Layout title={title} ogp={ogp} description={description}>
+<Layout title={title} description={description} og_image={og_image}>
   <main>
     <div class="overflow-x-scroll">
       <Loadout client:load />

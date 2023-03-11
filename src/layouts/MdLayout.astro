@@ -1,37 +1,14 @@
 ---
-import GlobalHeader from '@/components/GlobalHeader.astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
 
 const { frontmatter } = Astro.props;
 ---
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <main class="md-main">
+    <slot />
+  </main>
+</BaseLayout>
 
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    { frontmatter?.ad && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5201227009100177"
-     crossorigin="anonymous"></script> }
-    <title>{import.meta.env.DEV ? `[DEV] ${frontmatter.title}` : frontmatter.title }</title>
-  </head>
-  <body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-89Z8R7M51B"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-89Z8R7M51B');
-    </script>
-     <!-- contents -->
-    <GlobalHeader pageTitle={frontmatter.title} />
-    <main class="md-main">
-      <slot />
-    </main>
-  </body>
-</html>
 <style is:global>
 /*!
  * Bootstrap Reboot v5.3.0-alpha1 (https://getbootstrap.com/)
