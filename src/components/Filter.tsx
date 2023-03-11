@@ -1,7 +1,8 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
-import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter } from '@/stores/armor-sim'
 import SkillModal from '@/components/SkillModal'
+import MaterialModal from '@/components/MaterialModal'
 import { Tooltip } from '@/components/Tooltip'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
@@ -11,7 +12,9 @@ export default function Filter(): JSX.Element {
   const $skillFilter = useStore(skillFilter)
   const $resilienceFilter = useStore(resilienceFilter)
   const $modifierFilter = useStore(modifierFilter)
+  const $materialFilter = useStore(materialFilter)
   const [showSkillModal, setShowSkillModal] = useState(false)
+  const [showMaterialModal, setShowMaterialModal] = useState(false)
 
   const positionButtonColorClass = {
     head: 'bg-orange-300',
@@ -118,6 +121,22 @@ export default function Filter(): JSX.Element {
                 return <button key={i}
                   className={classes}
                   onClick={() => toggleFilter('modifier', modifier)}>{[modifier]}</button>
+                })
+              }
+            </div>
+            <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
+              素材
+            </div>
+            <div className="space-y-1">
+              <MaterialModal showMaterialModal={showMaterialModal} setShowMaterialModal={setShowMaterialModal} />
+              <button onClick={() => setShowMaterialModal(true)}
+                className="block border mt-1 border-gray-500 text-gray-700 hover:text-gray-50 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg px-2 py-0.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                素材フィルタ設定
+              </button>
+              { $materialFilter.map((material, i) => {
+                const classes = "rounded-full px-4 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
+                return <button key={i}
+                  className={classes} >{material}</button>
                 })
               }
             </div>

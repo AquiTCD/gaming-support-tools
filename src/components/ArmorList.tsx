@@ -1,8 +1,6 @@
 import { useStore } from '@nanostores/react'
-import React from 'react'
-import { positionFilter, armorList, equip, skillFilter, resilienceFilter, modifierFilter } from '@/stores/armor-sim'
+import { positionFilter, armorList, allSkills, skillFilter, resilienceFilter, modifierFilter, materialFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
-import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
@@ -11,16 +9,20 @@ export default function ArmorList(): JSX.Element {
   const $skillFilter = useStore(skillFilter)
   const $resilienceFilter = useStore(resilienceFilter)
   const $modifierFilter = useStore(modifierFilter)
+  const $materialFilter = useStore(materialFilter)
 
   const filteredArmorList = () => {
     let list = $armorList
     if ($positionFilter.length < 5) {
       list = Object.values(list).filter(armor => $positionFilter.includes(armor.position))
     }
-    if ($skillFilter.length > 0) {
+    if (0 < $skillFilter.length && $skillFilter.length < allSkills.length) {
       list = Object.values(list).filter((armor) => {
         return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
       })
+    }
+    if (0 < $materialFilter.length && $materialFilter.length < allSkills.length) {
+      list = Object.values(list).filter(armor => $materialFilter.includes(armor.materials))
     }
     Object.entries($resilienceFilter).forEach(([key, value]) => {
       if (value === '') { return }
