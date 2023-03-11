@@ -4,13 +4,8 @@ import Card from '../components/Card.astro';
 
 const title = "Solunita Tools"
 const description = "ここは僕が作りたいものを作りたいように作ってそれを公開しているところです。"
-const rootURL = 'https://tools.solunita.net'
-const ogp = {
-  canonicalURL: new URL(Astro.url.pathname, rootURL),
-  imageURL: new URL('/assets/ogp-solunita.jpg', rootURL),
-}
 ---
-<Layout title={title} ogp={ogp} description={description}>
+<Layout title={title} description={description}>
   <main>
     <h1><span class="text-gradient">{title}</span></h1>
     <p class="instructions">
@@ -21,6 +16,16 @@ const ogp = {
         href="/wildhearts/armor-sim"
         title="WILD HEARTS 防具シミュレータ"
         body="ワイルドハーツの防具装備をあれこれ考えるやつ"
+      />
+      <Card
+        href="/feedback"
+        title="フィードバック"
+        body="サイト、サービスに関するフィードバック"
+      />
+      <Card
+        href="/term-of-service"
+        title="利用規約"
+        body="当サイトを使うにあたっての規約"
       />
     </ul>
   </main>
