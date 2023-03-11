@@ -21,6 +21,8 @@ const modifiers = ['無改造', '活人流改造', '獣道流改造']
 const modifierFilter = atom<typeof modifiers>(modifiers)
 const materialFilter = atom<Array<string>>([])
 
+const allSkills = Array.from(new Set(allArmorList.flatMap(armor => armor.skills )))
+const allMaterials = Array.from(new Set(allArmorList.map(armor => armor.materials )))
 
 // actions
 const equip = (id:number) => {
@@ -69,4 +71,4 @@ const changeResilience = (type:Resilience, value:string) => {
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, changeResilience, equip, remove, toggleFilter, changeEquip, isEquipped }
+export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, allSkills, allMaterials, changeResilience, equip, remove, toggleFilter, changeEquip, isEquipped }

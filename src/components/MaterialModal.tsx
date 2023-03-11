@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import { armorList, materialFilter, toggleFilter } from '@/stores/armor-sim'
+import { allMaterials, materialFilter, toggleFilter } from '@/stores/armor-sim'
 
 type Props={
   showMaterialModal: boolean;
@@ -7,9 +7,7 @@ type Props={
 }
 
 export default function Modal({ showMaterialModal, setShowMaterialModal }: Props): JSX.Element | null {
-  const $armorList = useStore(armorList)
   const $materialFilter = useStore(materialFilter)
-  const allMaterials = new Set($armorList.map(armor => armor.materials ))
   const title = "素材フィルタ"
 
   if (showMaterialModal) {

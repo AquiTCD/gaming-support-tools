@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import { armorList, skillFilter, toggleFilter } from '@/stores/armor-sim'
+import { allSkills, skillFilter, toggleFilter } from '@/stores/armor-sim'
 
 type Props={
   showSkillModal: boolean;
@@ -7,9 +7,7 @@ type Props={
 }
 
 export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX.Element | null {
-  const $armorList = useStore(armorList)
   const $skillFilter = useStore(skillFilter)
-  const allSkills = new Set($armorList.flatMap(armor => armor.skills ))
   const title = "技能フィルタ"
 
   if (showSkillModal) {
