@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { changeEquip, isEquipped, skillFilter } from '@/stores/armor-sim'
+import React from 'react'
+import { currentLoadout, changeEquip, isEquipped, skillFilter } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -7,6 +8,7 @@ type Props = {
   list: Armor[]
 }
 export default function ArmorListRow({ list }: Props): JSX.Element {
+  const $currentLoadout = useStore(currentLoadout)
   const $skillFilter = useStore(skillFilter)
 
   const positionRowColorClass = {
