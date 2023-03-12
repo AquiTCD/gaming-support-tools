@@ -45,6 +45,13 @@ const isEquipped = (id:number):boolean => {
   return Object.values(currentLoadout.get()).map(lo => lo?.id).filter(Boolean).includes(id)
 }
 
+const toggleLock = (position:Position) => {
+  const loadout = currentLoadout.get()[position]
+  if (loadout) {
+    currentLoadout.setKey(position, { id: loadout.id, isLocked: !loadout.isLocked })
+  }
+}
+
 const toggleFilter = (
     type:'position' | 'skill' | 'modifier' | 'material',
     item: Position|string
@@ -69,4 +76,4 @@ const changeResilience = (type:Resilience, value:string) => {
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, changeResilience, equip, remove, toggleFilter, changeEquip, isEquipped }
+export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, changeResilience, equip, remove, toggleLock, toggleFilter, changeEquip, isEquipped }
