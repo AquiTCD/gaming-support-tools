@@ -23,17 +23,23 @@ const materialFilter = atom<Array<string>>([])
 
 
 // actions
-const equip = (id:number) => {
+const equip = (id:number, withLock: boolean = false) => {
   const list = allArmorList as Armor[]
   const found = list.find(armor => armor.id === id)
   if (found) {
-    currentLoadout.setKey(found.position, { id: id, isLocked: false })
+    currentLoadout.setKey(found.position, { id: id, isLocked: withLock })
   }
 }
 const remove = (position:Position) => {
+  if(currentLoadout.get()[position]?.isLocked) {
+    return
+  }
   currentLoadout.setKey(position, undefined)
 }
 const changeEquip = (id: number, position: Position) => {
+  if(currentLoadout.get()[position]?.isLocked) {
+    return
+  }
   if (isEquipped(id)) {
     remove(position)
   } else {

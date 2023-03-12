@@ -11,7 +11,7 @@ export default function Loadout(): JSX.Element {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     for (const [_key, value] of searchParams) {
-      equip(Number(value))
+      equip(Number(value), true)
     }
   }, [])
 
