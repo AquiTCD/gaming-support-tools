@@ -30,7 +30,7 @@ export default function Loadout(): JSX.Element {
       leg: undefined
     }
     positions.forEach((position) => {
-      currentArmor[position] = $armorList.filter(armor => armor.id === $currentLoadout[position]).shift()
+      currentArmor[position] = $armorList.filter(armor => armor.id === $currentLoadout[position]?.id).shift()
     })
     return currentArmor
   }

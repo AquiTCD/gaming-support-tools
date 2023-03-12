@@ -27,7 +27,7 @@ const equip = (id:number) => {
   const list = allArmorList as Armor[]
   const found = list.find(armor => armor.id === id)
   if (found) {
-    currentLoadout.setKey(found.position, id)
+    currentLoadout.setKey(found.position, { id: id, isLocked: false })
   }
 }
 const remove = (position:Position) => {
@@ -42,7 +42,7 @@ const changeEquip = (id: number, position: Position) => {
 }
 
 const isEquipped = (id:number):boolean => {
-  return Object.values(currentLoadout.get()).includes(id)
+  return Object.values(currentLoadout.get()).map(lo => lo?.id).filter(Boolean).includes(id)
 }
 
 const toggleFilter = (
