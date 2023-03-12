@@ -1,16 +1,18 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positionFilter, armorList, skillFilter, resilienceFilter, modifierFilter, materialFilter } from '@/stores/armor-sim'
+import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
   const $armorList = useStore(armorList)
+  const $currentLoadout = useStore(currentLoadout)
   const $positionFilter = useStore(positionFilter)
   const $skillFilter = useStore(skillFilter)
   const $resilienceFilter = useStore(resilienceFilter)
   const $modifierFilter = useStore(modifierFilter)
   const $materialFilter = useStore(materialFilter)
+  const $lockPositionFilter = useStore(lockPositionFilter)
 
   const allMaterials = Array.from(new Set($armorList.map(armor => armor.materials )))
 
@@ -18,6 +20,9 @@ export default function ArmorList(): JSX.Element {
     let list = $armorList
     if ($positionFilter.length < 5) {
       list = Object.values(list).filter(armor => $positionFilter.includes(armor.position))
+    }
+    if ($lockPositionFilter) {
+      list = Object.values(list).filter(armor => !$currentLoadout[armor.position]?.isLocked)
     }
     if ($skillFilter.length > 0) {
       list = Object.values(list).filter((armor) => {

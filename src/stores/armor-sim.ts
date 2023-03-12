@@ -20,7 +20,7 @@ const resilienceFilter = map<{[key in Resilience]: number | ''}>({
 const modifiers = ['無改造', '活人流改造', '獣道流改造']
 const modifierFilter = atom<typeof modifiers>(modifiers)
 const materialFilter = atom<Array<string>>([])
-
+const lockPositionFilter = atom<boolean>(false)
 
 // actions
 const equip = (id:number, withLock: boolean = false) => {
@@ -76,10 +76,13 @@ const toggleFilter = (
       filter.set([...current, item])
     }
 }
+const toggleLockPositionFilter = () => {
+  lockPositionFilter.set(!lockPositionFilter.get())
+}
 
 const changeResilience = (type:Resilience, value:string) => {
   const convertedValue = value === '' ? '' : Number(value)
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, changeResilience, equip, remove, toggleLock, toggleFilter, changeEquip, isEquipped }
+export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter, changeResilience, equip, remove, toggleLock, toggleFilter, changeEquip, isEquipped }
