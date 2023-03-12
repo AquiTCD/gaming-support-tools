@@ -16,7 +16,7 @@ export default function StateUrl(): JSX.Element {
     const url = baseUrl.toString()
 
     const queryParams = Object.entries($currentLoadout).map(([key, value]) => {
-      if(value) { return `${key}=${value}` }
+      if(value) { return `${key}=${value.id}` }
     }).filter(Boolean).join('&')
 
     return queryParams === '' ? url : `${url}?${queryParams}`

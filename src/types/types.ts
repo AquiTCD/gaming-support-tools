@@ -1,9 +1,9 @@
 type Loadout = {
-  head: undefined | number,
-  body: undefined | number,
-  arm: undefined | number,
-  waist: undefined | number,
-  leg: undefined | number,
+  head: undefined | { id: number, isLocked: boolean },
+  body: undefined | { id: number, isLocked: boolean },
+  arm: undefined | { id: number, isLocked: boolean },
+  waist: undefined | { id: number, isLocked: boolean },
+  leg: undefined | { id: number, isLocked: boolean }
 }
 type Position = 'head' | 'body' | 'arm' | 'waist' | 'leg'
 type Armor = {

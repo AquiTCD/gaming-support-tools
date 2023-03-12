@@ -1,8 +1,8 @@
 import { useStore } from '@nanostores/react'
 import { useEffect } from 'react'
-import { positions, currentLoadout, armorList, equip, remove } from '@/stores/armor-sim'
+import { positions, currentLoadout, armorList, equip, remove, toggleLock } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
-import type { Loadout, Armor } from '@/types/types'
+import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)
@@ -11,7 +11,7 @@ export default function Loadout(): JSX.Element {
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search)
     for (const [_key, value] of searchParams) {
-      equip(Number(value))
+      equip(Number(value), true)
     }
   }, [])
 
@@ -30,7 +30,7 @@ export default function Loadout(): JSX.Element {
       leg: undefined
     }
     positions.forEach((position) => {
-      currentArmor[position] = $armorList.filter(armor => armor.id === $currentLoadout[position]).shift()
+      currentArmor[position] = $armorList.filter(armor => armor.id === $currentLoadout[position]?.id).shift()
     })
     return currentArmor
   }
@@ -108,12 +108,25 @@ export default function Loadout(): JSX.Element {
     return <>{decoratedSkills}</>
   }
 
+  const lockButton = (armor:Armor|undefined) => {
+    if (armor === undefined) {
+      return null
+    }
+    const openImg = <path strokeLinecap="round" stroke="#9ca3af" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+    const closeImg = <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+    const isLocked = $currentLoadout[armor.position]?.isLocked ?? false
+    const svg = <svg fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">{ isLocked ? closeImg : openImg }</svg>
+    return (
+      <button className="w-4 h-4 pt-1" onClick={() => toggleLock(armor.position)}>{svg}</button>
+    )
+  }
+
   return (
     <>
       <table className="relative min-w-max w-full table-auto text-xs md:text-sm">
         <thead>
           <tr className="bg-gray-700 text-gray-200 leading-normal">
-            <th className="p-1 md:p-2 rounded-tl-lg">装備</th>
+            <th className="p-1 md:p-2 rounded-tl-lg" colSpan={2}>装備</th>
             <th className="p-1 md:p-2 border-l border-gray-500">部位</th>
             <th className='p-1 md:p-2 border-l border-gray-500'>名称</th>
             <th className='p-1 md:p-2 border-l border-gray-500'>流派</th>
@@ -131,7 +144,12 @@ export default function Loadout(): JSX.Element {
           { positions.map((position, idx) => {
               const armor = currentArmor()[position]
               return <tr key={idx} className="border border-gray-300 hover:bg-gray-100">
-                <td className={cellClass(['t-c'])}><input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" /></td>
+                <td className="py-1 pl-1 pr-1 md:py-2 md:pl-2 text-right">
+                  {lockButton(armor)}
+                </td>
+                <td className="py-1 pr-1 md:py-2 md:pr-2 text-left">
+                  <input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
+                </td>
                 <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[position]}</td>
                 <td className={cellClass(['t-l', 'b-l'])}>{armor?.name}</td>
                 <td className={cellClass(['t-c', 'b-l'])}>{pathValue(armor?.path)}</td>
@@ -148,7 +166,7 @@ export default function Loadout(): JSX.Element {
 
           {/* 合計 */}
           <tr className="bg-gray-300 text-gray-800 font-bold">
-            <td className="p-1 md:p-2 text-center rounded-bl-lg">合計</td>
+            <td className="p-1 md:p-2 text-center rounded-bl-lg" colSpan={2}>合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
