@@ -18,9 +18,19 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
     waist: 'bg-cyan-50',
     leg: 'bg-indigo-50',
   }
+  const positionButtonColorClass = {
+    head: 'bg-orange-200',
+    body: 'bg-lime-200',
+    arm: 'bg-emerald-200',
+    waist: 'bg-cyan-200',
+    leg: 'bg-indigo-200',
+  }
+  const positionButtonClass = (position:string) => {
+    return `${positionButtonColorClass[position as Position]} rounded-full px-3 md:px-4 py-1`
+  }
 
   const positionClasses = (position:string) => {
-    return `${positionRowColorClass[position as Position]} text-gray-600 border border-gray-300 hover:bg-gray-100`
+    return `${positionRowColorClass[position as Position]} text-gray-600 border border-gray-300 hover:bg-gray-200`
   }
   const cellClass = (options: string[]) => {
     const base = "p-1 md:p-2"
@@ -68,7 +78,7 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
             <td className="p-1 md:p-2 text-center">
               <input type="checkbox" onChange={() => changeEquip(armor.id, armor.position) } checked={isEquipped(armor.id)} disabled={isLocked(armor.position)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-500 rounded focus:ring-blue-500 focus:ring-2 disabled:bg-gray-300 disabled:border-none" />
             </td>
-            <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[armor.position as Position]}</td>
+            <td className={cellClass(['t-c', 'b-l'])}><div className={positionButtonClass(armor.position)}>{i18nPosition[armor.position as Position]}</div></td>
             <td className={cellClass(['t-l', 'b-l'])}>{armor.name}</td>
             <td className={cellClass(['t-l', 'b-l'])}>{pathValue(armor.path)}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{armor.defence}</td>
