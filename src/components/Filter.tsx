@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter } from '@/stores/armor-sim'
 import SkillModal from '@/components/SkillModal'
 import MaterialModal from '@/components/MaterialModal'
+import DualRangeSlider from '@/components/DualRangeSlider'
 import { Tooltip } from '@/components/Tooltip'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
@@ -149,6 +150,12 @@ export default function Filter(): JSX.Element {
                   className={classes} >{material}</button>
                 })
               }
+            </div>
+            <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
+              流派
+            </div>
+            <div className="space-y-1">
+              <DualRangeSlider />
             </div>
           </div>
         </div>
