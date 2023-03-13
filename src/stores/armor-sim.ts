@@ -85,4 +85,6 @@ const changeResilience = (type:Resilience, value:string) => {
   resilienceFilter.setKey(type, convertedValue)
 }
 
-export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter, changeResilience, equip, remove, toggleLock, toggleFilter, changeEquip, isEquipped }
+const isLocked = (position:Position):boolean => { return currentLoadout.get()[position]?.isLocked ?? false }
+
+export { positions, modifiers, currentLoadout, armorList, positionFilter, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter, changeResilience, equip, remove, toggleLock, toggleFilter, changeEquip, isEquipped, isLocked }

@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import { useEffect } from 'react'
-import { positions, currentLoadout, armorList, equip, remove, toggleLock } from '@/stores/armor-sim'
+import { positions, currentLoadout, armorList, equip, remove, toggleLock, isLocked } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -148,7 +148,7 @@ export default function Loadout(): JSX.Element {
                   {lockButton(armor)}
                 </td>
                 <td className="py-1 pr-1 md:py-2 md:pr-2 text-left">
-                  <input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2" />
+                  <input type="checkbox" onChange={e => { if(armor){ remove(position) }}} checked={ armor ? true : false} disabled={isLocked(armor ? armor.position : false)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-500 rounded focus:ring-blue-500 focus:ring-2 disabled:bg-gray-300 disabled:border-none" />
                 </td>
                 <td className={cellClass(['t-c', 'b-l'])}>{i18nPosition[position]}</td>
                 <td className={cellClass(['t-l', 'b-l'])}>{armor?.name}</td>
