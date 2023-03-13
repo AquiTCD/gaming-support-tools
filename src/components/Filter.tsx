@@ -16,6 +16,7 @@ export default function Filter(): JSX.Element {
   const $lockPositionFilter = useStore(lockPositionFilter)
   const [showSkillModal, setShowSkillModal] = useState(false)
   const [showMaterialModal, setShowMaterialModal] = useState(false)
+  const [showFilters, setShowFilters] = useState(true)
 
   const positionButtonColorClass = {
     head: 'bg-orange-300',
@@ -32,13 +33,14 @@ export default function Filter(): JSX.Element {
 
   return (
     <>
-      <div className="w-full bg-white text-xs md:text-sm border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mb-4">
-        <ul className="flex flex-wrap font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800">
-          <li className="mr-2">
-            <button type="button" role="tab" aria-controls="about" aria-selected="true" className="inline-block px-4 py-2 text-gray-700 font-bold rounded-tl-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">絞り込みフィルタ</button>
-          </li>
-        </ul>
-        <div className="px-4 py-4">
+      <div className="w-full bg-white text-xs md:text-sm border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 mb-4">
+        <div className={`${showFilters ? 'border-b border-gray-200' : 'rounded-b-lg' } bg-gray-100 rounded-t-lg px-4 py-1 md:py-2 text-gray-500`}>
+          <button type="button" onClick={() => setShowFilters(!showFilters)} className="flex items-center justify-between w-full text-left font-bold focus:ring-4 focus:ring-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">
+            <span>絞り込みフィルタ</span>
+              <svg className={`w-6 h-6 ${showFilters ? 'rotate-180 shrink-0' : 'shrink-0'}`} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+          </button>
+        </div>
+        <div className={showFilters ? 'px-4 py-4' : 'hidden'}>
           <div className="grid grid-cols-[max-content,1fr] gap-2">
             <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
               部位
@@ -46,7 +48,7 @@ export default function Filter(): JSX.Element {
             <div className="space-y-1">
               { positions.map((position, i) => {
                 const colorClasses = $positionFilter.includes(position) ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
-                const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                const classes = `rounded-full px-3 md:px-4 py-1 mr-2 ${colorClasses}`
                 return <button key={i}
                   className={classes}
                   onClick={() => toggleFilter('position', position)}>{i18nPosition[position]}</button>
@@ -70,7 +72,7 @@ export default function Filter(): JSX.Element {
                 技能フィルタ設定
               </button>
               { $skillFilter.map((skill, i) => {
-                const classes = "rounded-full px-4 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
+                const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
                 return <button key={i}
                   className={classes} >{skill}</button>
                 })
@@ -125,7 +127,7 @@ export default function Filter(): JSX.Element {
             <div className="space-y-1">
               { modifiers.map((modifier, i) => {
                 const colorClasses = $modifierFilter.includes(modifier) ? `${modifierButtonColorClass[modifier]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
-                const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                const classes = `rounded-full px-2 md:px-3 py-1 mr-2 ${colorClasses}`
                 return <button key={i}
                   className={classes}
                   onClick={() => toggleFilter('modifier', modifier)}>{[modifier]}</button>
@@ -142,7 +144,7 @@ export default function Filter(): JSX.Element {
                 素材フィルタ設定
               </button>
               { $materialFilter.map((material, i) => {
-                const classes = "rounded-full px-4 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
+                const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
                 return <button key={i}
                   className={classes} >{material}</button>
                 })
