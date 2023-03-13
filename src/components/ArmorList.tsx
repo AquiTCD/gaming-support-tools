@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter } from '@/stores/armor-sim'
+import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, pathValueFilter } from '@/stores/armor-sim'
 import ArmorListRow from '@/components/ArmorListRow'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
@@ -13,6 +13,7 @@ export default function ArmorList(): JSX.Element {
   const $modifierFilter = useStore(modifierFilter)
   const $materialFilter = useStore(materialFilter)
   const $lockPositionFilter = useStore(lockPositionFilter)
+  const $pathValueFilter = useStore(pathValueFilter)
 
   const allMaterials = Array.from(new Set($armorList.map(armor => armor.materials )))
 
@@ -62,6 +63,7 @@ export default function ArmorList(): JSX.Element {
           break;
       }
     }
+    list = Object.values(list).filter(armor => $pathValueFilter[0] <= armor.path && armor.path <= $pathValueFilter[1] )
 
     return list
   }
