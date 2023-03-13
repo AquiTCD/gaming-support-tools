@@ -39,7 +39,7 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
               <div className="px-4 py-2 space-y-2">
                 { Array.from(allSkills).map((skill, i) => {
                   const colorClasses = $skillFilter.includes(skill) ? "bg-pink-200 text-gray-700 font-bold" : "bg-gray-200 text-gray-500"
-                  const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                  const classes = `rounded-full px-2 md:px-3 py-1 mr-2 ${colorClasses}`
                   return <button key={i}
                     className={classes}
                     onClick={() => toggleFilter('skill', skill)}>{skill}</button>

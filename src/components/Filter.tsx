@@ -46,7 +46,7 @@ export default function Filter(): JSX.Element {
             <div className="space-y-1">
               { positions.map((position, i) => {
                 const colorClasses = $positionFilter.includes(position) ? `${positionButtonColorClass[position]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
-                const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                const classes = `rounded-full px-3 md:px-4 py-1 mr-2 ${colorClasses}`
                 return <button key={i}
                   className={classes}
                   onClick={() => toggleFilter('position', position)}>{i18nPosition[position]}</button>
@@ -70,7 +70,7 @@ export default function Filter(): JSX.Element {
                 技能フィルタ設定
               </button>
               { $skillFilter.map((skill, i) => {
-                const classes = "rounded-full px-4 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
+                const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
                 return <button key={i}
                   className={classes} >{skill}</button>
                 })
@@ -125,7 +125,7 @@ export default function Filter(): JSX.Element {
             <div className="space-y-1">
               { modifiers.map((modifier, i) => {
                 const colorClasses = $modifierFilter.includes(modifier) ? `${modifierButtonColorClass[modifier]} text-gray-700 font-bold` : "bg-gray-200 text-gray-500"
-                const classes = `rounded-full px-4 py-1 mr-2 ${colorClasses}`
+                const classes = `rounded-full px-2 md:px-3 py-1 mr-2 ${colorClasses}`
                 return <button key={i}
                   className={classes}
                   onClick={() => toggleFilter('modifier', modifier)}>{[modifier]}</button>
@@ -142,7 +142,7 @@ export default function Filter(): JSX.Element {
                 素材フィルタ設定
               </button>
               { $materialFilter.map((material, i) => {
-                const classes = "rounded-full px-4 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
+                const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
                 return <button key={i}
                   className={classes} >{material}</button>
                 })
