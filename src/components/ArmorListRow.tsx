@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import { currentLoadout, changeEquip, isEquipped, skillFilter, isLocked } from '@/stores/armor-sim'
 import { i18nPosition, pathValue } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
@@ -8,6 +8,12 @@ type Props = {
   list: Armor[]
 }
 export default function ArmorListRow({ list }: Props): JSX.Element {
+  const [showCheckBox, setShowCheckBox] = useState(false);
+
+  useEffect(() => {
+    setShowCheckBox(true);
+  }, []);
+
   const $currentLoadout = useStore(currentLoadout)
   const $skillFilter = useStore(skillFilter)
 
@@ -76,7 +82,7 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
       { list.map((armor) => {
           return <tr key={armor.id} className={positionClasses(armor.position)}>
             <td className="p-1 md:p-2 text-center">
-              <input type="checkbox" onChange={() => changeEquip(armor.id, armor.position) } checked={isEquipped(armor.id)} disabled={ armor ? isLocked(armor.position) : false} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-500 rounded focus:ring-blue-500 focus:ring-2 disabled:bg-gray-300 disabled:border-none" />
+              <input type="checkbox" onChange={() => changeEquip(armor.id, armor.position) } checked={isEquipped(armor.id)} disabled={ showCheckBox ? isLocked(armor.position) : false } className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-500 rounded focus:ring-blue-500 focus:ring-2 disabled:bg-gray-300 disabled:border-none" />
             </td>
             <td className={cellClass(['t-c', 'b-l'])}><div className={positionButtonClass(armor.position)}>{i18nPosition[armor.position as Position]}</div></td>
             <td className={cellClass(['t-l', 'b-l'])}>{armor.name}</td>
