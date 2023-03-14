@@ -18,4 +18,19 @@ const pathValue = (path:number|undefined) => {
   }
 }
 
-export { i18nPosition, pathValue }
+const skillColorClass = (skill: string):string => {
+  switch (true) {
+    case skill.startsWith('[活人皆伝]'):
+      return "text-pure-human"
+    case skill.startsWith('[活人]'):
+      return "text-human"
+    case skill.startsWith('[獣道]'):
+      return "text-kemono"
+    case skill.startsWith('[獣道皆伝]'):
+      return "text-pure-kemono"
+    default:
+      return ""
+  }
+}
+
+export { i18nPosition, pathValue, skillColorClass }
