@@ -10,4 +10,15 @@ module.exports = {
 	plugins: [
 		require('flowbite/plugin')
 	],
+  theme: {
+    extend: {
+      colors: {
+        'pure-human': '#45357F',
+        'human': '#266C7F',
+        'normal-path': '#4C473B',
+        'kemono': '#7F4D43',
+        'pure-kemono': '#7F272E'
+      }
+    }
+  }
 }
