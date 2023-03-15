@@ -4,7 +4,6 @@ import { positions, positionFilter, modifiers, toggleFilter, changeResilience, s
 import SkillModal from '@/components/SkillModal'
 import MaterialModal from '@/components/MaterialModal'
 import DualRangeSlider from '@/components/DualRangeSlider'
-import { Tooltip } from '@/components/Tooltip'
 import { i18nPosition } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
@@ -82,7 +81,7 @@ export default function Filter(): JSX.Element {
             <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
               耐性
             </div>
-            <Tooltip text="入力した数値以上のみ表示\n空欄でフィルタ解除">
+            <div className="mt-0 md:mt-1" data-tooltip-id="global" data-tooltip-html="入力した数値以上のみ表示<br />空欄でフィルタ解除">
               <div className="grid grid-cols-3 md:grid-cols-6 gap-1">
                 <div className="flex">
                   <span className="inline-flex items-center px-1 text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">
@@ -121,7 +120,7 @@ export default function Filter(): JSX.Element {
                   <input type="number" value={$resilienceFilter.earthResilience} onChange={(e) => changeResilience('earthResilience', e.target.value)} className="text-right rounded-none rounded-r-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full border-gray-300 px-1 py-0" />
                 </div>
               </div>
-            </Tooltip>
+            </div>
             <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
               改造
             </div>
