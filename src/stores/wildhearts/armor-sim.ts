@@ -20,7 +20,7 @@ const resilienceFilter = map<{[key in Resilience]: number | ''}>({
 const modifiers = ['無改造', '活人流改造', '獣道流改造']
 const modifierFilter = atom<typeof modifiers>(modifiers)
 const materialFilter = atom<Array<string>>([])
-const pathValueFilter = atom<Array<number>>([-150, 100])
+const pathValueFilter = atom<Array<number>>([-150, 150])
 const lockPositionFilter = atom<boolean>(false)
 
 // actions
