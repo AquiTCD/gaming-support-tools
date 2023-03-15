@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
 import { armorList, skillFilter, toggleFilter } from '@/stores/armor-sim'
+import SkillToolTip from '@/components/SkillToolTip'
 
 type Props={
   showSkillModal: boolean;
@@ -58,7 +59,8 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
                   const classes = `rounded-full px-2 md:px-3 py-1 mr-2 ${colorClasses}`
                   return <button key={i}
                     className={classes}
-                    onClick={() => toggleFilter('skill', skill)}>{skill}</button>
+                    onClick={() => toggleFilter('skill', skill)}
+                    data-tooltip-id="skill-modal-tooltip" data-tooltip-content={skill}>{skill}</button>
                   })
                 }
               </div>
@@ -67,6 +69,7 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
               </div>
             </div>
           </div>
+          <SkillToolTip id="skill-modal-tooltip" />
         </div>
       </>
     )

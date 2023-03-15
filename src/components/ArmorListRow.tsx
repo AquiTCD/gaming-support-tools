@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect} from 'react'
 import { currentLoadout, changeEquip, isEquipped, skillFilter, isLocked } from '@/stores/armor-sim'
-import { i18nPosition, pathValue } from '@/utils/utils'
+import { i18nPosition, pathValue, skillColorClass } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
 type Props = {
@@ -52,27 +52,11 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
   const decorateSkills = (skills: string[]|undefined) => {
     if (skills === undefined) { return; }
     const decoratedSkills = skills.map((skill:string, i:number) => {
-      let classes = ""
-      switch (true) {
-        case skill.startsWith('[活人皆伝]'):
-          classes += "text-blue-600"
-          break;
-        case skill.startsWith('[活人]'):
-          classes += "text-blue-800"
-          break;
-        case skill.startsWith('[獣道]'):
-          classes += "text-red-800"
-          break;
-        case skill.startsWith('[獣道皆伝]'):
-          classes += "text-red-600"
-          break;
-        default:
-          break;
-      }
+      let classes = skillColorClass(skill)
       if($skillFilter.includes(skill)) {
         classes += " font-bold"
       }
-      return <li key={i} className={classes}>{skill}</li>
+      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }

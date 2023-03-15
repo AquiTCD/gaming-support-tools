@@ -75,7 +75,7 @@ export default function Filter(): JSX.Element {
               { $skillFilter.map((skill, i) => {
                 const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
                 return <button key={i}
-                  className={classes} >{skill}</button>
+                  className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</button>
                 })
               }
             </div>

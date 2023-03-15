@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react'
 import { useEffect } from 'react'
 import { positions, currentLoadout, armorList, equip, remove, toggleLock, isLocked } from '@/stores/armor-sim'
-import { i18nPosition, pathValue } from '@/utils/utils'
+import { i18nPosition, pathValue, skillColorClass } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
@@ -68,7 +68,15 @@ export default function Loadout(): JSX.Element {
     const isPure = diff >= 150
     const pathName = diff < 50 ? '我流' : `${path}流${isPure ? '皆伝' : ''}`
 
-    return `${pathName}(${path}:${diff})`
+    const pathClasses = {
+      '活人流皆伝': "text-pure-human",
+      '活人流': "text-human",
+      '獣道流': "text-kemono",
+      '獣道流皆伝': "text-pure-kemono",
+      '我流': "text-normal-path"
+    }
+
+    return <><span className={pathClasses[pathName]}>{pathName}</span><br /><span className="text-xs">({path}:{diff})</span></>
   }
 
   const cellClass = (options: string[]) => {
@@ -85,25 +93,25 @@ export default function Loadout(): JSX.Element {
   const decorateSkills = (skills: string[]|undefined) => {
     if (skills === undefined) { return; }
     const decoratedSkills = skills.map((skill:string, i:number) => {
-      let classes = ""
+      let classes = skillColorClass(skill)
       const path = calc('path')
       switch (true) {
         case skill.startsWith('[活人皆伝]') && -150 < path:
-          classes += "line-through"
+          classes += " line-through"
           break;
         case skill.startsWith('[活人]') && -50 < path:
-          classes += "line-through"
+          classes += " line-through"
           break;
         case skill.startsWith('[獣道]') && path < 50:
-          classes += "line-through"
+          classes += " line-through"
           break;
         case skill.startsWith('[獣道皆伝]') && path < 150:
-          classes += "line-through"
+          classes += " line-through"
           break;
         default:
           break;
       }
-      return <li key={i} className={classes}>{skill}</li>
+      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }
@@ -169,7 +177,7 @@ export default function Loadout(): JSX.Element {
             <td className="p-1 md:p-2 text-center rounded-bl-lg" colSpan={2}>合計</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
             <td className={cellClass(['t-c', 'b-l'])}>-</td>
-            <td className={cellClass(['t-c', 'b-l'])}>{pathCalc()}</td>
+            <td className={cellClass(['t-c', 'b-l']) + " leading-none"}>{pathCalc()}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{calc('defence')}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('woodResilience'))}</td>
             <td className={cellClass(['t-r', 'b-l'])}>{colorize(calc('fireResilience'))}</td>
