@@ -2,6 +2,7 @@ import { useStore } from '@nanostores/react'
 import React from 'react'
 import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, pathValueFilter } from '@/stores/wildhearts/armor-sim'
 import ArmorListRow from '@/features/wildhearts/armor-sim/ArmorListRow'
+import { skillName } from '@/utils/utils'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {
@@ -27,7 +28,8 @@ export default function ArmorList(): JSX.Element {
     }
     if ($skillFilter.length > 0) {
       list = Object.values(list).filter((armor) => {
-        return [...armor.skills, ...$skillFilter].filter(item => armor.skills.includes(item) && $skillFilter.includes(item)).length > 0
+        const armorSkills = armor.skills.map(skill => skillName(skill))
+        return [...armorSkills, ...$skillFilter].filter(item => armorSkills.includes(item) && $skillFilter.includes(item)).length > 0
       })
     }
     if (0 < $materialFilter.length && $materialFilter.length < allMaterials.length ) {
@@ -64,7 +66,6 @@ export default function ArmorList(): JSX.Element {
       }
     }
     list = Object.values(list).filter(armor => $pathValueFilter[0] <= armor.path && armor.path <= $pathValueFilter[1] )
-
     return list
   }
 

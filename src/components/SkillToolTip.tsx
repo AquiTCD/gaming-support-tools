@@ -19,7 +19,7 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
   return (
     <>
       <Tooltip id={id} render={({ content }) => {
-        const skillName = content ? content.replace(/\s\+?\d+%?$/, '') : ''
+        const skillName = content ?? ''
         return (
           <div className="text-xs md:text-sm">
             <p>{skillName}</p>
