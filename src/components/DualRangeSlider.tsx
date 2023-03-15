@@ -1,6 +1,6 @@
 import Slider from 'rc-slider'
 import { useStore } from '@nanostores/react'
-import { pathValueFilter } from '@/stores/armor-sim'
+import { pathValueFilter } from '@/stores/wildhearts/armor-sim'
 import 'rc-slider/assets/index.css'
 
 export default function DualRangeSlider(): JSX.Element {

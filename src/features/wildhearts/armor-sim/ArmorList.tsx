@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react'
 import React from 'react'
-import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, pathValueFilter } from '@/stores/armor-sim'
-import ArmorListRow from '@/components/ArmorListRow'
+import { positionFilter, armorList, currentLoadout, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, pathValueFilter } from '@/stores/wildhearts/armor-sim'
+import ArmorListRow from '@/features/wildhearts/armor-sim/ArmorListRow'
 import type { Loadout, Position, Armor, Resilience } from '@/types/types'
 
 export default function ArmorList(): JSX.Element {

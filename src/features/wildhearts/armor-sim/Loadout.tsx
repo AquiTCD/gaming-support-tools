@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import { useEffect } from 'react'
-import { positions, currentLoadout, armorList, equip, remove, toggleLock, isLocked } from '@/stores/armor-sim'
+import { positions, currentLoadout, armorList, equip, remove, toggleLock, isLocked } from '@/stores/wildhearts/armor-sim'
 import { i18nPosition, pathValue, skillColorClass } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 

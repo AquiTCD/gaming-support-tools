@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import { useEffect, useState } from 'react'
-import { currentLoadout, equip } from '@/stores/armor-sim'
+import { currentLoadout, equip } from '@/stores/wildhearts/armor-sim'
 
 export default function StateUrl(): JSX.Element {
   const $currentLoadout = useStore(currentLoadout)

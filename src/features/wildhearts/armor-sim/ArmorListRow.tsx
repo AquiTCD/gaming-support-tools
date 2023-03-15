@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect} from 'react'
-import { currentLoadout, changeEquip, isEquipped, skillFilter, isLocked } from '@/stores/armor-sim'
+import { currentLoadout, changeEquip, isEquipped, skillFilter, isLocked } from '@/stores/wildhearts/armor-sim'
 import { i18nPosition, pathValue, skillColorClass } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 

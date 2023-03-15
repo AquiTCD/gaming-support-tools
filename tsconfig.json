@@ -5,6 +5,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
+      "@/features/*": [
+        "src/features/*"
+      ],
       "@/components/*": [
         "src/components/*"
       ],

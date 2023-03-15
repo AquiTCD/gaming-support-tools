@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
-import { armorList, skillFilter, toggleFilter } from '@/stores/armor-sim'
+import { armorList, skillFilter, toggleFilter } from '@/stores/wildhearts/armor-sim'
 import SkillToolTip from '@/components/SkillToolTip'
 
 type Props={

@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
-import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter } from '@/stores/armor-sim'
+import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter } from '@/stores/wildhearts/armor-sim'
 import SkillModal from '@/components/SkillModal'
 import MaterialModal from '@/components/MaterialModal'
 import DualRangeSlider from '@/components/DualRangeSlider'
