@@ -10,7 +10,7 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
   const skillDescription = (name:string|null):string => {
     let description = ''
     if (name) {
-      const found = allSkillList.find(item => item.name === name.replace(/\s\+?\d*%?$/, ''))
+      const found = allSkillList.find(item => item.name === name)
       description = found?.description ?? '説明が見つかりませんでした'
     }
     return description
@@ -18,14 +18,15 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
 
   return (
     <>
-      <Tooltip id={id}
-        render={({ content }) => (
+      <Tooltip id={id} render={({ content }) => {
+        const skillName = content ? content.replace(/\s\+?\d+%?$/, '') : ''
+        return (
           <div className="text-xs md:text-sm">
-            <p>{content}</p>
+            <p>{skillName}</p>
             <hr />
-            <p>{skillDescription(content)}</p>
+            <p>{skillDescription(skillName)}</p>
           </div>
-        )}>
+        )}}>
       </Tooltip>
     </>
   );
