@@ -1,6 +1,8 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
-import { armorList, skillFilter, toggleFilter } from '@/stores/armor-sim'
+import { armorList, skillFilter, toggleFilter } from '@/stores/wildhearts/armor-sim'
+import { skillName } from '@/utils/utils'
+import allSkillList from '@/assets/wildhearts/skill_list.json'
 import SkillToolTip from '@/components/SkillToolTip'
 
 type Props={
@@ -13,14 +15,19 @@ export default function Modal({ showSkillModal, setShowSkillModal }: Props): JSX
   const $skillFilter = useStore(skillFilter)
   const [searchInput, setSearchInput] = useState('')
   const allSkills = new Set($armorList.flatMap(armor => armor.skills ))
+
+  const allArmorSkillList = allSkillList.filter(skill => {
+    return Array.from(allSkills).map(armorSkill => skillName(armorSkill)).includes(skill.name)
+  })
+
   const title = "技能フィルタ"
 
   const skillList = ():string[] => {
-    let list = Array.from(allSkills)
+    let list = allArmorSkillList.sort((a, b) => a.kana.localeCompare(b.kana, 'ja'))
     if (searchInput) {
-      list = list.filter(item => item.includes(searchInput))
+      list = list.filter(skill => skill.name.includes(searchInput) || skill.kana.includes(searchInput))
     }
-    return list
+    return list.map(skill => skill.name)
   }
 
   if (showSkillModal) {

@@ -1,11 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Loadout from '@/components/Loadout';
+import Loadout from '@/features/wildhearts/armor-sim/Loadout';
 import StateUrl from '@/components/StateUrl';
 import Hr from '@/components/Hr.astro';
-import Filter from '@/components/Filter';
-import ArmorList from '@/components/ArmorList';
+import Filter from '@/features/wildhearts/armor-sim/Filter';
+import ArmorList from '@/features/wildhearts/armor-sim/ArmorList';
 import SkillToolTip from '@/components/SkillToolTip'
+import GlobalToolTip from '@/components/GlobalToolTip'
 
 const title = "WILD HEARTS 防具シミュレータ"
 const description = "WILD HEARTS 内で装備可能な防具の数値や技能を調べたり組み合わせを調べることができるシミュレータ"
@@ -32,6 +33,7 @@ const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
       </ul>
     </section>
 	</main>
+  <GlobalToolTip client:load />
 </Layout>
 
 <style>

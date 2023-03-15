@@ -33,4 +33,8 @@ const skillColorClass = (skill: string):string => {
   }
 }
 
-export { i18nPosition, pathValue, skillColorClass }
+const skillName = (skill: string):string => {
+  return skill.replace(/\s\+?\d+%?$/, '')
+}
+
+export { i18nPosition, pathValue, skillColorClass, skillName }

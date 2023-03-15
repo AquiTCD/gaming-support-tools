@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import { armorList, materialFilter, toggleFilter } from '@/stores/armor-sim'
+import { armorList, materialFilter, toggleFilter } from '@/stores/wildhearts/armor-sim'
 
 type Props={
   showMaterialModal: boolean;
