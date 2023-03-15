@@ -5,6 +5,7 @@ import StateUrl from '@/components/StateUrl';
 import Hr from '@/components/Hr.astro';
 import Filter from '@/components/Filter';
 import ArmorList from '@/components/ArmorList';
+import SkillToolTip from '@/components/SkillToolTip'
 
 const title = "WILD HEARTS 防具シミュレータ"
 const description = "WILD HEARTS 内で装備可能な防具の数値や技能を調べたり組み合わせを調べることができるシミュレータ"
@@ -22,6 +23,7 @@ const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
     <div class="overflow-x-scroll w-full h-screen">
       <ArmorList client:load />
     </div>
+    <SkillToolTip id="skill-tooltip" client:load />
 
     <section class="mt-2 text-xs text-gray-500">
       <ul>

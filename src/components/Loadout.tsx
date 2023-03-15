@@ -111,7 +111,7 @@ export default function Loadout(): JSX.Element {
         default:
           break;
       }
-      return <li key={i} className={classes}>{skill}</li>
+      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }

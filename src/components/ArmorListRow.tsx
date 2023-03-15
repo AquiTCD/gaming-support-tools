@@ -56,7 +56,7 @@ export default function ArmorListRow({ list }: Props): JSX.Element {
       if($skillFilter.includes(skill)) {
         classes += " font-bold"
       }
-      return <li key={i} className={classes}>{skill}</li>
+      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }
