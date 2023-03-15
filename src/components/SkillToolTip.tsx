@@ -1,19 +1,16 @@
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
+import allSkillList from '@/assets/wildhearts/skill_list.json'
 
 type Props={
   id: string;
 }
 
 export default function SkillToolTip({ id }: Props): JSX.Element {
-  const allSkills  = [
-      { name: '[活人]蘇生ノ構', description: '仲間を救援すると、一定時間、攻撃と防御が上昇する。'}
-    ]
-
   const skillDescription = (name:string|null):string => {
     let description = ''
     if (name) {
-      const found = allSkills.find(item => item.name === name.replace(/\s\+?\d*%?$/g, ''))
+      const found = allSkillList.find(item => item.name === name.replace(/\s\+?\d*%?$/, ''))
       description = found?.description ?? '説明が見つかりませんでした'
     }
     return description
@@ -23,7 +20,7 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
     <>
       <Tooltip id={id}
         render={({ content }) => (
-          <div>
+          <div className="text-xs md:text-sm">
             <p>{content}</p>
             <hr />
             <p>{skillDescription(content)}</p>
