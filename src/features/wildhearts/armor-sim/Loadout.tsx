@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react'
 import { useEffect } from 'react'
 import { positions, currentLoadout, armorList, equip, remove, toggleLock, isLocked } from '@/stores/wildhearts/armor-sim'
-import { i18nPosition, pathValue, skillColorClass } from '@/utils/utils'
+import { i18nPosition, pathValue, skillColorClass, skillName } from '@/utils/utils'
 import type { Loadout, Position, Armor } from '@/types/types'
 
 export default function Loadout(): JSX.Element {
@@ -111,7 +111,7 @@ export default function Loadout(): JSX.Element {
         default:
           break;
       }
-      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</li>
+      return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skillName(skill)}>{skill}</li>
     })
     return <>{decoratedSkills}</>
   }
