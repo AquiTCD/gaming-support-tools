@@ -1,0 +1,23 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Canvas from '@/features/wildhearts/weapon-sim/Canvas';
+import Equipped from '@/features/wildhearts/weapon-sim/Equipped';
+
+const title = "WILD HEARTS 武器シミュレータ"
+const description = "WILD HEARTS 内で装備可能な武器の派生を調べることができるシミュレータ"
+const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
+---
+<Layout title={title} description={description} og_image={og_image}>
+  <main>
+    <Equipped client:load />
+    <Canvas client:only="react" />
+	</main>
+  <!-- <GlobalToolTip client:load /> -->
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+  }
+</style>
