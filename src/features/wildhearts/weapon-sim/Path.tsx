@@ -6,13 +6,13 @@ type Props={
   coords: string[];
 }
 
-const columns = 'ABCDEFG'
+const columns = 'ABCDEFGHIJKLMNOPQ'
 const pos: { [key: string]: {x: number, y:number} } = {}
-for(let row:number = 1; row <= 7; row++)  {
+for(let row:number = 1; row <= 16; row++)  {
   for(let column:number = 1; column <= columns.length; column++) {
     pos[`${String(row)}${columns.charAt(column - 1)}`] = {
-      x: column * 100,
-      y: row * 100,
+      x: column * 80 - 20,
+      y: row * 80 - 20,
     }
   }
 }

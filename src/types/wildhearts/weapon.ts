@@ -1,7 +1,7 @@
 export type Select = {
   order: number,
   coord: string, // '1D'
-  skills: string[],  // ['1D-0', '1D-1']
+  skills: {id: string, name: string}[],  // ['1D-0', '1D-1']
 }
 export type Weapon = {
   coord: string,
@@ -11,5 +11,5 @@ export type Weapon = {
   element: string,
   elementalPower: number,
   specificSkills: string[],
-  skills: string[],
+  skills: {id: string, name: string}[],
 }

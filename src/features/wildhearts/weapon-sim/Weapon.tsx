@@ -1,27 +1,25 @@
 import { Circle } from "react-konva"
-import React, { useState } from 'react'
 import { useStore } from '@nanostores/react'
-import { selection } from '@/stores/wildhearts/weapon-sim'
-import InheritModal from '@/features/wildhearts/weapon-sim/InheritModal'
+import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
 
 type Props={
   coord: string;
 }
 
-const columns = 'ABCDEFG'
+const columns = 'ABCDEFGHIJKLMNOPQ'
 const pos: { [key: string]: {x: number, y:number} } = {}
-for(let row:number = 1; row <= 7; row++)  {
+for(let row:number = 1; row <= 16; row++)  {
   for(let column:number = 1; column <= columns.length; column++) {
     pos[`${String(row)}${columns.charAt(column - 1)}`] = {
-      x: column * 100,
-      y: row * 100,
+      x: column * 80 - 20,
+      y: row * 80 - 20,
     }
   }
 }
 
 export default function Weapon({ coord }: Props): JSX.Element {
   const $selection = useStore(selection)
-  const [showInheritModal, setShowInheritModal] = useState(false)
+  const $modalState = useStore(modalState)
 
   const isSelected = (coord):boolean => {
     return Boolean($selection.find(item => item.coord === coord))
@@ -33,9 +31,8 @@ export default function Weapon({ coord }: Props): JSX.Element {
 
   return (
     <>
-      <Circle onClick={() => setShowInheritModal(true)}
-       fill={circleColor(coord)} x={pos[coord]['x']} y={pos[coord]['y']} width={50} height={50} />
-      <InheritModal showInheritModal={showInheritModal} setShowInheritModal={setShowInheritModal} />
+      <Circle onClick={() => open('craftModal', coord)}
+       fill={circleColor(coord)} x={pos[coord]['x']} y={pos[coord]['y']} width={40} height={40} />
     </>
   );
 }

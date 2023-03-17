@@ -5,7 +5,8 @@ import Path from '@/features/wildhearts/weapon-sim/Path'
 type Props={
   name?: string;
 }
-
+// A-Q
+// 1-16
 export default function Canvas({ name }: Props): JSX.Element {
   // const coordinate(pos:'x'|'y', id:string) => {
   // }

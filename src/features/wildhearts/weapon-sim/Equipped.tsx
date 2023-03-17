@@ -20,31 +20,37 @@ export default function Equipped({ name }: Props): JSX.Element {
   return (
     <>
     {isClient &&
-      <table>
+      <table className="border border-1 border-gray-700">
         <tbody>
-        <tr>
-          <th>名称</th>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">名称</th>
           <td>{EquippedWeapon?.name}</td>
         </tr>
-        <tr>
-          <th>属性</th>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">属性</th>
           <td>{EquippedWeapon?.chara}</td>
         </tr>
-        <tr>
-          <th>攻撃力</th>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">攻撃力</th>
           <td>{EquippedWeapon?.power}</td>
         </tr>
-        <tr>
-          <th>属性攻撃力</th>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">属性攻撃力</th>
           <td>{EquippedWeapon?.elementalPower}</td>
         </tr>
-        <tr>
-          <th>固有技能</th>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">固有技能</th>
           <td>{EquippedWeapon?.specificSkills}</td>
         </tr>
-        <tr>
-          <th>継承技能</th>
-          <td>{inheritanceSkills}</td>
+        <tr className="border border-1 border-gray-700">
+          <th className="border border-1 border-gray-700">継承技能</th>
+          <td>
+            <ul>
+              { inheritanceSkills.map((skill, i) => {
+                return <li key={skill.id}>{skill.name}</li>
+              })}
+            </ul>
+          </td>
         </tr>
         </tbody>
       </table>
