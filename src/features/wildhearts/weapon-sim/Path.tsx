@@ -20,7 +20,9 @@ for(let row:number = 1; row <= 16; row++)  {
 export default function Path({ coords }: Props): JSX.Element {
   const $selection = useStore(selection)
   const isSelected = (coords) => {
-    return $selection.find(item => item.coord === coords[0]) && $selection.find(item => item.coord === coords[1])
+    const foundIdx = $selection.findIndex(item => item.coord === coords[0])
+    if(foundIdx === -1) { return false}
+    return $selection[foundIdx + 1]?.coord === coords[1] || $selection[foundIdx - 1]?.coord === coords[1]
   }
   const lineColor = (coords) => {
     return isSelected(coords) ? '#4ade80' : 'gray'
