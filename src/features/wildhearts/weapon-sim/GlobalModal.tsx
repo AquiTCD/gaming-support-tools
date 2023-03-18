@@ -1,10 +1,10 @@
-import CraftModal from '@/features/wildhearts/weapon-sim/CraftModal';
+import EnhanceModal from '@/features/wildhearts/weapon-sim/EnhanceModal';
 
 export default function GlobalModal(): JSX.Element {
 
   return (
     <>
-      <CraftModal />
+      <EnhanceModal />
     </>
   );
 }

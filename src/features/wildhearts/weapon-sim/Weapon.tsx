@@ -1,38 +1,34 @@
 import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
 import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
+import { location } from '@/utils/utils'
 
 type Props={
   coord: string;
 }
 
-const columns = 'ABCDEFGHIJKLMNOPQ'
-const pos: { [key: string]: {x: number, y:number} } = {}
-for(let row:number = 1; row <= 16; row++)  {
-  for(let column:number = 1; column <= columns.length; column++) {
-    pos[`${String(row)}${columns.charAt(column - 1)}`] = {
-      x: column * 80 - 20,
-      y: row * 80 - 20,
-    }
-  }
+const colors = {
+  fill: { active: '#15803d', inactive: '#1f2937' },
+  stroke: { active: '#4ade80', inactive: '#a16207' },
 }
 
 export default function Weapon({ coord }: Props): JSX.Element {
   const $selection = useStore(selection)
-  const $modalState = useStore(modalState)
 
-  const isSelected = (coord):boolean => {
+  const isSelected = () => {
     return Boolean($selection.find(item => item.coord === coord))
   }
-  const circleColor = (coord):string => {
-    return isSelected(coord) ? '#4ade80' : 'gray'
+  const color = (type: keyof typeof colors) => {
+    const state = isSelected() ? 'active' : 'inactive'
+    return colors[type][state]
   }
-
 
   return (
     <>
-      <Circle onClick={() => open('craftModal', coord)}
-       fill={circleColor(coord)} x={pos[coord]['x']} y={pos[coord]['y']} width={40} height={40} />
+      <Circle onClick={() => open('enhanceModal', coord)}
+        fill={color('fill')} stroke={color('stroke')}
+        shadowColor={colors.stroke.active} shadowBlur={15} shadowEnabled={isSelected()}
+        x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 60} height={isSelected() ? 30 : 40} />
     </>
   );
 }

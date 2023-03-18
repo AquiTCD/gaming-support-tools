@@ -3,7 +3,7 @@ export type Select = {
   coord: string, // '1D'
   skills: {id: string, name: string}[],  // ['1D-0', '1D-1']
 }
-const coordinate = [
+export const coordinates = [
                        '1D',                              '1I',                              '1N',
   // '2A',  '2B',  '2C',  '2D',  '2E',  '2F',  '2G',  '2H',  '2I',  '2J',  '2K',  '2L',  '2M',  '2N',  '2O',  '2P',  '1Q',
                                                    '3H',  '3I',  '3J',
@@ -20,16 +20,24 @@ const coordinate = [
   '14A', '14B',                      '14F',               '14I',               '14L',                      '14P',
   // '15A', '15B', '15C', '15D', '15E', '15F', '15G', '15H', '15I', '15J', '15K', '15L', '15M', '15N', '15O', '15P', '15Q',
                               '16E',                                                  '16M',
-]
+] as const
 
+export type Coordinate = typeof coordinates[number]
+
+export type InheritedSkill = {
+  id: string,
+  name: string,
+}
 
 export type Weapon = {
-  coord: string,
+  coord: Coordinate,
   name: string,
-  chara: string,
-  power: number,
-  element: string,
-  elementalPower: number,
-  specificSkills: string[],
-  skills: {id: string, name: string}[],
+  charac: '斬撃' | '殴打' | '刺突',
+  attack: number,
+  critical: number,
+  attribute: '樹' | '火' | '水' | '風' | '土' | '',
+  attributePower: number,
+  inherentSkills: string[],
+  inheritedSkills: InheritedSkill[],
+  capacity: number,
 }
