@@ -2,9 +2,10 @@ import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
 import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
 import { location } from '@/utils/utils'
+import type { Coordinate } from '@/types/wildhearts/weapon'
 
 type Props={
-  coord: string;
+  coord: Coordinate;
 }
 
 const colors = {

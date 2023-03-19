@@ -10,10 +10,10 @@ const initialModalState = {
   enhanceModal: false
 }
 // const modalState = map<{[typeof initialModalState]: string | boolean}>(initialModalState)
-const modalState = map<{}>(initialModalState)
+const modalState = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
 
 // action
-const open = (modalName:keyof typeof initialModalState, value:string|true = true) => {
+const open = (modalName:keyof typeof initialModalState, value:Coordinate|true = true) => {
   console.log(`${modalName}, ${value}`)
   modalState.setKey(modalName, value)
 }

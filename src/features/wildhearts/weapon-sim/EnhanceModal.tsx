@@ -1,10 +1,8 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect } from 'react'
 import { selection, allWeapons, enhance, modalState, close } from '@/stores/wildhearts/weapon-sim'
-import { skillName } from '@/utils/utils'
-import allSkillList from '@/assets/wildhearts/skill_list.json'
 import SkillToolTip from '@/components/SkillToolTip'
-import type { InheritedSkill } from '@/types/wildhearts/weapon'
+import type { InheritedSkill, Coordinate } from '@/types/wildhearts/weapon'
 
 export default function EnhanceModal(): JSX.Element | null {
   const $selection = useStore(selection)
@@ -61,11 +59,11 @@ export default function EnhanceModal(): JSX.Element | null {
     }
     return (
       <>
-        <div className="fixed text-xs md:text-sm bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-1/3 p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+        <div className="fixed text-xs md:text-sm bg-gray-600 bg-opacity-50 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
           <div className="relative w-full h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {ModalHeader()}
-              <div className="px-4 py-2 space-y-2 flex">
+              <div className="px-4 py-2 space-y-2 grid grid-cols-3 gap-8">
                 <table className="border border-1 border-gray-700">
                   <tbody>
                     <tr className="border border-1 border-gray-700">
@@ -85,9 +83,11 @@ export default function EnhanceModal(): JSX.Element | null {
                     </tr>
                   </tbody>
                 </table>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                </svg>
+                <div className="place-self-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </div>
                 <table className="border border-1 border-gray-700">
                   <tbody>
                     <tr className="border border-1 border-gray-700">
@@ -111,7 +111,7 @@ export default function EnhanceModal(): JSX.Element | null {
                 </table>
               </div>
               <div className="flex justify-end items-center px-3 py-2 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button type="button" onClick={() => enhance(coord, selectedSkills)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">OK</button>
+                <button type="button" onClick={() => enhance(coord as Coordinate, selectedSkills)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">OK</button>
               </div>
             </div>
           </div>

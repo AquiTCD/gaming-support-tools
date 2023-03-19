@@ -20,34 +20,52 @@ export default function Equipped({ name }: Props): JSX.Element {
   return (
     <>
     {isClient &&
-      <table className="border border-1 border-gray-700">
+      <table className="border-separate border-4 border-gray-700 w-80 rounded-lg border-spacing-2">
         <tbody>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">名称</th>
-          <td>{EquippedWeapon?.name}</td>
+        <tr>
+          <td className="border-b-2 border-gray-700 text-center text-lg md:text-xl py-1 md:py-2" colSpan={2}>{EquippedWeapon?.name}</td>
         </tr>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">属性</th>
-          <td>{EquippedWeapon?.charac}</td>
+        <tr>
+          <th className="border-b-2 border-r border-gray-700">攻撃力</th>
+          <td className="border-b-2 border-gray-700">
+            <span>{EquippedWeapon?.charac}</span>
+            <span>{EquippedWeapon?.attack}</span>
+          </td>
         </tr>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">攻撃力</th>
-          <td>{EquippedWeapon?.attack}</td>
+        <tr>
+          <th className="border-b-2 border-r border-gray-700">属性攻撃力</th>
+          <td className="border-b-2 border-gray-700">
+            <span>{EquippedWeapon?.attribute}</span>
+            <span>{EquippedWeapon?.attributePower}</span>
+          </td>
         </tr>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">属性攻撃力</th>
-          <td>{EquippedWeapon?.attributePower}</td>
+        <tr>
+          <th className="border-b-2 border-r border-gray-700">会心率</th>
+          <td className="border-b-2 border-gray-700">
+            <span>{EquippedWeapon?.critical}</span>
+            <span>%</span>
+          </td>
         </tr>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">固有技能</th>
-          <td>{EquippedWeapon?.inherentSkills}</td>
+        <tr>
+          <th className="border-b-2 border-gray-700" colSpan={2}>固有技能</th>
         </tr>
-        <tr className="border border-1 border-gray-700">
-          <th className="border border-1 border-gray-700">継承技能</th>
-          <td>
+        <tr>
+          <td colSpan={2}>
             <ul>
-              { inheritedSkills.map((skill, i) => {
-                return <li key={skill.id}>{skill.name}</li>
+              { [0,1,2].map(i => {
+                return <li key={i} className="border-b border-gray-700 h-6">{EquippedWeapon?.inherentSkills[i]}</li>
+              })}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th className="border-b-2 border-gray-700" colSpan={2}>継承技能</th>
+        </tr>
+        <tr>
+          <td colSpan={2}>
+            <ul>
+              { [0,1,2,3,4].map(i => {
+                return <li key={i} className="border-b border-gray-700 h-6">{inheritedSkills[i]?.name}</li>
               })}
             </ul>
           </td>

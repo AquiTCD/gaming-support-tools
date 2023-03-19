@@ -11,7 +11,7 @@ type Props={
 export default function Canvas({ name }: Props): JSX.Element {
   return (
     <>
-      <Stage width={1800} height={1300}>
+      <Stage width={1400} height={1300}>
         {/* base */}
         {/* 1a 1b 1c 1d 1e 1f 1g*/}
         {/* 2a 2b 2c 2d 2e 2f 2g*/}
