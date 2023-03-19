@@ -9,7 +9,7 @@ export const allWeaponList = [
     attributePower: 0,
     inherentSkills: [],
     inheritedSkills: [],
-    capacity: 1
+    capacity: 2
   },
   {
     coord: '1I',
@@ -21,7 +21,7 @@ export const allWeaponList = [
     attributePower: 0,
     inherentSkills: [],
     inheritedSkills: [],
-    capacity: 0
+    capacity: 2
   },
   {
     coord: '1N',
@@ -37,7 +37,7 @@ export const allWeaponList = [
       {id: '1N-0', name: 'ピーラーいらず'
       }
     ],
-    capacity: 0
+    capacity: 2
   },
   {
     coord: '4O',
@@ -53,7 +53,7 @@ export const allWeaponList = [
       {id: '4O-0', name: 'カレー曜日'
       }
     ],
-    capacity: 0
+    capacity: 2
   },
   {
     coord: '5O',
@@ -69,6 +69,6 @@ export const allWeaponList = [
       {id: '5O', name: 'つばめ返し'
       }
     ],
-    capacity: 0
+    capacity: 3
   }
 ]
