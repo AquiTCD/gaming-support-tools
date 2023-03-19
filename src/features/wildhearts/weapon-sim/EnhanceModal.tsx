@@ -16,22 +16,27 @@ export default function EnhanceModal(): JSX.Element | null {
   const currentWeapon = allWeapons.find(w => w.coord === lastSelected.coord)!
 
   const inheritableSkills = lastSelected.skills
-  const [inheritedSkills, setInheritedSkill] = useState<InheritedSkill[]>([])
   useEffect(() => {
-    setInheritedSkill([...inheritableSkills]);
+    // 選択した武器が変更されるたびに初期化
     setSelectedSkill([]);
-  }, [inheritableSkills])
+  }, [selectedWeapon])
+
+  const isSelected = (skill: InheritedSkill): boolean => {
+    console.log(skill)
+    const found = selectedSkills.find(selected => selected.id === skill.id)
+    return Boolean(found)
+  }
 
   const selectSkill = (skill: InheritedSkill) => {
+
+    if (selectedSkills.length >= selectedWeapon.capacity) { return }
+    if (isSelected(skill)) { return }
     // add
+    console.log('select')
     setSelectedSkill(prev => [...prev, skill])
-    // remove
-    const removedArr = inheritedSkills.filter(inheritance => inheritance.id !== skill.id)
-    setInheritedSkill([...removedArr])
+    console.log(selectedSkills)
   }
   const deSelectSkill = (skill: InheritedSkill) => {
-    // add
-    setInheritedSkill(prev => [...prev, skill])
     // remove
     const removedArr = selectedSkills.filter(selected => selected.id !== skill.id)
     setSelectedSkill([...removedArr])
@@ -64,49 +69,136 @@ export default function EnhanceModal(): JSX.Element | null {
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {ModalHeader()}
               <div className="px-4 py-2 space-y-2 grid grid-cols-3 gap-8">
-                <table className="border border-1 border-gray-700">
+                <table className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-2">
                   <tbody>
-                    <tr className="border border-1 border-gray-700">
-                      <th className="border border-1 border-gray-700">名称</th>
-                      <td>{currentWeapon.name}</td>
-                    </tr>
-                    <tr>
-                      <th className="border border-1 border-gray-700">技能</th>
-                      <td>
-                        <ul>
-                          { inheritedSkills.map((skill, i) => {
-                            return <li key={skill.id} onClick={() => selectSkill(skill)}>{skill.name}</li>
-                          })
+                  <tr>
+                    <td className="border-b-2 border-amber-200 text-center text-lg md:text-xl py-1 md:py-2 font-bold" colSpan={2}>{currentWeapon?.name}</td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">攻撃力</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span className="mr-2">{currentWeapon?.charac}</span>
+                      <span>{currentWeapon?.attack}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">属性攻撃力</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span className="mr-2">{currentWeapon?.attribute}</span>
+                      <span>{currentWeapon?.attributePower}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">会心率</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span>{currentWeapon?.critical}</span>
+                      <span>%</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200" colSpan={2}>固有技能</th>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <ul>
+                        { [0,1,2].map(i => {
+                          return <li key={i} className="bg-gray-900/75 h-7 pt-0.5 mb-1 px-2">{currentWeapon?.inherentSkills[i]}</li>
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200" colSpan={2}>継承技能</th>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <ul>
+                        { [0,1,2,3,4].map(i => {
+                          const skill = inheritableSkills[i]
+                          if (skill) {
+                            const classes = isSelected(skill) ? 'text-gray-500' : ''
+                            return <li key={skill.id} className={`bg-gray-900/75 h-7 pt-0.5 mb-1 px-2 ${classes}`}
+                            onClick={() => selectSkill(skill)}>{skill.name}</li>
+                          } else {
+                            const classes = i > currentWeapon.inheritedSkills.length + currentWeapon.capacity ?
+                              '' : 'bg-gray-900/75 h-7 pt-0.5 mb-1 px-2'
+                            return <li key={i} className={classes}> </li>
                           }
-                        </ul>
-                      </td>
-                    </tr>
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
+
                 <div className="place-self-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                   </svg>
                 </div>
-                <table className="border border-1 border-gray-700">
+
+                <table className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-2">
                   <tbody>
-                    <tr className="border border-1 border-gray-700">
-                      <th className="border border-1 border-gray-700">名称</th>
-                      <td>{selectedWeapon.name}</td>
-                    </tr>
-                    <tr>
-                      <th className="border border-1 border-gray-700">技能</th>
-                      <td>
-                        <ul>
-                          { selectedWeapon.inheritedSkills.map((skill, i) => {
-                            return <li key={skill.id}>{skill.name}</li>
-                          })}
-                          { selectedSkills.map((skill, i) => {
-                            return <li key={skill.id} onClick={() => deSelectSkill(skill)}>{skill.name}</li>
-                          })}
-                        </ul>
-                      </td>
-                    </tr>
+                  <tr>
+                    <td className="border-b-2 border-amber-200 text-center text-lg md:text-xl py-1 md:py-2 font-bold" colSpan={2}>{selectedWeapon.name}</td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">攻撃力</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span className="mr-2">{selectedWeapon.charac}</span>
+                      <span>{selectedWeapon.attack}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">属性攻撃力</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span className="mr-2">{selectedWeapon.attribute}</span>
+                      <span>{selectedWeapon.attributePower}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200 text-right font-normal w-28">会心率</th>
+                    <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
+                      <span>{selectedWeapon.critical}</span>
+                      <span>%</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200" colSpan={2}>固有技能</th>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <ul>
+                        { [0,1,2].map(i => {
+                          return <li key={i} className="bg-gray-900/75 h-7 pt-0.5 mb-1 px-2">{selectedWeapon.inherentSkills[i]}</li>
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="border-b-2 border-amber-200" colSpan={2}>継承技能</th>
+                  </tr>
+                  <tr>
+                    <td colSpan={2}>
+                      <ul>
+                        { [...Array(5)].map((_, i) => i).map(i => {
+                          let classes = "bg-gray-900/75 h-7 pt-0.5 mb-1 px-2"
+                          let skill = selectedWeapon.inheritedSkills[i]
+                          if (skill) {
+                            return <li key={skill.id} className={classes}>{skill.name}</li>
+                          }
+                          skill = selectedSkills[i - selectedWeapon.inheritedSkills.length]
+                          if (skill) {
+                            return <li key={skill.id} className={classes} onClick={() => deSelectSkill(skill)}>{skill.name}</li>
+                          }
+                          if (i >= selectedWeapon.inheritedSkills.length + selectedWeapon.capacity) {
+                            classes = 'h-7 pt-0.5 mb-1 px-2'
+                          }
+                          return <li key={i} className={classes}></li>
+                        })}
+                      </ul>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>

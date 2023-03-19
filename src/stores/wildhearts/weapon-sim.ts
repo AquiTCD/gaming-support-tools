@@ -14,7 +14,6 @@ const modalState = map<{ [key in keyof typeof initialModalState]: boolean | Coor
 
 // action
 const open = (modalName:keyof typeof initialModalState, value:Coordinate|true = true) => {
-  console.log(`${modalName}, ${value}`)
   modalState.setKey(modalName, value)
 }
 const close = (modalName:keyof typeof initialModalState) => {
