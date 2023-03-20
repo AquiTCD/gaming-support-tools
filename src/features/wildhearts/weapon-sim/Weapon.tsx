@@ -50,7 +50,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
   const enhanceOrRestore = () => {
     switch (state()) {
       case 'active': {
-        // open('restoreModal', coord)
+        open('restoreModal', coord)
         break
       }
       case 'candidate': {

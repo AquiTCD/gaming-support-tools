@@ -8,7 +8,8 @@ const allWeapons: Weapon[] = allWeaponList
 const selection = map<Select[]>([{order:1, coord:'1I', skills:[]}])
 const initialModalState = {
   enhanceModal: false,
-  requirementsModal: false
+  requirementsModal: false,
+  restoreModal: false
 }
 // const modalState = map<{[typeof initialModalState]: string | boolean}>(initialModalState)
 const modalState = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
@@ -33,4 +34,11 @@ const enhance = (coord: Coordinate, skills:InheritedSkill[] | undefined) => {
   close('enhanceModal')
 }
 
-export { allWeapons, selection, open, close, enhance, modalState }
+const restore = (coord: Coordinate) => {
+  const selected = selection.get().find(select => select.coord === coord)!
+  const restoredSelection = selection.get().filter(select => select.order <= selected.order)
+  selection.set([...restoredSelection])
+  close('restoreModal')
+}
+
+export { allWeapons, selection, open, close, enhance, restore, modalState }

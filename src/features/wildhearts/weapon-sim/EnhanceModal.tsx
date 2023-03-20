@@ -199,7 +199,7 @@ export default function EnhanceModal(): JSX.Element | null {
                     <tbody>
                       { selectedWeapon.materials.map(material => {
                         return (
-                          <tr className="py-1">
+                          <tr key={material.name} className="py-1">
                             <td className="pl-5 pr-1 border-b border-amber-200">{material.name}</td>
                             <td className="pl-1 pr-5 border-b border-amber-200 text-right">{material.count}</td>
                           </tr>
