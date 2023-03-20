@@ -1,7 +1,7 @@
 import { Layer, Rect, Stage, Circle, Line } from "react-konva"
 import Weapon from '@/features/wildhearts/weapon-sim/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/Path'
-import { coordinates }  from '@/types/wildhearts/weapon'
+import { coordinates, paths }  from '@/types/wildhearts/weapon'
 import type { Coordinate }  from '@/types/wildhearts/weapon'
 
 type Props={
@@ -16,10 +16,9 @@ export default function Canvas({ name }: Props): JSX.Element {
           <Rect fill="#4b5563" width={1400} height={1300} />
         </Layer>
         <Layer>
-            <Path coords={['1D', '1I']} />
-            <Path coords={['1I', '1N']} />
-            <Path coords={['1N', '4O']} />
-            <Path coords={['4O', '5O']} />
+          { paths.map((coords, i) => {
+            return <Path key={i} coords={coords} />
+          })}
         </Layer>
         <Layer>
           { coordinates.map((coord, i) => {
