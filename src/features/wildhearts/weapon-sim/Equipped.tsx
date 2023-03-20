@@ -1,7 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { selection, allWeapons } from '@/stores/wildhearts/weapon-sim'
+import { selection, allWeapons, open } from '@/stores/wildhearts/weapon-sim'
 import type { Weapon, Select, InheritedSkill } from '@/types/wildhearts/weapon'
-import { useEffect, useState } from "react"
 import Draggable, {DraggableCore} from 'react-draggable'
 
 type Props={
@@ -11,7 +10,7 @@ type Props={
 export default function Equipped({ name }: Props): JSX.Element {
   const $selection = useStore(selection)
   const lastSelected = $selection[$selection.length - 1]
-  const EquippedWeapon: Weapon | undefined = allWeapons.find(weapon => weapon.coord === lastSelected.coord)
+  const equippedWeapon: Weapon = allWeapons.find(weapon => weapon.coord === lastSelected.coord)!
   const inheritedSkills: InheritedSkill[] = lastSelected.skills
 
   return (
@@ -20,29 +19,29 @@ export default function Equipped({ name }: Props): JSX.Element {
         handle="#equipped"
         defaultPosition={{x: 0, y: 0}}
       >
-        <table id="equipped" className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-80 rounded-lg border-spacing-2 handle absolute bottom-10 right-10 cursor-grab active:cursor-grabbing">
-          <tbody>
+        <table id="equipped" className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-64 rounded-lg border-spacing-0 absolute bottom-10 left-10 cursor-grab active:cursor-grabbing">
+          <tbody className="text-xs md:text-sm">
           <tr>
-            <td className="border-b-2 border-amber-200 text-center text-lg md:text-xl py-1 md:py-2 font-bold" colSpan={2}>{EquippedWeapon?.name}</td>
+            <td className="border-b-2 border-amber-200 text-center text-sm md:text-base py-1 md:py-2 font-bold" colSpan={2}>{equippedWeapon.name}</td>
           </tr>
           <tr>
-            <th className="border-b-2 border-amber-200 text-right font-normal w-28">攻撃力</th>
-            <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{EquippedWeapon?.charac}</span>
-              <span>{EquippedWeapon?.attack}</span>
+            <th className="border-b border-amber-200 text-right font-normal w-28">攻撃力</th>
+            <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
+              <span className="mr-2">{equippedWeapon.charac}</span>
+              <span>{equippedWeapon.attack}</span>
             </td>
           </tr>
           <tr>
-            <th className="border-b-2 border-amber-200 text-right font-normal w-28">属性攻撃力</th>
-            <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{EquippedWeapon?.attribute}</span>
-              <span>{EquippedWeapon?.attributePower}</span>
+            <th className="border-b border-amber-200 text-right font-normal w-28">属性攻撃力</th>
+            <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
+              <span className="mr-2">{equippedWeapon.attribute}</span>
+              <span>{equippedWeapon.attributePower}</span>
             </td>
           </tr>
           <tr>
-            <th className="border-b-2 border-amber-200 text-right font-normal w-28">会心率</th>
-            <td className="border-b-2 border-amber-200 text-right pr-10 font-bold text-l">
-              <span>{EquippedWeapon?.critical}</span>
+            <th className="border-b border-amber-200 text-right font-normal w-28">会心率</th>
+            <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
+              <span>{equippedWeapon.critical}</span>
               <span>%</span>
             </td>
           </tr>
@@ -53,7 +52,7 @@ export default function Equipped({ name }: Props): JSX.Element {
             <td colSpan={2}>
               <ul>
                 { [0,1,2].map(i => {
-                  return <li key={i} className="bg-gray-900/75 h-7 pt-0.5 mb-1 px-2">{EquippedWeapon?.inherentSkills[i]}</li>
+                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{equippedWeapon.inherentSkills[i]}</li>
                 })}
               </ul>
             </td>
@@ -64,10 +63,25 @@ export default function Equipped({ name }: Props): JSX.Element {
           <tr>
             <td colSpan={2}>
               <ul>
-                { [0,1,2,3,4].map(i => {
-                  return <li key={i} className="bg-gray-900/75 h-7 pt-0.5 mb-1 px-2">{inheritedSkills[i]?.name}</li>
+                { [...Array(5)].map((_, i) => i).map(i => {
+                  const skill = inheritedSkills[i]
+                  let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
+                  if (skill) {
+                    return <li key={skill.id} className={classes}>{skill.name}</li>
+                  }
+                  if (i >= equippedWeapon.inheritedSkills.length + equippedWeapon.capacity) {
+                    classes = 'h-6 pt-0.5 mb-1 px-2'
+                  }
+                    return <li key={i} className={classes}></li>
                 })}
               </ul>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2} className="text-right">
+              <button type="button" onClick={() => open('requirementsModal')} className="text-amber-300 bg-transparent hover:text-amber-700 p-0.5 ml-auto mr-1 inline-flex items-center">
+                必要素材合計を表示
+              </button>
             </td>
           </tr>
           </tbody>

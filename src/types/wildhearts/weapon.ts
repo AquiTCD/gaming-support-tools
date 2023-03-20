@@ -23,6 +23,13 @@ export const coordinates = [
 ] as const
 
 export type Coordinate = typeof coordinates[number]
+export type Path = [Coordinate, Coordinate]
+export const paths: Path[] = [
+  ['1D', '1I'],
+  ['1I', '1N'],
+  ['1N', '4O'],
+]
+
 
 export type InheritedSkill = {
   id: string,
@@ -40,4 +47,6 @@ export type Weapon = {
   inherentSkills: string[],
   inheritedSkills: InheritedSkill[],
   capacity: number,
+  gold: number,
+  materials: {name: string, count: number}[]
 }

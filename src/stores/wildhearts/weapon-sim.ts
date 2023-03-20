@@ -7,7 +7,8 @@ const allWeapons: Weapon[] = allWeaponList
 // stores
 const selection = map<Select[]>([{order:1, coord:'1I', skills:[]}])
 const initialModalState = {
-  enhanceModal: false
+  enhanceModal: false,
+  requirementsModal: false
 }
 // const modalState = map<{[typeof initialModalState]: string | boolean}>(initialModalState)
 const modalState = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
