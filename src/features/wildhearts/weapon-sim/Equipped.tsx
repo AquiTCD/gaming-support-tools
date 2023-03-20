@@ -67,7 +67,7 @@ export default function Equipped({ name }: Props): JSX.Element {
                   const skill = inheritedSkills[i]
                   let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                   if (skill) {
-                    return <li key={skill.id} className={classes}>{skill.name}</li>
+                    return <li key={i} className={classes}>{skill.name}</li>
                   }
                   if (i >= equippedWeapon.inheritedSkills.length + equippedWeapon.capacity) {
                     classes = 'h-6 pt-0.5 mb-1 px-2'
