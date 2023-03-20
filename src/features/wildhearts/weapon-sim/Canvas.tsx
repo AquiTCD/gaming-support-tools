@@ -11,9 +11,9 @@ type Props={
 export default function Canvas({ name }: Props): JSX.Element {
   return (
     <>
-      <Stage width={1400} height={1300}>
+      <Stage width={1040} height={980}>
         <Layer>
-          <Rect fill="#4b5563" width={1400} height={1300} />
+          <Rect fill="#4b5563" width={1040} height={980} />
         </Layer>
         <Layer>
           { paths.map((coords, i) => {

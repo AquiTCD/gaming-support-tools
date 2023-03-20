@@ -2,7 +2,6 @@ import { Line } from "react-konva"
 import { useStore } from '@nanostores/react'
 import { selection } from '@/stores/wildhearts/weapon-sim'
 import { location } from '@/utils/utils'
-import { paths } from '@/types/wildhearts/weapon'
 import type { Coordinate } from '@/types/wildhearts/weapon'
 
 type Props={

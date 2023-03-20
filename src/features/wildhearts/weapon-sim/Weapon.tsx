@@ -68,7 +68,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
       <Circle onClick={() => enhanceOrRestore()}
         fill={color('fill')} stroke={color('stroke')}
         shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
-        x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 60} height={isSelected() ? 30 : 40} />
+        x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40} />
     </>
   );
 }

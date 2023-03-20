@@ -43,8 +43,8 @@ export const location: { [key: string]: {x: number, y:number} } = {}
 for(let row:number = 1; row <= maxRow; row++)  {
   for(let column:number = 1; column <= columns.length; column++) {
     location[`${String(row)}${columns.charAt(column - 1)}`] = {
-      x: column * 80 - 20,
-      y: row * 80 - 20,
+      x: column * 60 - 20,
+      y: row * 60 - 20,
     }
   }
 }
