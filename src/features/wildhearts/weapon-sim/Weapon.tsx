@@ -3,7 +3,7 @@ import { useStore } from '@nanostores/react'
 import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
 import { location } from '@/utils/utils'
 import { paths } from '@/types/wildhearts/weapon'
-import type { Coordinate } from '@/types/wildhearts/weapon'
+import type { Coordinate, Path } from '@/types/wildhearts/weapon'
 
 type Props={
   coord: Coordinate;
@@ -24,13 +24,13 @@ export default function Weapon({ coord }: Props): JSX.Element {
   const state = ():keyof typeof colors.stroke => {
     if (isSelected()) { return 'active' }
     const lastSelected = $selection[$selection.length - 1]
-    const candidates = paths.reduce((sum, path) => {
+    const candidates = paths.reduce((sum: Path[], path: Path) => {
       switch (true) {
         case path[0] === lastSelected.coord: {
-          return [...sum, path[1]]
+          return [...sum, path[1]] as Path[]
         }
         case path[1] === lastSelected.coord: {
-          return [...sum, path[0]]
+          return [...sum, path[0]] as Path[]
         }
         default: {
           return sum
@@ -68,7 +68,20 @@ export default function Weapon({ coord }: Props): JSX.Element {
       <Circle onClick={() => enhanceOrRestore()}
         fill={color('fill')} stroke={color('stroke')}
         shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
-        x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40} />
+        x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40}
+        onMouseOver={e => {
+          if (state() !== 'inactive') {
+            const container = e.target.getStage()!.container();
+            container.style.cursor = "pointer";
+          }
+        }}
+        onMouseLeave={e => {
+          if (state() !== 'inactive') {
+            const container = e.target.getStage()!.container();
+            container.style.cursor = "default";
+          }
+        }}
+        />
     </>
   );
 }
