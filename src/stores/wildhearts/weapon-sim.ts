@@ -1,5 +1,5 @@
 import { atom, map, computed, action } from 'nanostores'
-import { allWeaponList } from '@/assets/wildhearts/weapon_list.js'
+import { allWeaponList } from '@/assets/wildhearts/sample_weapon_list.js'
 import type { Weapon, Select, Coordinate, InheritedSkill } from '@/types/wildhearts/weapon'
 
 const allWeapons: Weapon[] = allWeaponList
