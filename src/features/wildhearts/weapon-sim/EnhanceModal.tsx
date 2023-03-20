@@ -22,7 +22,6 @@ export default function EnhanceModal(): JSX.Element | null {
   }, [selectedWeapon])
 
   const isSelected = (skill: InheritedSkill): boolean => {
-    console.log(skill)
     const found = selectedSkills.find(selected => selected.id === skill.id)
     return Boolean(found)
   }
