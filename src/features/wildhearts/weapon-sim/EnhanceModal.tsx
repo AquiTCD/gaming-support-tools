@@ -48,7 +48,7 @@ export default function EnhanceModal(): JSX.Element | null {
         <div className="fixed text-xs md:text-sm bg-gray-800 bg-opacity-60 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
           <div className="relative w-full h-full md:h-auto">
             <div className="relative">
-              <div className="px-4 py-2 space-y-2 grid grid-cols-[1fr_128px_1fr] gap-8">
+              <div className="px-4 py-2 space-y-2 grid grid-cols-[1fr_128px_1fr]">
                 <div className="place-self-end">
                   <table className="bg-gray-800 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
                     <tbody className="text-xs md:text-sm">
@@ -189,8 +189,28 @@ export default function EnhanceModal(): JSX.Element | null {
                     </tbody>
                   </table>
                   <div className="flex justify-center items-center px-3 py-2 space-x-2">
-                    <button type="button" onClick={() => enhance(coord as Coordinate, selectedSkills)} className="text-gray-700 bg-amber-300 border-2 border-amber-300 hover:bg-amber-600 hover:text-amber-100 rounded-lg text-sm px-3 py-2 text-center font-bold">強化</button>
+                    <button type="button" onClick={() => enhance(coord as Coordinate, selectedSkills)}
+                      className="text-gray-700 bg-amber-300 border-2 border-amber-300 hover:bg-amber-600 hover:text-amber-100 rounded-lg text-sm px-6 py-2 text-center font-bold">強化</button>
                   </div>
+                </div>
+                <div></div><div></div>
+                <div>
+                  <table className="bg-gray-800 border-separate border-2 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
+                    <tbody>
+                      { selectedWeapon.materials.map(material => {
+                        return (
+                          <tr className="py-1">
+                            <td className="pl-5 pr-1 border-b border-amber-200">{material.name}</td>
+                            <td className="pl-1 pr-5 border-b border-amber-200 text-right">{material.count}</td>
+                          </tr>
+                        )
+                      }) }
+                      <tr className="py-1">
+                        <td className="pl-5 pr-1">金</td>
+                        <td className="pl-1 pr-5 text-right">{selectedWeapon.gold}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

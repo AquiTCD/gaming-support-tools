@@ -52,30 +52,29 @@ export default function RequirementsModal(): JSX.Element | null {
           <div className="relative w-full h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               {ModalHeader()}
-              <div className="px-4 py-2 space-y-2 grid grid-cols-3 gap-8">
-                <table className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-2">
+              <div className="px-4 py-2 space-y-2 grid justify-items-center ">
+                <table className="relative min-w-max table-auto text-xs md:text-sm">
                   <tbody>
                     { allMaterials.map(material => {
                       return (
                         <tr key={material.name}>
-                          <th className="border-b-2 border-amber-200">{material.name}</th>
-                          <td className="border-b-2 border-amber-200 text-right pr-10">{material.count}</td>
+                          <th className="py-1 px-2 md:px-4 border border-gray-300">{material.name}</th>
+                          <td className="py-1 px-2 md:px-4 text-right pr-10 border border-gray-300">{material.count}</td>
                         </tr>
                       )
                     }) }
                   <tr>
-                    <th className="border-b-2 border-amber-200">総金額</th>
-                    <td className="border-b-2 border-amber-200 text-right pr-10">{totalGold}</td>
+                    <th className="py-1 px-2 md:px-4 border border-gray-300">総金額</th>
+                    <td className="py-1 px-2 md:px-4 text-right pr-10 border border-gray-300">{totalGold}</td>
                   </tr>
                   </tbody>
                 </table>
               </div>
               <div className="flex justify-end items-center px-3 py-2 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button type="button" onClick={() => close('requirementsModal')} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">OK</button>
+                <button type="button" onClick={() => close('requirementsModal')} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">閉じる</button>
               </div>
             </div>
           </div>
-          <SkillToolTip id="skill-modal-tooltip" />
         </div>
       </>
     )
