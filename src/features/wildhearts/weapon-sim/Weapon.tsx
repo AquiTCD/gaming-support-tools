@@ -2,6 +2,7 @@ import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
 import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
 import { location } from '@/utils/utils'
+import { paths } from '@/types/wildhearts/weapon'
 import type { Coordinate } from '@/types/wildhearts/weapon'
 
 type Props={
@@ -9,9 +10,10 @@ type Props={
 }
 
 const colors = {
-  fill: { active: '#15803d', inactive: '#1f2937' },
-  stroke: { active: '#4ade80', inactive: '#a16207' },
+  fill: { active: '#15803d', inactive: '#1f2937', candidate: '#a16207' },
+  stroke: { active: '#4ade80', inactive: '#a16207', candidate: '#fde68a' },
 }
+
 
 export default function Weapon({ coord }: Props): JSX.Element {
   const $selection = useStore(selection)
@@ -19,16 +21,53 @@ export default function Weapon({ coord }: Props): JSX.Element {
   const isSelected = () => {
     return Boolean($selection.find(item => item.coord === coord))
   }
+  const state = ():keyof typeof colors.stroke => {
+    if (isSelected()) { return 'active' }
+    const lastSelected = $selection[$selection.length - 1]
+    const candidates = paths.reduce((sum, path) => {
+      switch (true) {
+        case path[0] === lastSelected.coord: {
+          return [...sum, path[1]]
+        }
+        case path[1] === lastSelected.coord: {
+          return [...sum, path[0]]
+        }
+        default: {
+          return sum
+        }
+      }
+    }, [])
+    if(candidates.includes(coord)) {
+      return 'candidate'
+    }
+    return 'inactive'
+  }
+
   const color = (type: keyof typeof colors) => {
-    const state = isSelected() ? 'active' : 'inactive'
-    return colors[type][state]
+    return colors[type][state()]
+  }
+
+  const enhanceOrRestore = () => {
+    switch (state()) {
+      case 'active': {
+        // open('restoreModal', coord)
+        break
+      }
+      case 'candidate': {
+        open('enhanceModal', coord)
+        break
+      }
+      default: {
+        break
+      }
+    }
   }
 
   return (
     <>
-      <Circle onClick={() => open('enhanceModal', coord)}
+      <Circle onClick={() => enhanceOrRestore()}
         fill={color('fill')} stroke={color('stroke')}
-        shadowColor={colors.stroke.active} shadowBlur={15} shadowEnabled={isSelected()}
+        shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
         x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 60} height={isSelected() ? 30 : 40} />
     </>
   );
