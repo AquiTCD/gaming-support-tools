@@ -1,9 +1,18 @@
-import { atom, map, computed, action } from 'nanostores'
-// import { allWeaponList } from '@/assets/wildhearts/sample_weapon_list.js'
-import allWeaponList from '@/assets/wildhearts/katana_list.json'
+import { atom, map, computed, action, onMount } from 'nanostores'
+import allKatanaList from '@/assets/wildhearts/katana_list.json'
 import type { Weapon, Select, Coordinate, InheritedSkill } from '@/types/wildhearts/weapon'
+import { searchParams } from '@/stores/searchParams'
 
-const allWeapons: Weapon[] = allWeaponList
+const weaponList = map<Weapon[]>([])
+
+// query parameter loading
+onMount(weaponList, () => {
+  return searchParams.subscribe(async params => {
+    if (params.c === 'katana') {
+      weaponList.set([...allKatanaList] as Weapon[])
+    }
+  })
+})
 
 // stores
 const selection = map<Select[]>([{order:1, coord:'1I', skills:[]}])
@@ -24,7 +33,7 @@ const close = (modalName:keyof typeof initialModalState) => {
 }
 
 const enhance = (coord: Coordinate, skills:InheritedSkill[] | undefined) => {
-  const selectedWeapon = allWeapons.find(w => w.coord === coord )!
+  const selectedWeapon = weaponList.get().find(w => w.coord === coord )!
   if (skills === undefined) { return ;}
   const currentSelect = {
     order: selection.get().length + 1,
@@ -42,4 +51,4 @@ const restore = (coord: Coordinate) => {
   close('restoreModal')
 }
 
-export { allWeapons, selection, open, close, enhance, restore, modalState }
+export { weaponList, selection, open, close, enhance, restore, modalState }

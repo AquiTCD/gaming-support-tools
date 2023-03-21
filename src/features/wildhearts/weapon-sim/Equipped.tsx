@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { selection, allWeapons, open } from '@/stores/wildhearts/weapon-sim'
+import { selection, weaponList, open } from '@/stores/wildhearts/weapon-sim'
+import { useEffect, useState } from 'react'
 import type { Weapon, Select, InheritedSkill } from '@/types/wildhearts/weapon'
 import Draggable, {DraggableCore} from 'react-draggable'
 
@@ -8,13 +9,21 @@ type Props={
 }
 
 export default function Equipped({ name }: Props): JSX.Element {
+  const $weaponList = useStore(weaponList)
   const $selection = useStore(selection)
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const lastSelected = $selection[$selection.length - 1]
-  const equippedWeapon: Weapon = allWeapons.find(weapon => weapon.coord === lastSelected.coord)!
+  const equippedWeapon: Weapon = $weaponList.find(weapon => weapon.coord === lastSelected.coord)!
   const inheritedSkills: InheritedSkill[] = lastSelected.skills
 
   return (
     <>
+      { isClient &&
       <Draggable
         handle="#equipped"
         defaultPosition={{x: 0, y: 0}}
@@ -87,6 +96,7 @@ export default function Equipped({ name }: Props): JSX.Element {
           </tbody>
         </table>
       </Draggable>
+      }
     </>
   )
 }

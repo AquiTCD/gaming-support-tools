@@ -1,14 +1,15 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect } from 'react'
-import { selection, allWeapons, enhance, modalState, close, restore } from '@/stores/wildhearts/weapon-sim'
+import { selection, weaponList, enhance, modalState, close, restore } from '@/stores/wildhearts/weapon-sim'
 import SkillToolTip from '@/components/SkillToolTip'
 import type { InheritedSkill, Coordinate } from '@/types/wildhearts/weapon'
 
 export default function RestoreModal(): JSX.Element | null {
+  const $weaponList = useStore(weaponList)
   const $modalState = useStore(modalState)
   const coord = $modalState.restoreModal as Coordinate
 
-  const selectedWeapon = allWeapons.find(w => w.coord === $modalState.restoreModal)
+  const selectedWeapon = $weaponList.find(w => w.coord === $modalState.restoreModal)
 
   if (Boolean(coord)) {
     return (
