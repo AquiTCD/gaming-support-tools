@@ -19,9 +19,9 @@ const selection = map<Select[]>([{order:1, coord:'1I', skills:[]}])
 const initialModalState = {
   enhanceModal: false,
   requirementsModal: false,
-  restoreModal: false
+  restoreModal: false,
 }
-// const modalState = map<{[typeof initialModalState]: string | boolean}>(initialModalState)
+const previewModalState = atom<{coord: Coordinate | false, x:number, y:number}>({coord: false, x:0, y:0})
 const modalState = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
 
 // action
@@ -30,6 +30,12 @@ const open = (modalName:keyof typeof initialModalState, value:Coordinate|true = 
 }
 const close = (modalName:keyof typeof initialModalState) => {
   modalState.setKey(modalName, false)
+}
+const preview = (coord: Coordinate, position: {x:number, y:number}) => {
+  previewModalState.set({coord, x:position.x, y: position.y})
+}
+const closePreview = () => {
+  previewModalState.set({coord: false, x: 0, y: 0})
 }
 
 const enhance = (coord: Coordinate, skills:InheritedSkill[] | undefined) => {
@@ -51,4 +57,4 @@ const restore = (coord: Coordinate) => {
   close('restoreModal')
 }
 
-export { weaponList, selection, open, close, enhance, restore, modalState }
+export { weaponList, selection, open, close, enhance, restore, modalState, previewModalState, preview, closePreview }

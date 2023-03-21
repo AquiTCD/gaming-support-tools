@@ -1,6 +1,6 @@
 import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
-import { selection, modalState, open } from '@/stores/wildhearts/weapon-sim'
+import { selection, open, preview, closePreview } from '@/stores/wildhearts/weapon-sim'
 import { location } from '@/utils/utils'
 import { paths } from '@/types/wildhearts/weapon'
 import type { Coordinate, Path } from '@/types/wildhearts/weapon'
@@ -65,21 +65,25 @@ export default function Weapon({ coord }: Props): JSX.Element {
 
   return (
     <>
-      <Circle onClick={() => enhanceOrRestore()}
+      <Circle onClick={() => {closePreview(); enhanceOrRestore()}}
         fill={color('fill')} stroke={color('stroke')}
         shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
         x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40}
         onMouseOver={e => {
+          closePreview()
+          console.log(e.target.getStage()!.getPointerPosition())
           if (state() !== 'inactive') {
-            const container = e.target.getStage()!.container();
-            container.style.cursor = "pointer";
+            const container = e.target.getStage()!.container()
+            container.style.cursor = "pointer"
           }
+          preview(coord, e.target.getStage()!.getPointerPosition())
         }}
         onMouseLeave={e => {
           if (state() !== 'inactive') {
-            const container = e.target.getStage()!.container();
-            container.style.cursor = "default";
+            const container = e.target.getStage()!.container()
+            container.style.cursor = "default"
           }
+          closePreview()
         }}
         />
     </>
