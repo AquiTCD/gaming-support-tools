@@ -71,7 +71,6 @@ export default function Weapon({ coord }: Props): JSX.Element {
         x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40}
         onMouseOver={e => {
           closePreview()
-          console.log(e.target.getStage()!.getPointerPosition())
           if (state() !== 'inactive') {
             const container = e.target.getStage()!.container()
             container.style.cursor = "pointer"

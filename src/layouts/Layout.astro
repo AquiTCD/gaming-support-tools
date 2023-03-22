@@ -5,10 +5,11 @@ export interface Props {
 	title: string;
   description?: string;
   og_image?: string;
+  path?: string;
 }
 
-const { title, og_image, description } = Astro.props;
+const { title, og_image, description, path } = Astro.props;
 ---
-<BaseLayout title={title} description={description} og_image={og_image}>
+<BaseLayout title={title} description={description} og_image={og_image} path={path}>
   <slot />
 </BaseLayout>

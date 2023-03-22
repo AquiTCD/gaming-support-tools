@@ -1,16 +1,33 @@
 import { atom, map, computed, action, onMount } from 'nanostores'
 import allKatanaList from '@/assets/wildhearts/katana_list.json'
 import type { Weapon, Select, Coordinate, InheritedSkill } from '@/types/wildhearts/weapon'
+import { router } from '@/stores/router'
 import { searchParams } from '@/stores/searchParams'
 
 const weaponList = map<Weapon[]>([])
 
+// router
+onMount(weaponList, () => {
+  return router.subscribe(async router => {
+    if (router?.route !== 'wildheartsWeaponSim') { return }
+
+    switch (router.params.category) {
+      case 'katana': {
+        await weaponList.set([...allKatanaList] as Weapon[])
+        break
+      }
+      default: {
+        window.location.href = '/wildhearts/weapon-sim'
+      }
+    }
+  })
+})
 // query parameter loading
 onMount(weaponList, () => {
   return searchParams.subscribe(async params => {
-    if (params.c === 'katana') {
-      weaponList.set([...allKatanaList] as Weapon[])
-    }
+    // if (params.c === 'katana') {
+    //   weaponList.set([...allKatanaList] as Weapon[])
+    // }
   })
 })
 

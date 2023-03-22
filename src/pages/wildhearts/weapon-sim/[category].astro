@@ -1,0 +1,38 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Canvas from '@/features/wildhearts/weapon-sim/Canvas';
+import Equipped from '@/features/wildhearts/weapon-sim/Equipped';
+import GlobalModal from '@/features/wildhearts/weapon-sim/GlobalModal';
+
+const title = "WILD HEARTS 武器シミュレータ"
+const description = "WILD HEARTS 内で装備可能な武器の強化派生を調べることができるシミュレータ"
+const og_image = '/assets/ogp_wildhearts_weapon-sim.jpg'
+const path = '/wildhearts/weapon-sim/'
+
+export function getStaticPaths() {
+  return [
+    { params: { category: 'katana' } },
+    { params: { category: 'wagasa' } },
+    { params: { category: 'bow' } },
+  ];
+}
+---
+<Layout title={title} description={description} og_image={og_image} path={path}>
+  <main class="bg-gray-600">
+    <div class="overflow-x-scroll">
+      <Canvas client:only="react" />
+      <div>
+      <Equipped client:load />
+      </div>
+    </div>
+	</main>
+  <!-- <GlobalToolTip client:load /> -->
+  <GlobalModal client:load />
+</Layout>
+
+<style>
+  main {
+    margin: auto;
+    padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+  }
+</style>

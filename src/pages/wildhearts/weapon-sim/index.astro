@@ -1,24 +1,19 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Canvas from '@/features/wildhearts/weapon-sim/Canvas';
-import Equipped from '@/features/wildhearts/weapon-sim/Equipped';
-import GlobalModal from '@/features/wildhearts/weapon-sim/GlobalModal';
+import Layout from '@/layouts/Layout.astro'
+import CategorySelect from '@/features/wildhearts/weapon-sim/CategorySelect.astro'
 
 const title = "WILD HEARTS 武器シミュレータ"
-const description = "WILD HEARTS 内で装備可能な武器の派生を調べることができるシミュレータ"
-const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
+const description = "WILD HEARTS 内で装備可能な武器の強化派生を調べることができるシミュレータ"
+const og_image = '/assets/ogp_wildhearts_weapon-sim.jpg'
 ---
 <Layout title={title} description={description} og_image={og_image}>
-  <main class="bg-gray-600">
+  <main class="bg-gray-600 min-h-screen">
     <div class="overflow-x-scroll">
-      <Canvas client:only="react" />
-      <div>
-      <Equipped client:load />
-      </div>
+      <CategorySelect />
     </div>
 	</main>
   <!-- <GlobalToolTip client:load /> -->
-  <GlobalModal client:load />
+  <!-- <GlobalModal client:load /> -->
 </Layout>
 
 <style>

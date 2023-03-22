@@ -5,12 +5,13 @@ export interface Props {
 	title: string;
   description?: string;
   og_image?: string;
+  path?: string;
 }
 
-const { title, description, og_image } = Astro.props;
+const { title, description, og_image, path } = Astro.props;
 const rootURL = import.meta.env.DEV ? 'http://localhost:3000' : 'https://tools.solunita.net'
 const ogp = {
-  canonicalURL: new URL(Astro.url.pathname, rootURL),
+  canonicalURL: new URL(path ?? Astro.url.pathname, rootURL),
   imageURL: new URL(og_image ?? '/assets/og_image.png', rootURL)
 }
 ---

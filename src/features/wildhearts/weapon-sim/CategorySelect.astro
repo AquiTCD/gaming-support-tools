@@ -1,0 +1,35 @@
+---
+const {text} = Astro.props;
+---
+<div class="grid justify-items-center items-center">
+  <div class="relative bg-gray-800 rounded-lg shadow border-4 border-amber-400 w-3/4 md:w-1/2 px-8 py-8">
+    <p class="text-center text-gray-200 mb-3">
+      武器種を選択してください。<br />
+      （選択できないものは準備中です）
+    </p>
+    <div class="text-base md:text-lg text-center space-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href="/wildhearts/weapon-sim/katana" class="inline-block text-amber-100 bg-gray-800 border-2 border-amber-400 hover:bg-amber-600 rounded-lg px-3 py-2 text-center">
+        からくり刀
+      </a>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        野太刀
+      </span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        弓
+      </span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        槌
+      </span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        傘
+      </span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        大筒</span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        飛燕刀</span>
+      <span class="inline-block line-through text-gray-500 px-3 py-2 text-center bg-gray-800 border-2 border-amber-400 rounded-lg">
+        変形棍
+      </span>
+    </div>
+  </div>
+</div>
