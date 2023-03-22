@@ -1,18 +1,17 @@
 import { useStore } from '@nanostores/react'
-import React, { useState, useEffect } from 'react'
-import { selection, weaponList, enhance, modalState, close } from '@/stores/wildhearts/weapon-sim'
-import SkillToolTip from '@/components/SkillToolTip'
-import type { InheritedSkill, Coordinate } from '@/types/wildhearts/weapon'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 
 export default function RequirementsModal(): JSX.Element | null {
-  const $weaponList = useStore(weaponList)
+  const $weapons = useStore(weapons)
 
   const $selection = useStore(selection)
-  const $modalState = useStore(modalState)
-  const visible = $modalState.requirementsModal
+  const $modalStates = useStore(modalStates)
+  const visible = $modalStates.requirementsModal
 
   const coords = $selection.map(select => select.coord)
-  const selectedWeapons = $weaponList.filter(weapon => coords.includes(weapon.coord))
+  const selectedWeapons = $weapons.filter(weapon => coords.includes(weapon.coord))
   const totalGold = selectedWeapons.reduce((sum, w) => { return sum + w.gold }, 0)
   const totalMaterials = selectedWeapons.reduce((sum, w) => { return [...sum, ...w.materials] }, []) as {name: string, count: number}[]
   const sum = totalMaterials.reduce((acc: Record<string, number>, item: {name: string, count: number}) => {

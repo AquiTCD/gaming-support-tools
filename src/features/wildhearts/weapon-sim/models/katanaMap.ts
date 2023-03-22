@@ -1,9 +1,4 @@
-export type Select = {
-  order: number,
-  coord: string, // '1D'
-  skills: {id: string, name: string}[],  // ['1D-0', '1D-1']
-}
-export const coordinates = [
+export const katanaCoordinates = [
                        '1D',                              '1I',                              '1N',
   // '2A',  '2B',  '2C',  '2D',  '2E',  '2F',  '2G',  '2H',  '2I',  '2J',  '2K',  '2L',  '2M',  '2N',  '2O',  '2P',  '1Q',
                                                    '3H',  '3I',  '3J',
@@ -13,18 +8,17 @@ export const coordinates = [
   // '7A', '7B', '7C', '7D', '7E', '7F', '7G', '7H', '7I', '7J', '7K', '7L', '7M', '7N', '7O', '7P', '1Q',
          '8B',         '8D',         '8F',                '8I',                '8L',         '8N',         '8P',
   '9A',         '9C',         '9E',         '9G', '9H',          '9J',  '9K',         '9M',         '9O',         '9Q',
-                              '10E',        '10G', '10H',               '10K',                                    '10Q',
-                '11C',        '11E',        '11G', '11H',        '11J', '11K',                      '11O',        '11Q',
+                '10C',        '10E',        '10G', '10H',        '10J', '10K',                      '10O',        '10Q',
+  '11A',                                    '11G', '11H',        '11J', '11K',        '11M',        '11O',
   '12A',        '12C',        '12E',        '12G', '12H',        '12J', '12K',        '12M',        '12O',        '12Q',
          '13B',                      '13F',               '13I',               '13L',                      '13P',
   '14A', '14B',                      '14F',               '14I',               '14L',                      '14P',
   // '15A', '15B', '15C', '15D', '15E', '15F', '15G', '15H', '15I', '15J', '15K', '15L', '15M', '15N', '15O', '15P', '15Q',
                               '16E',                                                  '16M',
 ] as const
-
-export type Coordinate = typeof coordinates[number]
-export type Path = [Coordinate, Coordinate]
-export const paths: Path[] = [
+export type KatanaCoordinate = typeof katanaCoordinates[number]
+export type KatanaPath = [KatanaCoordinate, KatanaCoordinate]
+export const katanaPaths: KatanaPath[] = [
   ['1D', '4A'],
   ['1D', '4C'],
   ['1D', '4E'],
@@ -108,7 +102,7 @@ export const paths: Path[] = [
 
   ['9A', '12A'],
   ['9C', '12A'],
-  ['9C', '11C'],
+  ['9C', '10C'],
   ['9E', '10E'],
   ['9G', '10G'],
   ['9H', '10H'],
@@ -117,27 +111,26 @@ export const paths: Path[] = [
   ['9K', '10K'],
   ['9M', '12M'],
   ['9M', '9O'],
-  ['9O', '11O'],
-  ['9O', '11Q'],
+  ['9O', '10O'],
   ['9Q', '10Q'],
 
-  ['10E', '11E'],
+  ['10C', '12C'],
   ['10E', '12G'],
   ['10G', '11G'],
   ['10G', '10H'],
   ['10H', '11H'],
   ['10K', '11K'],
   ['10K', '12M'],
-  ['10Q', '11Q'],
+  // ['10Q', '11Q'],
 
-  ['11C', '12C'],
-  ['11E', '12E'],
+  // ['11C', '12C'],
+  // ['11E', '12E'],
   ['11G', '12G'],
   ['11H', '12H'],
   ['11J', '12J'],
   ['11K', '12K'],
   ['11O', '12O'],
-  ['11Q', '12Q'],
+  // ['11Q', '12Q'],
 
   ['12A', '14A'],
   ['12A', '13B'],
@@ -169,24 +162,3 @@ export const paths: Path[] = [
   ['14L', '14P'],
   ['14P', '16M'],
 ]
-
-
-export type InheritedSkill = {
-  id: string,
-  name: string,
-}
-
-export type Weapon = {
-  coord: Coordinate,
-  name: string,
-  charac: '斬撃' | '殴打' | '刺突',
-  attack: number,
-  critical: number,
-  attribute: '樹' | '火' | '水' | '風' | '土' | '',
-  attributePower: number,
-  inherentSkills: string[],
-  inheritedSkills: InheritedSkill[],
-  capacity: number,
-  gold: number,
-  materials: {name: string, count: number}[]
-}

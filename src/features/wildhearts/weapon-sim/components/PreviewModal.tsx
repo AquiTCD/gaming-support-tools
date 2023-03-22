@@ -1,17 +1,17 @@
 import { useStore } from '@nanostores/react'
-import { selection, weaponList, previewModalState } from '@/stores/wildhearts/weapon-sim'
+import { previewModalState } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import useWindowSize from '@/hooks/useWindowSize'
-import type { Weapon, Select, InheritedSkill, Coordinate } from '@/types/wildhearts/weapon'
-import Draggable, {DraggableCore} from 'react-draggable'
+import type { Weapon, Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
 
 export default function PreviewModal(): JSX.Element | null {
-  const $weaponList = useStore(weaponList)
-  const $modalState = useStore(previewModalState)
+  const $weapons = useStore(weapons)
+  const $modalStates = useStore(previewModalState)
   const [width, height] = useWindowSize()
-  const coord = $modalState.coord as Coordinate
-  const previewWeapon: Weapon = $weaponList.find(weapon => weapon.coord === coord)!
+  const coord = $modalStates.coord as Coordinate
+  const previewWeapon: Weapon = $weapons.find(weapon => weapon.coord === coord)!
   const classX = width > 1300 ? 'left-[1050px]' :
-    (width - $modalState.x) > 350 ? 'right-[20px]' : 'right-[350px]'
+    (width - $modalStates.x) > 350 ? 'right-[20px]' : 'right-[350px]'
   const classY = 'top-[80px]'
 
   if (Boolean(coord)) {

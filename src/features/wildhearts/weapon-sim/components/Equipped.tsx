@@ -1,11 +1,13 @@
 import { useStore } from '@nanostores/react'
-import { selection, weaponList, open } from '@/stores/wildhearts/weapon-sim'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { open } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { useEffect, useState } from 'react'
-import type { Weapon, Select, InheritedSkill } from '@/types/wildhearts/weapon'
+import type { Weapon, Select, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
 import Draggable, {DraggableCore} from 'react-draggable'
 
 export default function Equipped(): JSX.Element {
-  const $weaponList = useStore(weaponList)
+  const $weapons = useStore(weapons)
   const $selection = useStore(selection)
   const [isClient, setIsClient] = useState(false);
 
@@ -14,7 +16,7 @@ export default function Equipped(): JSX.Element {
   }, []);
 
   const lastSelected = $selection[$selection.length - 1]
-  const equippedWeapon: Weapon = $weaponList.find(weapon => weapon.coord === lastSelected.coord)!
+  const equippedWeapon: Weapon = $weapons.find(weapon => weapon.coord === lastSelected.coord)!
   const inheritedSkills: InheritedSkill[] = lastSelected.skills
 
   return (

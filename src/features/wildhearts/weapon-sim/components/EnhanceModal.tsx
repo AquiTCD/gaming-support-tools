@@ -1,20 +1,22 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect } from 'react'
-import { selection, weaponList, enhance, modalState, close } from '@/stores/wildhearts/weapon-sim'
+import { selection, enhance } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import SkillToolTip from '@/components/SkillToolTip'
-import type { InheritedSkill, Coordinate } from '@/types/wildhearts/weapon'
+import type { InheritedSkill, Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
 
 export default function EnhanceModal(): JSX.Element | null {
   const $selection = useStore(selection)
-  const $modalState = useStore(modalState)
-  const $weaponList = useStore(weaponList)
-  const coord = $modalState.enhanceModal
+  const $modalStates = useStore(modalStates)
+  const $weapons = useStore(weapons)
+  const coord = $modalStates.enhanceModal
 
-  const selectedWeapon = $weaponList.find(w => w.coord === $modalState.enhanceModal)!
+  const selectedWeapon = $weapons.find(w => w.coord === $modalStates.enhanceModal)!
   const [selectedSkills, setSelectedSkill] = useState<InheritedSkill[]>([])
 
   const lastSelected = $selection[$selection.length - 1]
-  const currentWeapon = $weaponList.find(w => w.coord === lastSelected.coord)!
+  const currentWeapon = $weapons.find(w => w.coord === lastSelected.coord)!
 
   const inheritableSkills = lastSelected.skills
   useEffect(() => {

@@ -1,9 +1,10 @@
 import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
-import { selection, open, preview, closePreview } from '@/stores/wildhearts/weapon-sim'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { open, preview, closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { location } from '@/utils/utils'
-import { paths } from '@/types/wildhearts/weapon'
-import type { Coordinate, Path } from '@/types/wildhearts/weapon'
+import type { Coordinate, Path } from '@/features/wildhearts/weapon-sim/models/weapon'
 
 type Props={
   coord: Coordinate;
@@ -17,6 +18,7 @@ const colors = {
 
 export default function Weapon({ coord }: Props): JSX.Element {
   const $selection = useStore(selection)
+  const $paths = useStore(paths)
 
   const isSelected = () => {
     return Boolean($selection.find(item => item.coord === coord))
@@ -24,7 +26,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
   const state = ():keyof typeof colors.stroke => {
     if (isSelected()) { return 'active' }
     const lastSelected = $selection[$selection.length - 1]
-    const candidates = paths.reduce((sum: Path[], path: Path) => {
+    const candidates = $paths.reduce((sum: Path[], path: Path) => {
       switch (true) {
         case path[0] === lastSelected.coord: {
           return [...sum, path[1]] as Path[]
@@ -75,7 +77,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
             const container = e.target.getStage()!.container()
             container.style.cursor = "pointer"
           }
-          preview(coord, e.target.getStage()!.getPointerPosition())
+          preview(coord, e.target.getStage()!.getPointerPosition()!)
         }}
         onMouseLeave={e => {
           if (state() !== 'inactive') {
