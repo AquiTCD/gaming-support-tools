@@ -9,7 +9,7 @@ import Draggable, {DraggableCore} from 'react-draggable'
 export default function Equipped(): JSX.Element {
   const $weapons = useStore(weapons)
   const $selection = useStore(selection)
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true);
