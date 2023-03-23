@@ -29,6 +29,7 @@ onMount(weapons, () => {
         break
       }
       default: {
+        console.log(router)
         window.location.href = '/wildhearts/weapon-sim'
       }
     }
