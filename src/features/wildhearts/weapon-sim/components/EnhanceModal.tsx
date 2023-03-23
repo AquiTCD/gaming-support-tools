@@ -47,12 +47,12 @@ export default function EnhanceModal(): JSX.Element | null {
   if (Boolean(coord)) {
     return (
       <>
-        <div className="fixed text-xs md:text-sm bg-gray-800 bg-opacity-60 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+        <div onClick={() => close('enhanceModal')} className="fixed text-xs md:text-sm bg-gray-800 bg-opacity-60 top-0 left-0 right-0 z-50 w-full p-10 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
           <div className="relative w-full h-full md:h-auto">
             <div className="relative">
-              <div className="px-4 py-2 space-y-2 grid grid-cols-[1fr_128px_1fr]">
-                <div className="place-self-end">
-                  <table className="bg-gray-800 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
+              <div className="px-4 py-2 space-y-2 grid grid-cols-1 md:grid-cols-[1fr_128px_1fr]">
+                <div className="place-self-center md:place-self-end">
+                  <table onClick={(e) => { e.stopPropagation() }} className="bg-gray-800 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
                     <tbody className="text-xs md:text-sm">
                     <tr>
                       <td className="border-b-2 border-amber-200 text-center text-sm md:text-base py-1 md:py-2 font-bold" colSpan={2}>{currentWeapon?.name}</td>
@@ -120,13 +120,13 @@ export default function EnhanceModal(): JSX.Element | null {
                 </div>
 
                 <div className="place-self-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-24 h-24 text-gray-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-12 h-12 rotate-90 md:w-24 md:h-24 md:rotate-0 text-gray-100 ">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
                   </svg>
                 </div>
 
-                <div className="place-self-start">
-                  <table className="bg-gray-800 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
+                <div className="place-self-center md:place-self-start">
+                  <table onClick={(e) => { e.stopPropagation() }} className="bg-gray-800 border-separate border-4 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
                     <tbody className="text-xs md:text-sm">
                     <tr>
                       <td className="border-b-2 border-amber-200 text-center text-sm md:text-base py-1 md:py-2 font-bold" colSpan={2}>{selectedWeapon.name}</td>
@@ -191,12 +191,12 @@ export default function EnhanceModal(): JSX.Element | null {
                     </tbody>
                   </table>
                   <div className="flex justify-center items-center px-3 py-2 space-x-2">
-                    <button type="button" onClick={() => enhance(coord as Coordinate, selectedSkills)}
+                    <button type="button" onClick={(e) => { e.stopPropagation(); enhance(coord as Coordinate, selectedSkills)}}
                       className="text-gray-700 bg-amber-300 border-2 border-amber-300 hover:bg-amber-600 hover:text-amber-100 rounded-lg text-sm px-6 py-2 text-center font-bold">強化</button>
                   </div>
                 </div>
                 <div></div><div></div>
-                <div>
+                <div className="place-self-center md:place-self-start">
                   <table className="bg-gray-800 border-separate border-2 border-amber-400 text-gray-100 rounded-lg border-spacing-0 w-64">
                     <tbody>
                       { selectedWeapon.materials.map(material => {
