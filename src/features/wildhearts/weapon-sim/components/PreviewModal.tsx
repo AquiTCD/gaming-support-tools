@@ -1,12 +1,16 @@
 import { useStore } from '@nanostores/react'
 import { previewModalState, closePreview, open } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import useWindowSize from '@/hooks/useWindowSize'
 import { useIsTouchScreen } from '@/hooks/useIsTouchScreen'
-import type { Weapon, Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
+import type { Weapon, Coordinate, Path } from '@/features/wildhearts/weapon-sim/models/weapon'
 import Draggable, {DraggableCore} from 'react-draggable'
 
 export default function PreviewModal(): JSX.Element | null {
+  const $selection = useStore(selection)
+  const $paths = useStore(paths)
   const $weapons = useStore(weapons)
   const $modalStates = useStore(previewModalState)
   const [width, height] = useWindowSize()
@@ -18,6 +22,25 @@ export default function PreviewModal(): JSX.Element | null {
     posClass.x = width > 1300 ? 'left-[1050px]' :
     (width - $modalStates.x) > 350 ? 'right-[20px]' : 'right-[350px]'
     posClass.y = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
+  }
+
+  const canEnhance = ():boolean => {
+    if (Boolean($selection.find(item => item.coord === coord))) { return false }
+    const lastSelected = $selection[$selection.length - 1]
+    const candidates = $paths.reduce((sum: Path[], path: Path) => {
+      switch (true) {
+        case path[0] === lastSelected.coord: {
+          return [...sum, path[1]] as Path[]
+        }
+        case path[1] === lastSelected.coord: {
+          return [...sum, path[0]] as Path[]
+        }
+        default: {
+          return sum
+        }
+      }
+    }, [])
+    return candidates.includes(coord)
   }
 
   if (Boolean(coord)) {
@@ -85,7 +108,7 @@ export default function PreviewModal(): JSX.Element | null {
               </ul>
             </td>
           </tr>
-          { isTouchScreen &&
+          { isTouchScreen && canEnhance() &&
           <tr>
             <td colSpan={2} className="text-center">
               <button type="button" onTouchEnd={() => { open('enhanceModal', coord); closePreview() } }
