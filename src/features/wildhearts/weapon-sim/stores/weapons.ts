@@ -12,34 +12,54 @@ export const paths = atom<Paths>([])
 
 // router
 onMount(weapons, () => {
-  return router.subscribe(async router => {
-    if (router?.route !== 'wildheartsWeaponSim') { return }
+  router.subscribe(router => {
+    if (router?.route !== 'wildheartsWeaponSim') {
+       return window.location.href = window.location.href
+    }
 
     switch (router.params.category) {
       case 'katana': {
-        await weapons.set([...katanaList] as Weapon[])
-        await coordinates.set([...katanaCoordinates])
-        await paths.set([...katanaPaths])
-        break
+        weapons.set([...katanaList] as Weapon[])
+        coordinates.set([...katanaCoordinates])
+        paths.set([...katanaPaths])
+        return
       }
       case 'wagasa': {
-        // await weapons.set([...wagasaaList] as Weapon[])
-        await coordinates.set([...wagasaCoordinates])
-        await paths.set([...wagasaPaths])
-        break
+        // weapons.set([...wagasaaList] as Weapon[])
+        coordinates.set([...wagasaCoordinates])
+        paths.set([...wagasaPaths])
+        return
+      }
+      case 'changelog': {
+        return window.location.href = window.location.href
+
       }
       default: {
-        console.log(router)
-        window.location.href = '/wildhearts/weapon-sim'
+        return window.location.href = '/wildhearts/weapon-sim'
       }
     }
   })
 })
 // query parameter loading
-onMount(weapons, () => {
-  return searchParams.subscribe(async params => {
-    // if (params.c === 'katana') {
-    //   weapons.set([...allKatanaList] as Weapon[])
-    // }
-  })
-})
+// onMount(weapons, () => {
+//   return searchParams.subscribe(async params => {
+//     switch (params.c) {
+//       case 'katana': {
+//         weapons.set([...katanaList] as Weapon[])
+//         coordinates.set([...katanaCoordinates])
+//         paths.set([...katanaPaths])
+//         break
+//       }
+//       case 'wagasa': {
+//         // weapons.set([...wagasaaList] as Weapon[])
+//         coordinates.set([...wagasaCoordinates])
+//         paths.set([...wagasaPaths])
+//         break
+//       }
+//       default: {
+//         console.log(router)
+//         window.location.href = '/wildhearts/weapon-sim'
+//       }
+//     }
+//   })
+// })
