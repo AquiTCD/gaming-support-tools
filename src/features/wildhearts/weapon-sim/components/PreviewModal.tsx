@@ -1,23 +1,56 @@
 import { useStore } from '@nanostores/react'
-import { previewModalState } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { previewModalState, closePreview, open } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import useWindowSize from '@/hooks/useWindowSize'
-import type { Weapon, Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
+import { useIsTouchScreen } from '@/hooks/useIsTouchScreen'
+import type { Weapon, Coordinate, Path } from '@/features/wildhearts/weapon-sim/models/weapon'
+import Draggable, {DraggableCore} from 'react-draggable'
 
 export default function PreviewModal(): JSX.Element | null {
+  const $selection = useStore(selection)
+  const $paths = useStore(paths)
   const $weapons = useStore(weapons)
   const $modalStates = useStore(previewModalState)
   const [width, height] = useWindowSize()
   const coord = $modalStates.coord as Coordinate
   const previewWeapon: Weapon = $weapons.find(weapon => weapon.coord === coord)!
-  const classX = width > 1300 ? 'left-[1050px]' :
+  const { isTouchScreen } = useIsTouchScreen()
+  const posClass = { x: 'right-[20px]', y: 'top-[80px]' }
+  if (!isTouchScreen) {
+    posClass.x = width > 1300 ? 'left-[1050px]' :
     (width - $modalStates.x) > 350 ? 'right-[20px]' : 'right-[350px]'
-  const classY = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
+    posClass.y = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
+  }
+
+  const canEnhance = ():boolean => {
+    if (Boolean($selection.find(item => item.coord === coord))) { return false }
+    const lastSelected = $selection[$selection.length - 1]
+    const candidates = $paths.reduce((sum: Path[], path: Path) => {
+      switch (true) {
+        case path[0] === lastSelected.coord: {
+          return [...sum, path[1]] as Path[]
+        }
+        case path[1] === lastSelected.coord: {
+          return [...sum, path[0]] as Path[]
+        }
+        default: {
+          return sum
+        }
+      }
+    }, [])
+    return candidates.includes(coord)
+  }
 
   if (Boolean(coord)) {
     return (
       <>
-        <table id="equipped" className={`bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-64 rounded-lg border-spacing-0 absolute cursor-grab active:cursor-grabbing ${classX} ${classY}`}>
+        <Draggable
+          handle="#previewModal"
+          defaultPosition={{x: 0, y: 0}}
+        >
+        <table id="previewModal" className={`bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-64 rounded-lg border-spacing-0 absolute cursor-grab active:cursor-grabbing ${posClass.x} ${posClass.y}`}>
           <tbody className="text-xs md:text-sm">
           <tr>
             <td className="border-b-2 border-amber-200 text-center text-sm md:text-base py-1 md:py-2 font-bold" colSpan={2}>{previewWeapon.name}</td>
@@ -75,15 +108,19 @@ export default function PreviewModal(): JSX.Element | null {
               </ul>
             </td>
           </tr>
+          { isTouchScreen && canEnhance() &&
           <tr>
-            <td colSpan={2} className="text-right">
-              <button type="button" onClick={() => open('requirementsModal')} className="text-amber-300 bg-transparent hover:text-amber-700 p-0.5 ml-auto mr-1 inline-flex items-center">
-                必要素材合計を表示
+            <td colSpan={2} className="text-center">
+              <button type="button" onTouchEnd={() => { open('enhanceModal', coord); closePreview() } }
+                className="text-gray-800 bg-amber-300 rounded-lg px-3 py-1 mb-1 font-bold">
+                強化
               </button>
             </td>
           </tr>
+          }
           </tbody>
         </table>
+        </Draggable>
       </>
     )
   } else {

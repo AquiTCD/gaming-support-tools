@@ -79,6 +79,14 @@ export default function Weapon({ coord }: Props): JSX.Element {
           }
           preview(coord, e.target.getStage()!.getPointerPosition()!)
         }}
+        onTouchEnd={e => {
+          closePreview()
+          if (state() !== 'inactive') {
+            const container = e.target.getStage()!.container()
+            container.style.cursor = "pointer"
+          }
+          preview(coord, e.target.getStage()!.getPointerPosition()!)
+        }}
         onMouseLeave={e => {
           if (state() !== 'inactive') {
             const container = e.target.getStage()!.container()
