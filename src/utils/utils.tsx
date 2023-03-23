@@ -1,11 +1,11 @@
-const i18nPosition = {
+export const i18nPosition = {
   head: '頭',
   body: '胴',
   arm: '腕',
   waist: '腰',
   leg: '脚',
 }
-const pathValue = (path:number|undefined) => {
+export const pathValue = (path:number|undefined) => {
   switch (true){
   case path === undefined:
     return '-'
@@ -18,7 +18,7 @@ const pathValue = (path:number|undefined) => {
   }
 }
 
-const skillColorClass = (skill: string):string => {
+export const skillColorClass = (skill: string):string => {
   switch (true) {
     case skill.startsWith('[活人皆伝]'):
       return "text-pure-human"
@@ -33,8 +33,18 @@ const skillColorClass = (skill: string):string => {
   }
 }
 
-const skillName = (skill: string):string => {
+export const skillName = (skill: string):string => {
   return skill.replace(/\s\+?\d+%?$/, '')
 }
 
-export { i18nPosition, pathValue, skillColorClass, skillName }
+const columns = 'ABCDEFGHIJKLMNOPQ'
+const maxRow = 16
+export const location: { [key: string]: {x: number, y:number} } = {}
+for(let row:number = 1; row <= maxRow; row++)  {
+  for(let column:number = 1; column <= columns.length; column++) {
+    location[`${String(row)}${columns.charAt(column - 1)}`] = {
+      x: column * 60 - 20,
+      y: row * 60 - 20,
+    }
+  }
+}
