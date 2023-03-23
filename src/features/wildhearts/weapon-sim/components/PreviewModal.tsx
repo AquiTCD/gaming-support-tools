@@ -12,7 +12,7 @@ export default function PreviewModal(): JSX.Element | null {
   const previewWeapon: Weapon = $weapons.find(weapon => weapon.coord === coord)!
   const classX = width > 1300 ? 'left-[1050px]' :
     (width - $modalStates.x) > 350 ? 'right-[20px]' : 'right-[350px]'
-  const classY = 'top-[80px]'
+  const classY = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
 
   if (Boolean(coord)) {
     return (
