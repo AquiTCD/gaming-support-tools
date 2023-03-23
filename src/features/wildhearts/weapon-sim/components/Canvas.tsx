@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react'
 import Weapon from '@/features/wildhearts/weapon-sim/components/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/components/Path'
 import { coordinates, paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
 // import { useEffect, useState } from 'react'
 import useWindowSize from '@/hooks/useWindowSize'
 
@@ -34,7 +35,7 @@ export default function Canvas(): JSX.Element {
     <>
       <Stage width={1040 * scale.x} height={980 * scale.y} scaleX={scale.x} scaleY={scale.y} draggable={true}>
         <Layer>
-          <Rect fill="#4b5563" width={1040} height={980} />
+          <Rect fill="#4b5563" width={1040} height={980} onTouchEnd={_e => { closePreview() }} />
         </Layer>
         <Layer>
           { $paths.map((coords, i) => {

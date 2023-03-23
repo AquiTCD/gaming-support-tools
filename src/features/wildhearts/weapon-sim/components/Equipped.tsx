@@ -16,7 +16,6 @@ export default function Equipped(): JSX.Element {
 
   useEffect(() => {
     setIsClient(true)
-    console.log('ef')
     setIsExpand(width > 768)
   }, [])
   useEffect(() => {
