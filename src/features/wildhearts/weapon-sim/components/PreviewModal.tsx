@@ -5,7 +5,8 @@ import { paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import useWindowSize from '@/hooks/useWindowSize'
 import { useIsTouchScreen } from '@/hooks/useIsTouchScreen'
-import type { Weapon, Coordinate, Path } from '@/features/wildhearts/weapon-sim/models/weapon'
+import type { Weapon, Coordinate, Path,  } from '@/features/wildhearts/weapon-sim/models/weapon'
+import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
 import Draggable, {DraggableCore} from 'react-draggable'
 
 export default function PreviewModal(): JSX.Element | null {
@@ -16,6 +17,9 @@ export default function PreviewModal(): JSX.Element | null {
   const [width, height] = useWindowSize()
   const coord = $modalStates.coord as Coordinate
   const previewWeapon: Weapon = $weapons.find(weapon => weapon.coord === coord)!
+  const lastSelected = $selection[$selection.length - 1]
+  const currentWeapon: Weapon = $weapons.find(weapon => weapon.coord === lastSelected.coord)!
+
   const { isTouchScreen } = useIsTouchScreen()
   const posClass = { x: 'right-[20px]', y: 'top-[80px]' }
   if (!isTouchScreen) {
@@ -24,9 +28,22 @@ export default function PreviewModal(): JSX.Element | null {
     posClass.y = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
   }
 
+  const comparedColor = (attr: keyof Weapon):string  => {
+    switch (true) {
+      case previewWeapon[attr] > currentWeapon[attr]: {
+        return 'text-green-300'
+      }
+      case previewWeapon[attr] < currentWeapon[attr]: {
+        return 'text-red-400'
+      }
+      default: {
+        return ''
+      }
+    }
+  }
+
   const canEnhance = ():boolean => {
     if (Boolean($selection.find(item => item.coord === coord))) { return false }
-    const lastSelected = $selection[$selection.length - 1]
     const candidates = $paths.reduce((sum: Path[], path: Path) => {
       switch (true) {
         case path[0] === lastSelected.coord: {
@@ -58,22 +75,24 @@ export default function PreviewModal(): JSX.Element | null {
           <tr>
             <th className="border-b border-amber-200 text-right font-normal w-28">攻撃力</th>
             <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{previewWeapon.charac}</span>
-              <span>{previewWeapon.attack}</span>
+              <span className={`mr-2 text-[0.6rem] md:text-xs ${characColor(previewWeapon)}`}>{previewWeapon.charac}</span>
+              <span className={comparedColor('attack')}>{previewWeapon.attack}</span>
             </td>
           </tr>
           <tr>
             <th className="border-b border-amber-200 text-right font-normal w-28">属性攻撃力</th>
             <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{previewWeapon.attribute}</span>
-              <span>{previewWeapon.attributePower}</span>
+              <span className={`mr-2 text-[0.6rem] md:text-xs ${attributeColor(previewWeapon)}`}>{previewWeapon.attribute}</span>
+              <span className={comparedColor('attributePower')}>{previewWeapon.attributePower}</span>
             </td>
           </tr>
           <tr>
             <th className="border-b border-amber-200 text-right font-normal w-28">会心率</th>
             <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-              <span>{previewWeapon.critical}</span>
-              <span>%</span>
+              <span className={comparedColor('critical')}>
+                <span>{previewWeapon.critical}</span>
+                <span>%</span>
+              </span>
             </td>
           </tr>
           <tr>

@@ -30,3 +30,44 @@ export type Weapon = {
   gold: number,
   materials: {name: string, count: number}[]
 }
+
+export const characColor = (weapon: Weapon): string => {
+  switch (weapon.charac) {
+    case '斬撃': {
+      return 'text-cyan-300'
+    }
+    case '殴打': {
+      return 'text-orange-300'
+    }
+    case '刺突': {
+      return 'text-lime-300'
+    }
+    default: {
+      return ''
+    }
+  }
+}
+
+export const attributeColor = (weapon: Weapon): string => {
+  switch (weapon.attribute) {
+    // '樹' | '火' | '水' | '風' | '土' | '',
+    case '樹': {
+      return 'text-green-500'
+    }
+    case '火': {
+      return 'text-red-500'
+    }
+    case '水': {
+      return 'text-blue-500'
+    }
+    case '風': {
+      return 'text-cyan-500'
+    }
+    case '土': {
+      return 'text-yellow-500'
+    }
+    default: {
+      return ''
+    }
+  }
+}

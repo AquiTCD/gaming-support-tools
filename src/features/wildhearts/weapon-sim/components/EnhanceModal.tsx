@@ -4,7 +4,8 @@ import { selection, enhance } from '@/features/wildhearts/weapon-sim/stores/weap
 import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import SkillToolTip from '@/components/SkillToolTip'
-import type { InheritedSkill, Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
+import type { InheritedSkill, Coordinate, Weapon } from '@/features/wildhearts/weapon-sim/models/weapon'
+import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
 
 export default function EnhanceModal(): JSX.Element | null {
   const $selection = useStore(selection)
@@ -42,7 +43,19 @@ export default function EnhanceModal(): JSX.Element | null {
     setSelectedSkill([...removedArr])
   }
 
-  const title = "装備"
+  const comparedColor = (attr: keyof Weapon):string  => {
+    switch (true) {
+      case selectedWeapon[attr] > currentWeapon[attr]: {
+        return 'text-green-300'
+      }
+      case selectedWeapon[attr] < currentWeapon[attr]: {
+        return 'text-red-400'
+      }
+      default: {
+        return ''
+      }
+    }
+  }
 
   if (Boolean(coord)) {
     return (
@@ -60,14 +73,14 @@ export default function EnhanceModal(): JSX.Element | null {
                     <tr>
                       <th className="border-b border-amber-200 text-right font-normal w-28">攻撃力</th>
                       <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-                        <span className="mr-2">{currentWeapon?.charac}</span>
+                        <span className={`mr-2 text-[0.6rem] md:text-xs ${characColor(currentWeapon)}`}>{currentWeapon?.charac}</span>
                         <span>{currentWeapon?.attack}</span>
                       </td>
                     </tr>
                     <tr>
                       <th className="border-b border-amber-200 text-right font-normal w-28">属性攻撃力</th>
                       <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-                        <span className="mr-2">{currentWeapon?.attribute}</span>
+                        <span className={`mr-2 text-[0.6rem] md:text-xs ${attributeColor(currentWeapon)}`}>{currentWeapon?.attribute}</span>
                         <span>{currentWeapon?.attributePower}</span>
                       </td>
                     </tr>
@@ -134,22 +147,24 @@ export default function EnhanceModal(): JSX.Element | null {
                     <tr>
                       <th className="border-b border-amber-200 text-right font-normal w-28">攻撃力</th>
                       <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-                        <span className="mr-2">{selectedWeapon.charac}</span>
-                        <span>{selectedWeapon.attack}</span>
+                        <span className={`mr-2 text-[0.6rem] md:text-xs ${characColor(selectedWeapon)}`}>{selectedWeapon.charac}</span>
+                        <span className={comparedColor('attack')}>{selectedWeapon.attack}</span>
                       </td>
                     </tr>
                     <tr>
                       <th className="border-b border-amber-200 text-right font-normal w-28">属性攻撃力</th>
                       <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-                        <span className="mr-2">{selectedWeapon.attribute}</span>
-                        <span>{selectedWeapon.attributePower}</span>
+                        <span className={`mr-2 text-[0.6rem] md:text-xs ${attributeColor(selectedWeapon)}`}>{selectedWeapon.attribute}</span>
+                        <span className={comparedColor('attributePower')}>{selectedWeapon.attributePower}</span>
                       </td>
                     </tr>
                     <tr>
                       <th className="border-b border-amber-200 text-right font-normal w-28">会心率</th>
                       <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-                        <span>{selectedWeapon.critical}</span>
-                        <span>%</span>
+                        <span className={comparedColor('critical')}>
+                          <span>{selectedWeapon.critical}</span>
+                          <span>%</span>
+                        </span>
                       </td>
                     </tr>
                     <tr>
