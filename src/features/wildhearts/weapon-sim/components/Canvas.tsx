@@ -33,7 +33,7 @@ export default function Canvas(): JSX.Element {
   }
   return (
     <>
-      <Stage width={1040 * scale.x} height={980} scaleX={scale.x} scaleY={scale.y} draggable={true}>
+      <Stage width={1040 * scale.x} height={1040} scaleX={scale.x} scaleY={scale.y} draggable={true}>
         <Layer>
           <Rect fill="#4b5563" width={1040} height={980} onTouchEnd={_e => { closePreview() }} />
         </Layer>

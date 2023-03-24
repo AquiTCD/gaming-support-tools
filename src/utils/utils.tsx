@@ -38,7 +38,7 @@ export const skillName = (skill: string):string => {
 }
 
 const columns = 'ABCDEFGHIJKLMNOPQ'
-const maxRow = 16
+const maxRow = 17
 export const location: { [key: string]: {x: number, y:number} } = {}
 for(let row:number = 1; row <= maxRow; row++)  {
   for(let column:number = 1; column <= columns.length; column++) {
