@@ -5,6 +5,7 @@ import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import React, { useEffect, useState } from 'react'
 import useWindowSize from '@/hooks/useWindowSize'
 import type { Weapon, Select, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
+import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
 import Draggable, {DraggableCore} from 'react-draggable'
 
 export default function Equipped(): JSX.Element {
@@ -48,14 +49,14 @@ export default function Equipped(): JSX.Element {
           { isExpand && <tr>
             <th className="border-b border-amber-200 text-right font-normal w-28">攻撃力</th>
             <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{equippedWeapon.charac}</span>
+              <span className={`mr-2 text-[0.6rem] md:text-xs ${characColor(equippedWeapon)}`}>{equippedWeapon.charac}</span>
               <span>{equippedWeapon.attack}</span>
             </td>
           </tr> }
           { isExpand && <tr>
             <th className="border-b border-amber-200 text-right font-normal w-28">属性攻撃力</th>
             <td className="border-b border-amber-200 text-right pr-10 font-bold text-l">
-              <span className="mr-2">{equippedWeapon.attribute}</span>
+              <span className={`mr-2 text-[0.6rem] md:text-xs ${attributeColor(equippedWeapon)}`}>{equippedWeapon.attribute}</span>
               <span>{equippedWeapon.attributePower}</span>
             </td>
           </tr> }
