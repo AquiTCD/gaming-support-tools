@@ -5,11 +5,11 @@ import PreviewModal from '@/features/wildhearts/weapon-sim/components/PreviewMod
 
 export default function GlobalModal(): JSX.Element {
   return (
-    <>
+    <div className="z-30">
       <EnhanceModal />
       <RequirementsModal />
       <RestoreModal />
       <PreviewModal />
-    </>
+    </div>
   );
 }
