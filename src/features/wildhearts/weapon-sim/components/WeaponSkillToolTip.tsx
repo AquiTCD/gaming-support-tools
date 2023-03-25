@@ -1,13 +1,13 @@
-import { Tooltip } from 'react-tooltip';
-import { skillName } from '@/utils/utils';
-import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip } from 'react-tooltip'
+import { skillName } from '@/utils/utils'
+import 'react-tooltip/dist/react-tooltip.css'
 import allSkillList from '@/assets/wildhearts/skill_list.json'
 
 type Props={
   id: string;
 }
 
-export default function SkillToolTip({ id }: Props): JSX.Element {
+export default function WeaponSkillToolTip({ id }: Props): JSX.Element {
   const skillDescription = (name:string|null):string => {
     let description = ''
     if (name) {
@@ -24,10 +24,11 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
         return (
           <div className="text-xs md:text-sm">
             <p>{name}</p>
-            <hr />
+            <hr className="border-gray-800" />
             <p>{skillDescription(name)}</p>
           </div>
-        )}}>
+        )}}
+        style={{ backgroundColor: "#f59e0b", color: "#1f2937" }}>
       </Tooltip>
     </>
   );
