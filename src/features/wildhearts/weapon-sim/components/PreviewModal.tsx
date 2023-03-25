@@ -42,9 +42,12 @@ export default function PreviewModal(): JSX.Element | null {
       }
     }
   }
+  const isSelected = ():boolean => {
+    return Boolean($selection.find(item => item.coord === coord))
+  }
 
   const canEnhance = ():boolean => {
-    if (Boolean($selection.find(item => item.coord === coord))) { return false }
+    if (isSelected()) {return false }
     const candidates = $paths.reduce((sum: Path[], path: Path) => {
       switch (true) {
         case path[0] === lastSelected.coord: {
@@ -128,6 +131,16 @@ export default function PreviewModal(): JSX.Element | null {
               </ul>
             </td>
           </tr>
+          { isTouchScreen && isSelected() &&
+          <tr>
+            <td colSpan={2} className="text-center">
+              <button type="button" onTouchEnd={() => { open('restoreModal', coord); closePreview() } }
+                className="text-gray-800 bg-amber-300 rounded-lg px-3 py-1 mb-1 font-bold">
+                巻き戻す
+              </button>
+            </td>
+          </tr>
+          }
           { isTouchScreen && canEnhance() &&
           <tr>
             <td colSpan={2} className="text-center">
