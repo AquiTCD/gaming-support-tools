@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { selection, enhance } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
 import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
-import SkillToolTip from '@/components/SkillToolTip'
+import SkillToolTip from '@/features/wildhearts/weapon-sim/components/WeaponSkillToolTip'
 import type { InheritedSkill, Coordinate, Weapon } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
 
@@ -98,7 +98,9 @@ export default function EnhanceModal(): JSX.Element | null {
                       <td colSpan={2}>
                         <ul>
                           { [0,1,2].map(i => {
-                            return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-tooltip" data-tooltip-content={currentWeapon.inherentSkills[i]}>{currentWeapon?.inherentSkills[i]}</li>
+                            return currentWeapon?.inherentSkills[i] ?
+                              <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-enhance-tooltip" data-tooltip-content={currentWeapon.inherentSkills[i]}>{currentWeapon?.inherentSkills[i]}</li> :
+                              <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{currentWeapon?.inherentSkills[i]}</li>
                           })}
                         </ul>
                       </td>
@@ -114,8 +116,9 @@ export default function EnhanceModal(): JSX.Element | null {
                             let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                             if (skill) {
                               classes += isSelected(skill) ? ' text-gray-500' : ''
-                              return <li key={i} className={classes}
-                              onClick={() => selectSkill(skill)} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
+                              return skill.name ?
+                                <li key={i} className={classes} onClick={() => selectSkill(skill)} data-tooltip-id="skill-enhance-tooltip" data-tooltip-content={skill.name}>{skill.name}</li> :
+                                <li key={i} className={classes}>{skill.name}</li>
                             }
                             if (i >= currentWeapon.inheritedSkills.length + currentWeapon.capacity) {
                               classes = 'h-6 pt-0.5 mb-1 px-2'
@@ -174,7 +177,9 @@ export default function EnhanceModal(): JSX.Element | null {
                       <td colSpan={2}>
                         <ul>
                           { [0,1,2].map(i => {
-                            return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-tooltip" data-tooltip-content={selectedWeapon.inherentSkills[i]}>{selectedWeapon.inherentSkills[i]}</li>
+                            return selectedWeapon.inherentSkills[i] ?
+                              <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-enhance-tooltip" data-tooltip-content={selectedWeapon.inherentSkills[i]}>{selectedWeapon.inherentSkills[i]}</li> :
+                              <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{selectedWeapon.inherentSkills[i]}</li>
                           })}
                         </ul>
                       </td>
@@ -189,11 +194,13 @@ export default function EnhanceModal(): JSX.Element | null {
                             let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                             let skill = selectedWeapon.inheritedSkills[i]
                             if (skill) {
-                              return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
+                              return <li key={i} className={classes} data-tooltip-id="skill-enhance-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
                             }
                             skill = selectedSkills[i - selectedWeapon.inheritedSkills.length]
                             if (skill) {
-                              return <li key={i} className={classes} onClick={() => deSelectSkill(skill)} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
+                              return skill.name ?
+                                <li key={i} className={classes} onClick={() => deSelectSkill(skill)} data-tooltip-id="skill-enhance-tooltip" data-tooltip-content={skill.name}>{skill.name}</li> :
+                                <li key={i} className={classes}>{skill.name}</li>
                             }
                             if (i >= selectedWeapon.inheritedSkills.length + selectedWeapon.capacity) {
                               classes = 'h-6 pt-0.5 mb-1 px-2'
@@ -232,7 +239,7 @@ export default function EnhanceModal(): JSX.Element | null {
               </div>
             </div>
           </div>
-          <SkillToolTip id="skill-modal-tooltip" />
+          <SkillToolTip id="skill-enhance-tooltip" />
         </div>
       </>
     )

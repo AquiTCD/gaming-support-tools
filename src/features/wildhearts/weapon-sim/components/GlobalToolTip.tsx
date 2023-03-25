@@ -1,5 +1,4 @@
-import SkillToolTip from '@/components/SkillToolTip'
-// import 'react-tooltip/dist/react-tooltip.css'
+import SkillToolTip from '@/features/wildhearts/weapon-sim/components/WeaponSkillToolTip'
 
 export default function GlobalToolTip(): JSX.Element {
   return (
