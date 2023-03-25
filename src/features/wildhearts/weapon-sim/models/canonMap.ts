@@ -1,4 +1,4 @@
-export const bowCoordinates = [
+export const canonCoordinates = [
                        '1D',                              '1I',                              '1N',
   // '2A',  '2B',  '2C',  '2D',  '2E',  '2F',  '2G',  '2H',  '2I',  '2J',  '2K',  '2L',  '2M',  '2N',  '2O',  '2P',  '1Q',
                                                    '3H',  '3I',  '3J',
@@ -7,9 +7,9 @@ export const bowCoordinates = [
   '6A',         '6C',  '6D',  '6E',         '6G',  '6H',         '6J',  '6K',         '6M',  '6N',  '6O',         '6Q',
   // '7A', '7B', '7C', '7D', '7E', '7F', '7G', '7H', '7I', '7J', '7K', '7L', '7M', '7N', '7O', '7P', '1Q',
          '8B',         '8D',         '8F',                '8I',                '8L',         '8N',         '8P',
-  '9A',         '9C',         '9E',         '9G', '9H',          '9J',  '9K',         '9M',         '9O',         '9Q',
-                '10C',        '10E',        '10G', '10H',               '10K',                      '10O',        '10Q',
-                '11C',        '11E',        '11G', '11H',        '11J', '11K',                      '11O',
+  '9A',         '9C',         '9E',         '9G',  '9H',          '9J',  '9K',         '9M',         '9O',         '9Q',
+  '10A',        '10C',        '10E',               '10H',               '10K',                                    '10Q',
+                '11C',        '11E',               '11H',        '11J', '11K',                      '11O',
   '12A',        '12C',        '12E',        '12G', '12H',        '12J', '12K',        '12M',        '12O',        '12Q',
          '13B',                      '13F',               '13I',               '13L',                      '13P',
   '14A', '14B',                      '14F',               '14I',               '14L',                      '14P',
@@ -17,9 +17,9 @@ export const bowCoordinates = [
                               '16E',                                                  '16M',
          '17B',                                                                '17L',
 ] as const
-export type BowCoordinate = typeof bowCoordinates[number]
-export type BowPath = [BowCoordinate, BowCoordinate]
-export const bowPaths: BowPath[] = [
+export type CanonCoordinate = typeof canonCoordinates[number]
+export type CanonPath = [CanonCoordinate, CanonCoordinate]
+export const canonPaths: CanonPath[] = [
   ['1D', '4A'],
   ['1D', '4C'],
   ['1D', '4E'],
@@ -104,31 +104,29 @@ export const bowPaths: BowPath[] = [
   ['9A', '12A'],
   ['9C', '10C'],
   ['9E', '10E'],
-  ['9G', '10G'],
+  ['9G', '12G'],
+  ['9G', '9H'],
   ['9H', '10H'],
   ['9J', '12H'],
   ['9J', '11J'],
   ['9K', '10K'],
   ['9M', '12M'],
   ['9M', '9O'],
-  ['9O', '10O'],
+  ['9O', '10Q'],
+  ['9O', '11O'],
   ['9Q', '10Q'],
 
   ['10C', '12A'],
   ['10C', '12C'],
   ['10E', '11E'],
   ['10E', '12G'],
-  ['10G', '11G'],
-  ['10G', '10H'],
   ['10H', '11H'],
   ['10K', '11K'],
   ['10K', '12M'],
-  ['10O', '11O'],
   ['10Q', '12Q'],
 
   ['11C', '12C'],
   ['11E', '12E'],
-  ['11G', '12G'],
   ['11H', '12H'],
   ['11J', '12J'],
   ['11K', '12K'],
