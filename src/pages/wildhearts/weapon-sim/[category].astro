@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import Canvas from '@/features/wildhearts/weapon-sim/components/Canvas';
 import Equipped from '@/features/wildhearts/weapon-sim/components/Equipped';
 import GlobalModal from '@/features/wildhearts/weapon-sim/components/GlobalModal';
+import GlobalToolTip from '@/features/wildhearts/weapon-sim/components/GlobalToolTip';
 
 const title = "WILD HEARTS 武器シミュレータ"
 const description = "WILD HEARTS 内で装備可能な武器の強化派生を調べることができるシミュレータ"
@@ -32,6 +33,7 @@ export function getStaticPaths() {
 	</main>
   <!-- <GlobalToolTip client:only="react" /> -->
   <GlobalModal client:only="react" />
+  <GlobalToolTip client:only="react" />
 </Layout>
 
 <style>

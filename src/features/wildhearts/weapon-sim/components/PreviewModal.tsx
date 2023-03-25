@@ -102,7 +102,7 @@ export default function PreviewModal(): JSX.Element | null {
             <td colSpan={2}>
               <ul>
                 { [0,1,2].map(i => {
-                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{previewWeapon.inherentSkills[i]}</li>
+                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-tooltip" data-tooltip-content={previewWeapon.inherentSkills[i]}>{previewWeapon.inherentSkills[i]}</li>
                 })}
               </ul>
             </td>
@@ -117,7 +117,7 @@ export default function PreviewModal(): JSX.Element | null {
                   let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                   let skill = previewWeapon.inheritedSkills[i]
                   if (skill) {
-                    return <li key={i} className={classes}>{skill.name}</li>
+                    return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
                   }
                   if (i >= previewWeapon.inheritedSkills.length + previewWeapon.capacity) {
                     classes = 'h-6 pt-0.5 mb-1 px-2'

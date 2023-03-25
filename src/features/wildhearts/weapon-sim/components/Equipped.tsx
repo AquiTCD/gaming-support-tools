@@ -74,7 +74,7 @@ export default function Equipped(): JSX.Element {
             <td colSpan={2}>
               <ul>
                 { [0,1,2].map(i => {
-                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{equippedWeapon.inherentSkills[i]}</li>
+                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-tooltip" data-tooltip-content={equippedWeapon.inherentSkills[i]}>{equippedWeapon.inherentSkills[i]}</li>
                 })}
               </ul>
             </td>
@@ -89,7 +89,7 @@ export default function Equipped(): JSX.Element {
                   const skill = inheritedSkills[i]
                   let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                   if (skill) {
-                    return <li key={i} className={classes}>{skill.name}</li>
+                    return <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>
                   }
                   if (i >= equippedWeapon.inheritedSkills.length + equippedWeapon.capacity) {
                     classes = 'h-6 pt-0.5 mb-1 px-2'

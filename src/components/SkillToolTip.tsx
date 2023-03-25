@@ -1,4 +1,5 @@
 import { Tooltip } from 'react-tooltip';
+import { skillName } from '@/utils/utils';
 import 'react-tooltip/dist/react-tooltip.css';
 import allSkillList from '@/assets/wildhearts/skill_list.json'
 
@@ -19,12 +20,12 @@ export default function SkillToolTip({ id }: Props): JSX.Element {
   return (
     <>
       <Tooltip id={id} render={({ content }) => {
-        const skillName = content ?? ''
+        const name = content ? skillName(content) : ''
         return (
           <div className="text-xs md:text-sm">
-            <p>{skillName}</p>
+            <p>{name}</p>
             <hr />
-            <p>{skillDescription(skillName)}</p>
+            <p>{skillDescription(name)}</p>
           </div>
         )}}>
       </Tooltip>
