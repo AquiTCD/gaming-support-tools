@@ -70,6 +70,7 @@ export default function PreviewModal(): JSX.Element | null {
         <Draggable
           handle="#previewModal"
           defaultPosition={{x: 0, y: 0}}
+          cancel=".cancel-drag"
         >
         <table id="previewModal" className={`bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-40 md:w-52 rounded-lg border-spacing-0 absolute cursor-grab active:cursor-grabbing ${posClass.x} ${posClass.y}`}>
           <tbody className="text-xs md:text-sm">
@@ -106,7 +107,7 @@ export default function PreviewModal(): JSX.Element | null {
             <td colSpan={2}>
               <ul>
                 { [0,1,2].map(i => {
-                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-preview-tooltip" data-tooltip-content={previewWeapon.inherentSkills[i]}>{previewWeapon.inherentSkills[i]}</li>
+                  return <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2 cancel-drag" data-tooltip-id="skill-preview-tooltip" data-tooltip-content={previewWeapon.inherentSkills[i]}>{previewWeapon.inherentSkills[i]}</li>
                 })}
               </ul>
             </td>
@@ -118,7 +119,7 @@ export default function PreviewModal(): JSX.Element | null {
             <td colSpan={2}>
               <ul>
                 { [...Array(5)].map((_, i) => i).map(i => {
-                  let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
+                  let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2 cancel-drag"
                   let skill = previewWeapon.inheritedSkills[i]
                   if (skill) {
                     return <li key={i} className={classes} data-tooltip-id="skill-preview-tooltip" data-tooltip-content={skill.name}>{skill.name}</li>

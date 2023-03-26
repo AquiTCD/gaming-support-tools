@@ -33,6 +33,7 @@ export default function Equipped(): JSX.Element {
       <Draggable
         handle="#equipped"
         defaultPosition={{x: 0, y: 0}}
+        cancel=".cancel-drag"
       >
         <table id="equipped" className="bg-gray-800/75 border-separate border-4 border-amber-400 text-gray-100 w-40 md:w-52 rounded-lg border-spacing-0 absolute bottom-[20px] left-[20px] cursor-grab active:cursor-grabbing">
           <tbody className="text-xs md:text-sm">
@@ -75,7 +76,7 @@ export default function Equipped(): JSX.Element {
               <ul>
                 { [0,1,2].map(i => {
                   return equippedWeapon.inherentSkills[i] ?
-                    <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2" data-tooltip-id="skill-tooltip" data-tooltip-content={equippedWeapon.inherentSkills[i]}>{equippedWeapon.inherentSkills[i]}</li> :
+                    <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2 cancel-drag" data-tooltip-id="skill-tooltip" data-tooltip-content={equippedWeapon.inherentSkills[i]}>{equippedWeapon.inherentSkills[i]}</li> :
                     <li key={i} className="bg-gray-900/75 h-6 pt-0.5 mb-1 px-2">{equippedWeapon.inherentSkills[i]}</li>
                 })}
               </ul>
@@ -92,7 +93,7 @@ export default function Equipped(): JSX.Element {
                   let classes = "bg-gray-900/75 h-6 pt-0.5 mb-1 px-2"
                   if (skill) {
                     return skill.name ?
-                      <li key={i} className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li> :
+                      <li key={i} className={`${classes} cancel-drag`} data-tooltip-id="skill-tooltip" data-tooltip-content={skill.name}>{skill.name}</li> :
                       <li key={i} className={classes}>{skill.name}</li>
                   }
                   if (i >= equippedWeapon.inheritedSkills.length + equippedWeapon.capacity) {
