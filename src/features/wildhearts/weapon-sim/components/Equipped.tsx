@@ -1,7 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
 import { open } from '@/features/wildhearts/weapon-sim/stores/modals'
-import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { weapons, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import React, { useEffect, useState } from 'react'
 import useWindowSize from '@/hooks/useWindowSize'
 import type { Weapon, Select, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
@@ -22,6 +21,8 @@ export default function Equipped(): JSX.Element {
   useEffect(() => {
     setIsExpand(width > 768)
   }, [width])
+
+  console.log($selection)
 
   const lastSelected = $selection[$selection.length - 1]
   const equippedWeapon: Weapon = $weapons.find(weapon => weapon.coord === lastSelected.coord)!

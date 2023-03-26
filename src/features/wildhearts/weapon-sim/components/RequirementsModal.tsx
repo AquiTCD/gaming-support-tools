@@ -1,7 +1,6 @@
 import { useStore } from '@nanostores/react'
-import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
 import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
-import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { weapons, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 
 export default function RequirementsModal(): JSX.Element | null {
   const $weapons = useStore(weapons)
