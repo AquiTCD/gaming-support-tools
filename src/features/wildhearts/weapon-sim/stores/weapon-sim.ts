@@ -1,12 +1,8 @@
 import { atom, map, computed, action, onMount } from 'nanostores'
 import type { Weapon, Select, Coordinate, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
-import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { weapons, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { close } from '@/features/wildhearts/weapon-sim/stores/modals'
 
-// selection store
-export const selection = map<Select[]>([{order:1, coord:'1I', skills:[]}])
-
-// actions
 export const enhance = (coord: Coordinate, skills:InheritedSkill[] | undefined) => {
   const selectedWeapon = weapons.get().find(w => w.coord === coord )!
   if (skills === undefined) { return ;}

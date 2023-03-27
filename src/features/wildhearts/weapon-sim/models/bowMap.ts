@@ -96,6 +96,7 @@ export const bowPaths: BowPath[] = [
   ['8L', '9K'],
   ['8L', '9M'],
   ['8L', '8N'],
+  ['8N', '9M'],
   ['8N', '9O'],
   ['8N', '8P'],
   ['8P', '9O'],

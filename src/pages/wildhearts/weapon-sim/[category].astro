@@ -1,9 +1,10 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Canvas from '@/features/wildhearts/weapon-sim/components/Canvas';
-import Equipped from '@/features/wildhearts/weapon-sim/components/Equipped';
-import GlobalModal from '@/features/wildhearts/weapon-sim/components/GlobalModal';
-import GlobalToolTip from '@/features/wildhearts/weapon-sim/components/GlobalToolTip';
+import Layout from '@/layouts/Layout.astro'
+import Canvas from '@/features/wildhearts/weapon-sim/components/Canvas'
+import Equipped from '@/features/wildhearts/weapon-sim/components/Equipped'
+import StateUrl from '@/features/wildhearts/weapon-sim/components/StateUrl'
+import GlobalModal from '@/features/wildhearts/weapon-sim/components/GlobalModal'
+import GlobalToolTip from '@/features/wildhearts/weapon-sim/components/GlobalToolTip'
 
 const title = "WILD HEARTS 武器シミュレータ"
 const description = "WILD HEARTS 内で装備可能な武器の強化派生を調べることができるシミュレータ"
@@ -20,18 +21,24 @@ export function getStaticPaths() {
 ---
 <Layout title={title} description={description} og_image={og_image} path={path}>
   <main class="bg-gray-600">
-    <div class="flex space-x-2">
-      <a href="/wildhearts/armor-sim" class="text-xs md:text-sm inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">防具シミュレータに移動</a>
-      <a href="/wildhearts/weapon-sim/reset" class="text-xs md:text-sm inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">武器種選択に戻る</a>
+    <div class="flex space-x-2 text-xs md:text-sm">
+      <a href="/wildhearts/armor-sim" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">防具シミュレータに移動</a>
+      <a href="/wildhearts/weapon-sim/reset" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">武器種選択に戻る</a>
     </div>
+    <StateUrl path={Astro.url.pathname} client:load />
     <div class="overflow-x-scroll">
       <Canvas client:only="react" />
       <div>
       <Equipped client:only="react" />
       </div>
     </div>
+    <section class="mt-2 text-xs text-amber-500">
+      <ul>
+        <li>(C)コーエーテクモゲームス All rights reserved.</li>
+        <li>(C)2022 Electronic Arts Inc.</li>
+      </ul>
+    </section>
 	</main>
-  <!-- <GlobalToolTip client:only="react" /> -->
   <GlobalModal client:only="react" />
   <GlobalToolTip client:load/>
 </Layout>

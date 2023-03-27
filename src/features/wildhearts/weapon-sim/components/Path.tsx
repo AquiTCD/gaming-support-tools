@@ -1,6 +1,6 @@
 import { Line } from "react-konva"
 import { useStore } from '@nanostores/react'
-import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { location } from '@/utils/utils'
 import type { Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
 

@@ -1,8 +1,8 @@
 import { useStore } from '@nanostores/react'
 import React, { useState, useEffect } from 'react'
-import { selection, enhance } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
+import { enhance } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
 import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
-import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { weapons, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import type { InheritedSkill, Coordinate, Weapon } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
 

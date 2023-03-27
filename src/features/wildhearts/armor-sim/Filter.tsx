@@ -81,7 +81,7 @@ export default function Filter(): JSX.Element {
             <div className="border rounded-lg bg-gray-200 px-2 py-1 font-bold text-sm md:text-base">
               耐性
             </div>
-            <div className="mt-0 md:mt-1" data-tooltip-id="global" data-tooltip-html="入力した数値以上のみ表示<br />空欄でフィルタ解除">
+            <div className="mt-0 md:mt-1" data-tooltip-id="global-tooltip" data-tooltip-html="入力した数値以上のみ表示<br />空欄でフィルタ解除">
               <div className="grid grid-cols-3 md:grid-cols-6 gap-1">
                 <div className="flex">
                   <span className="inline-flex items-center px-1 text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md">

@@ -1,7 +1,6 @@
 import { useStore } from '@nanostores/react'
 import { previewModalState, closePreview, open } from '@/features/wildhearts/weapon-sim/stores/modals'
-import { selection } from '@/features/wildhearts/weapon-sim/stores/weapon-sim'
-import { paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
+import { paths, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { weapons } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import useWindowSize from '@/hooks/useWindowSize'
 import { useIsTouchScreen } from '@/hooks/useIsTouchScreen'

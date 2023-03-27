@@ -5,8 +5,7 @@ import StateUrl from '@/components/StateUrl';
 import Hr from '@/components/Hr.astro';
 import Filter from '@/features/wildhearts/armor-sim/Filter';
 import ArmorList from '@/features/wildhearts/armor-sim/ArmorList';
-import SkillToolTip from '@/components/SkillToolTip'
-import GlobalToolTip from '@/components/GlobalToolTip'
+import GlobalToolTip from '@/features/wildhearts/armor-sim/GlobalToolTip'
 
 const title = "WILD HEARTS 防具シミュレータ"
 const description = "WILD HEARTS 内で装備可能な防具の数値や技能を調べたり組み合わせを調べることができるシミュレータ"
@@ -14,6 +13,10 @@ const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
 ---
 <Layout title={title} description={description} og_image={og_image}>
   <main>
+    <div class="flex space-x-2 mb-2">
+      <a href="/wildhearts/weapon-sim" class="text-xs md:text-sm inline-block border rounded-lg px-2 border-gray-400 text-gray-700 hover:text-gray-200 bg-gray-200 hover:bg-gray-700">武器シミュレータに移動</a>
+      <a href="/wildhearts/armor-sim" class="text-xs md:text-sm inline-block border rounded-lg px-2 border-gray-400 text-gray-700 hover:text-gray-200 bg-gray-200 hover:bg-gray-700">防具設定をリセット</a>
+    </div>
     <div class="overflow-x-scroll">
       <Loadout client:load />
     </div>
@@ -24,7 +27,7 @@ const og_image = '/assets/ogp_wildhearts_armor-sim.jpg'
     <div class="overflow-x-scroll w-full h-screen">
       <ArmorList client:load />
     </div>
-    <SkillToolTip id="skill-tooltip" client:load />
+    <!-- <GlobalToolTip client:load/> -->
 
     <section class="mt-2 text-xs text-gray-500">
       <ul>

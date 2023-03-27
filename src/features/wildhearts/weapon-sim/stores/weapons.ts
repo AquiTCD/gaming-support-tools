@@ -3,18 +3,23 @@ import katanaList from '@/assets/wildhearts/katana_list.json'
 import bowList from '@/assets/wildhearts/bow_list.json'
 import clawList from '@/assets/wildhearts/claw_list.json'
 import canonList from '@/assets/wildhearts/canon_list.json'
-import type { Weapon, Coordinate, Paths } from '@/features/wildhearts/weapon-sim/models/weapon'
+import staffList from '@/assets/wildhearts/staff_list.json'
+import type { Weapon, Coordinate, Paths, Select } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { router } from '@/stores/router'
 import { searchParams } from '@/stores/searchParams'
 import { katanaCoordinates, katanaPaths } from '@/features/wildhearts/weapon-sim/models/katanaMap'
 import { bowCoordinates, bowPaths } from '@/features/wildhearts/weapon-sim/models/bowMap'
-import { clawCoordinates, clawPaths } from '@/features/wildhearts/weapon-sim/models/clawMap'
-import { canonCoordinates, canonPaths } from '@/features/wildhearts/weapon-sim/models/canonMap'
 import { wagasaCoordinates, wagasaPaths } from '@/features/wildhearts/weapon-sim/models/wagasaMap'
+import { canonCoordinates, canonPaths } from '@/features/wildhearts/weapon-sim/models/canonMap'
+import { clawCoordinates, clawPaths } from '@/features/wildhearts/weapon-sim/models/clawMap'
+import { staffCoordinates, staffPaths } from '@/features/wildhearts/weapon-sim/models/staffMap'
+import pako from 'pako'
+import { Buffer } from 'buffer'
 
 export const weapons = atom<Weapon[]>([])
 export const coordinates = atom<Coordinate[]>([])
 export const paths = atom<Paths>([])
+export const selection = atom<Select[]>([{order:1, coord:'1I', skills:[]}])
 
 // router
 onMount(weapons, () => {
@@ -36,16 +41,22 @@ onMount(weapons, () => {
         paths.set([...bowPaths])
         return
       }
+      case 'canon': {
+        weapons.set([...canonList] as Weapon[])
+        coordinates.set([...canonCoordinates])
+        paths.set([...canonPaths])
+        return
+      }
       case 'claw': {
         weapons.set([...clawList] as Weapon[])
         coordinates.set([...clawCoordinates])
         paths.set([...clawPaths])
         return
       }
-      case 'canon': {
-        weapons.set([...canonList] as Weapon[])
-        coordinates.set([...canonCoordinates])
-        paths.set([...canonPaths])
+      case 'staff': {
+        weapons.set([...staffList] as Weapon[])
+        coordinates.set([...staffCoordinates])
+        paths.set([...staffPaths])
         return
       }
       case 'wagasa': {
@@ -65,25 +76,22 @@ onMount(weapons, () => {
   })
 })
 // query parameter loading
-// onMount(weapons, () => {
-//   return searchParams.subscribe(async params => {
-//     switch (params.c) {
-//       case 'katana': {
-//         weapons.set([...katanaList] as Weapon[])
-//         coordinates.set([...katanaCoordinates])
-//         paths.set([...katanaPaths])
-//         break
-//       }
-//       case 'wagasa': {
-//         // weapons.set([...wagasaaList] as Weapon[])
-//         coordinates.set([...wagasaCoordinates])
-//         paths.set([...wagasaPaths])
-//         break
-//       }
-//       default: {
-//         console.log(router)
-//         window.location.href = '/wildhearts/weapon-sim'
-//       }
-//     }
-//   })
-// })
+onMount(weapons, () => {
+  return searchParams.subscribe(async params => {
+    // decode
+    if (Boolean(params.s)) { return }
+
+    const raw = await Buffer.from(params.s, 'base64')
+    const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
+    const restredSelection = restoredObj.map(obj => {
+      const skills = obj.s.map(skillId => {
+        const coord = skillId.split('-')[0]
+        const source = weapons.get().find(weapon => weapon.coord === coord)
+        return source?.inheritedSkills.find(inheritedSkill => inheritedSkill.id === skillId)
+      })
+      return { coord: obj.c, order: obj.o, skills: skills }
+    }
+    )
+    selection.set([...restredSelection])
+  })
+})
