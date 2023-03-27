@@ -3,14 +3,16 @@ import katanaList from '@/assets/wildhearts/katana_list.json'
 import bowList from '@/assets/wildhearts/bow_list.json'
 import clawList from '@/assets/wildhearts/claw_list.json'
 import canonList from '@/assets/wildhearts/canon_list.json'
+import staffList from '@/assets/wildhearts/staff_list.json'
 import type { Weapon, Coordinate, Paths, Select } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { router } from '@/stores/router'
 import { searchParams } from '@/stores/searchParams'
 import { katanaCoordinates, katanaPaths } from '@/features/wildhearts/weapon-sim/models/katanaMap'
 import { bowCoordinates, bowPaths } from '@/features/wildhearts/weapon-sim/models/bowMap'
-import { clawCoordinates, clawPaths } from '@/features/wildhearts/weapon-sim/models/clawMap'
-import { canonCoordinates, canonPaths } from '@/features/wildhearts/weapon-sim/models/canonMap'
 import { wagasaCoordinates, wagasaPaths } from '@/features/wildhearts/weapon-sim/models/wagasaMap'
+import { canonCoordinates, canonPaths } from '@/features/wildhearts/weapon-sim/models/canonMap'
+import { clawCoordinates, clawPaths } from '@/features/wildhearts/weapon-sim/models/clawMap'
+import { staffCoordinates, staffPaths } from '@/features/wildhearts/weapon-sim/models/staffMap'
 import pako from 'pako'
 import { Buffer } from 'buffer'
 
@@ -39,16 +41,22 @@ onMount(weapons, () => {
         paths.set([...bowPaths])
         return
       }
+      case 'canon': {
+        weapons.set([...canonList] as Weapon[])
+        coordinates.set([...canonCoordinates])
+        paths.set([...canonPaths])
+        return
+      }
       case 'claw': {
         weapons.set([...clawList] as Weapon[])
         coordinates.set([...clawCoordinates])
         paths.set([...clawPaths])
         return
       }
-      case 'canon': {
-        weapons.set([...canonList] as Weapon[])
-        coordinates.set([...canonCoordinates])
-        paths.set([...canonPaths])
+      case 'staff': {
+        weapons.set([...staffList] as Weapon[])
+        coordinates.set([...staffCoordinates])
+        paths.set([...staffPaths])
         return
       }
       case 'wagasa': {
