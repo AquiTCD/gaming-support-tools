@@ -24,7 +24,8 @@ export default function StateUrl({ path }: Props): JSX.Element {
   })
   const compressed = pako.deflate(JSON.stringify(compactSelection))
   const encodedStr = Buffer.from(compressed).toString('base64')
-  const newParams = new URLSearchParams({s:encodedStr})
+  const encodedStrForURI = encodeURIComponent(encodedStr)
+  const newParams = new URLSearchParams({s:encodedStrForURI})
   const fullUrl = `${baseUrl.toString()}?${newParams}`
 
   const copyToClipboard = async () => {
