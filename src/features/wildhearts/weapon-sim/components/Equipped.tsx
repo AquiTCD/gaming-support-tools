@@ -22,8 +22,6 @@ export default function Equipped(): JSX.Element {
     setIsExpand(width > 768)
   }, [width])
 
-  console.log($selection)
-
   const lastSelected = $selection[$selection.length - 1]
   const equippedWeapon: Weapon = $weapons.find(weapon => weapon.coord === lastSelected.coord)!
   const inheritedSkills: InheritedSkill[] = lastSelected.skills
