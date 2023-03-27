@@ -81,7 +81,8 @@ onMount(weapons, () => {
     // decode
     if (!Boolean(params.s)) { return }
 
-    const raw = await Buffer.from(params.s, 'base64')
+    const decodedStr = decodeURIComponent(params.s)
+    const raw = await Buffer.from(decodedStr, 'base64')
     const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
     const restredSelection = restoredObj.map(obj => {
       const skills = obj.s.map(skillId => {

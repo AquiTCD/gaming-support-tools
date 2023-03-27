@@ -110,7 +110,7 @@ export const katanaPaths: KatanaPath[] = [
   ['9J', '12H'],
   ['9J', '10J'],
   ['9K', '10K'],
-  ['9M', '12M'],
+  ['9M', '11M'],
   ['9M', '9O'],
   ['9O', '10O'],
   ['9Q', '10Q'],
@@ -134,6 +134,7 @@ export const katanaPaths: KatanaPath[] = [
   ['11H', '12H'],
   ['11J', '12J'],
   ['11K', '12K'],
+  ['11M', '12M'],
   ['11O', '12O'],
 
   ['12A', '14A'],
