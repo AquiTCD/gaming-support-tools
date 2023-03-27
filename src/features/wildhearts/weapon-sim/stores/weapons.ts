@@ -76,22 +76,22 @@ onMount(weapons, () => {
   })
 })
 // query parameter loading
-// onMount(weapons, () => {
-//   return searchParams.subscribe(async params => {
-//     // decode
-//     if (Boolean(params.s)) { return }
+onMount(weapons, () => {
+  return searchParams.subscribe(async params => {
+    // decode
+    if (!Boolean(params.s)) { return }
 
-//     const raw = await Buffer.from(params.s, 'base64')
-//     const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
-//     const restredSelection = restoredObj.map(obj => {
-//       const skills = obj.s.map(skillId => {
-//         const coord = skillId.split('-')[0]
-//         const source = weapons.get().find(weapon => weapon.coord === coord)
-//         return source?.inheritedSkills.find(inheritedSkill => inheritedSkill.id === skillId)
-//       })
-//       return { coord: obj.c, order: obj.o, skills: skills }
-//     }
-//     )
-//     selection.set([...restredSelection])
-//   })
-// })
+    const raw = await Buffer.from(params.s, 'base64')
+    const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
+    const restredSelection = restoredObj.map(obj => {
+      const skills = obj.s.map(skillId => {
+        const coord = skillId.split('-')[0]
+        const source = weapons.get().find(weapon => weapon.coord === coord)
+        return source?.inheritedSkills.find(inheritedSkill => inheritedSkill.id === skillId)
+      })
+      return { coord: obj.c, order: obj.o, skills: skills }
+    }
+    )
+    selection.set([...restredSelection])
+  })
+})
