@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react'
 import React, { useState } from 'react'
-import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter } from '@/stores/wildhearts/armor-sim'
+import { positions, positionFilter, modifiers, toggleFilter, changeResilience, skillFilter, resilienceFilter, modifierFilter, materialFilter, lockPositionFilter, toggleLockPositionFilter, toggleFilter } from '@/stores/wildhearts/armor-sim'
 import SkillModal from '@/components/SkillModal'
 import MaterialModal from '@/components/MaterialModal'
 import DualRangeSlider from '@/components/DualRangeSlider'
@@ -74,7 +74,14 @@ export default function Filter(): JSX.Element {
               { $skillFilter.map((skill, i) => {
                 const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-pink-200 text-gray-700 font-bold"
                 return <button key={i}
-                  className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>{skill}</button>
+                  className={classes} data-tooltip-id="skill-tooltip" data-tooltip-content={skill}>
+                    {skill}
+                    <div onClick={() => toggleFilter('skill', skill)} className="align-baseline opacity-70 w-3 h-3 inline-block ml-1 border bg-gray-300 text-gray-500 border-2 border-gray-500 rounded-full">
+                      <svg fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                  </button>
                 })
               }
             </div>
@@ -146,7 +153,14 @@ export default function Filter(): JSX.Element {
               { $materialFilter.map((material, i) => {
                 const classes = "rounded-full px-2 md:px-3 py-1 mr-2 bg-amber-300 text-gray-700 font-bold"
                 return <button key={i}
-                  className={classes} >{material}</button>
+                  className={classes}>
+                    {material}
+                    <div onClick={() => toggleFilter('material', material)} className="align-baseline opacity-70 w-3 h-3 inline-block ml-1 border bg-gray-300 text-gray-500 border-2 border-gray-500 rounded-full">
+                      <svg fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                  </button>
                 })
               }
             </div>
