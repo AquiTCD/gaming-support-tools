@@ -157,6 +157,7 @@ export const katanaPaths: KatanaPath[] = [
   ['13L', '14L'],
   ['13P', '14P'],
 
+  ['14A', '17B'],
   ['14A', '16E'],
   ['14A', '14B'],
   ['14B', '16E'],
@@ -166,6 +167,7 @@ export const katanaPaths: KatanaPath[] = [
   ['14L', '16M'],
   ['14L', '14P'],
   ['14P', '16M'],
+  ['14P', '17L'],
 
   ['16E', '17B'],
   ['16M', '17L'],
