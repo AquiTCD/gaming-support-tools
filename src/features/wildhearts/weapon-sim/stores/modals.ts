@@ -7,6 +7,7 @@ const initialModalState = {
   enhanceModal: false,
   requirementsModal: false,
   restoreModal: false,
+  skillModal: false,
 }
 export const modalStates = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
 
