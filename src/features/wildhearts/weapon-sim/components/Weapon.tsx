@@ -71,7 +71,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
         shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
         x={location[coord]['x']} y={location[coord]['y']} width={isSelected() ? 30 : 40} height={isSelected() ? 30 : 40}
         onMouseOver={e => {
-          closePreview()
+          // closePreview()
           if (state() !== 'inactive') {
             const container = e.target.getStage()!.container()
             container.style.cursor = "pointer"
@@ -86,13 +86,13 @@ export default function Weapon({ coord }: Props): JSX.Element {
           }
           preview(coord, e.target.getStage()!.getPointerPosition()!)
         }}
-        onMouseLeave={e => {
-          if (state() !== 'inactive') {
-            const container = e.target.getStage()!.container()
-            container.style.cursor = "default"
-          }
-          closePreview()
-        }}
+        // onMouseLeave={e => {
+        //   if (state() !== 'inactive') {
+        //     const container = e.target.getStage()!.container()
+        //     container.style.cursor = "default"
+        //   }
+        //   closePreview()
+        // }}
         />
     </>
   );

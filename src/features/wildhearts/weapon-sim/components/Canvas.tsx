@@ -2,14 +2,16 @@ import { Layer, Rect, Stage, Circle, Line } from "react-konva"
 import { useStore } from '@nanostores/react'
 import Weapon from '@/features/wildhearts/weapon-sim/components/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/components/Path'
+import Mark from '@/features/wildhearts/weapon-sim/components/Pin'
 import { coordinates, paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
-// import { useEffect, useState } from 'react'
+import { pinnedWeapons  } from '@/features/wildhearts/weapon-sim/stores/skills'
 import useWindowSize from '@/hooks/useWindowSize'
 
 export default function Canvas(): JSX.Element {
   const $coordinates = useStore(coordinates)
   const $paths = useStore(paths)
+  const $pinnedWeapons = useStore(pinnedWeapons)
   // const [isClient, setIsClient] = useState(false);
   const [width, height] = useWindowSize()
   // useEffect(() => {
@@ -31,6 +33,7 @@ export default function Canvas(): JSX.Element {
       break
     }
   }
+
   return (
     <>
       <Stage width={1040 * scale.x} height={1040} scaleX={scale.x} scaleY={scale.y} draggable={true}>
@@ -45,6 +48,11 @@ export default function Canvas(): JSX.Element {
         <Layer>
           { $coordinates.map((coord, i) => {
             return <Weapon key={i} coord={coord} />
+          })}
+        </Layer>
+        <Layer>
+          { $pinnedWeapons.map((coord, i) => {
+            return <Mark key={i} coord={coord} />
           })}
         </Layer>
       </Stage>

@@ -1,5 +1,4 @@
-import { atom, map, computed, action, onMount } from 'nanostores'
-import type { Weapon, Select, Coordinate, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
+import type { Coordinate, InheritedSkill } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { weapons, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { close } from '@/features/wildhearts/weapon-sim/stores/modals'
 

@@ -6,6 +6,7 @@ import useWindowSize from '@/hooks/useWindowSize'
 import { useIsTouchScreen } from '@/hooks/useIsTouchScreen'
 import type { Weapon, Coordinate, Path,  } from '@/features/wildhearts/weapon-sim/models/weapon'
 import { characColor, attributeColor  } from '@/features/wildhearts/weapon-sim/models/weapon'
+import { pinnedWeapons, togglePin  } from '@/features/wildhearts/weapon-sim/stores/skills'
 import SkillToolTip from '@/features/wildhearts/weapon-sim/components/WeaponSkillToolTip'
 import Draggable, {DraggableCore} from 'react-draggable'
 
@@ -14,6 +15,7 @@ export default function PreviewModal(): JSX.Element | null {
   const $paths = useStore(paths)
   const $weapons = useStore(weapons)
   const $modalStates = useStore(previewModalState)
+  const $pinnedWeapons = useStore(pinnedWeapons)
   const [width, height] = useWindowSize()
   const coord = $modalStates.coord as Coordinate
   const previewWeapon: Weapon = $weapons.find(weapon => weapon.coord === coord)!
@@ -26,6 +28,9 @@ export default function PreviewModal(): JSX.Element | null {
     posClass.x = width > 1300 ? 'left-[1050px]' :
     (width - $modalStates.x) > 350 ? 'right-[20px]' : 'right-[350px]'
     posClass.y = $modalStates.y < 500 ? 'top-[80px]' : 'top-[500px]'
+  }
+  const isMarked = (coord:Coordinate) => {
+    return Boolean($pinnedWeapons.find(m => m === coord))
   }
 
   const comparedColor = (attr: keyof Weapon):string  => {
@@ -141,6 +146,16 @@ export default function PreviewModal(): JSX.Element | null {
             </td>
           </tr>
           }
+          <tr>
+            <td colSpan={2} className="text-center">
+              <button type="button"
+                onClick={() => { togglePin(coord) } }
+                onTouchEnd={() => { togglePin(coord) } }
+                className="text-gray-800 bg-amber-300 rounded-lg px-3 py-1 mb-1 font-bold">
+                { isMarked(coord) ? 'ピンを外す' : 'ピンをつける' }
+              </button>
+            </td>
+          </tr>
           { isTouchScreen && canEnhance() &&
           <tr>
             <td colSpan={2} className="text-center">
