@@ -1,4 +1,4 @@
-export const staffCoordinates = [
+export const nodachiCoordinates = [
                        '1D',                              '1I',                              '1N',
   // '2A',  '2B',  '2C',  '2D',  '2E',  '2F',  '2G',  '2H',  '2I',  '2J',  '2K',  '2L',  '2M',  '2N',  '2O',  '2P',  '1Q',
                                                    '3H',  '3I',  '3J',
@@ -8,8 +8,8 @@ export const staffCoordinates = [
   // '7A', '7B', '7C', '7D', '7E', '7F', '7G', '7H', '7I', '7J', '7K', '7L', '7M', '7N', '7O', '7P', '1Q',
          '8B',         '8D',         '8F',                '8I',                '8L',         '8N',         '8P',
   '9A',         '9C',         '9E',         '9G', '9H',          '9J',  '9K',         '9M',         '9O',         '9Q',
-                '10C',        '10E',        '10G', '10H',        '10J', '10K',                                    '10Q',
-                '11C',        '11E',               '11H',        '11J', '11K',        '11M',        '11O',        '11Q',
+                '10C',        '10E',        '10G', '10H',               '10K',                      '10O',        '10Q',
+  '11A',                      '11E',        '11G', '11H',        '11J',               '11M',        '11O',
   '12A',        '12C',        '12E',        '12G', '12H',        '12J', '12K',        '12M',        '12O',        '12Q',
          '13B',                      '13F',               '13I',               '13L',                      '13P',
   '14A', '14B',                      '14F',               '14I',               '14L',                      '14P',
@@ -17,9 +17,9 @@ export const staffCoordinates = [
                               '16E',                                                  '16M',
          '17B',                                                                '17L',
 ] as const
-export type StaffCoordinate = typeof staffCoordinates[number]
-export type StaffPath = [StaffCoordinate, StaffCoordinate]
-export const staffPaths: StaffPath[] = [
+export type NodachiCoordinate = typeof nodachiCoordinates[number]
+export type NodachiPath = [NodachiCoordinate, NodachiCoordinate]
+export const nodachiPaths: NodachiPath[] = [
   ['1D', '4A'],
   ['1D', '4C'],
   ['1D', '6D'],
@@ -55,14 +55,13 @@ export const staffPaths: StaffPath[] = [
   ['4M', '5M'],
   ['4O', '6O'],
   ['4Q', '6O'],
-  ['4Q', '5Q'],
+  ['4Q', '6Q'],
 
   ['5G', '6G'],
   ['5H', '6H'],
   ['5J', '6J'],
   ['5K', '6K'],
   ['5M', '6M'],
-  ['5Q', '6Q'],
 
   ['6A', '8B'],
   ['6C', '8B'],
@@ -103,40 +102,38 @@ export const staffPaths: StaffPath[] = [
   ['8P', '9O'],
   ['8P', '9Q'],
 
-  ['9A', '12A'],
+  ['9A', '11A'],
   ['9C', '10C'],
   ['9E', '10E'],
   ['9G', '10G'],
   ['9H', '10H'],
-  ['9J', '10J'],
+  ['9J', '12H'],
+  ['9J', '11J'],
   ['9K', '10K'],
   ['9M', '11M'],
   ['9M', '9O'],
-  ['9O', '11O'],
-  ['9O', '11Q'],
+  ['9O', '10O'],
   ['9Q', '10Q'],
 
   ['10C', '12A'],
-  ['10C', '11C'],
-  ['10E', '11E'],
+  ['10C', '12C'],
+  ['10E', '12E'],
   ['10E', '12G'],
-  ['10G', '12G'],
+  ['10G', '11G'],
   ['10G', '10H'],
   ['10H', '11H'],
-  ['10J', '11H'],
-  ['10J', '11J'],
-  ['10K', '11K'],
+  ['10H', '12K'],
   ['10K', '12M'],
-  ['10Q', '11Q'],
+  ['10O', '11O'],
+  ['10O', '12Q'],
+  ['10Q', '12Q'],
 
-  ['11C', '12C'],
-  ['11E', '12E'],
+  ['11A', '12A'],
+  ['11G', '12G'],
   ['11H', '12H'],
   ['11J', '12J'],
-  ['11K', '12K'],
   ['11M', '12M'],
   ['11O', '12O'],
-  ['11Q', '12Q'],
 
   ['12A', '14A'],
   ['12A', '13B'],

@@ -1,4 +1,5 @@
 import type { KatanaCoordinate, KatanaPath } from "./katanaMap"
+import type { NodachiCoordinate, NodachiPath } from "./nodachiMap"
 import type { MaulCoordinate, MaulPath } from "./maulMap"
 import type { BowCoordinate, BowPath } from "./bowMap"
 import type { WagasaCoordinate, WagasaPath } from "./wagasaMap"
@@ -12,8 +13,8 @@ export type Select = {
   skills: {id: string, name: string}[],  // ['1D-0', '1D-1']
 }
 
-export type Coordinate = KatanaCoordinate | MaulCoordinate | BowCoordinate | WagasaCoordinate | CanonCoordinate | ClawCoordinate | StaffCoordinate
-export type Path = KatanaPath | MaulPath | BowPath | WagasaPath | CanonPath  | ClawPath | StaffPath
+export type Coordinate = KatanaCoordinate | NodachiCoordinate | MaulCoordinate | BowCoordinate | WagasaCoordinate | CanonCoordinate | ClawCoordinate | StaffCoordinate
+export type Path = KatanaPath | NodatchiPath | MaulPath | BowPath | WagasaPath | CanonPath  | ClawPath | StaffPath
 export type Paths = Path[]
 
 export type InheritedSkill = {

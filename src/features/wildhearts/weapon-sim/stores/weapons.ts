@@ -1,5 +1,6 @@
 import { atom, onMount } from 'nanostores'
 import katanaList from '@/assets/wildhearts/katana_list.json'
+import nodachiList from '@/assets/wildhearts/nodachi_list.json'
 import maulList from '@/assets/wildhearts/maul_list.json'
 import bowList from '@/assets/wildhearts/bow_list.json'
 import clawList from '@/assets/wildhearts/claw_list.json'
@@ -9,6 +10,7 @@ import type { Weapon, Coordinate, Paths, Select } from '@/features/wildhearts/we
 import { router } from '@/stores/router'
 import { searchParams } from '@/stores/searchParams'
 import { katanaCoordinates, katanaPaths } from '@/features/wildhearts/weapon-sim/models/katanaMap'
+import { nodachiCoordinates, nodachiPaths } from '@/features/wildhearts/weapon-sim/models/nodachiMap'
 import { maulCoordinates, maulPaths } from '@/features/wildhearts/weapon-sim/models/maulMap'
 import { bowCoordinates, bowPaths } from '@/features/wildhearts/weapon-sim/models/bowMap'
 import { wagasaCoordinates, wagasaPaths } from '@/features/wildhearts/weapon-sim/models/wagasaMap'
@@ -35,6 +37,12 @@ onMount(weapons, () => {
         weapons.set([...katanaList] as Weapon[])
         coordinates.set([...katanaCoordinates])
         paths.set([...katanaPaths])
+        return
+      }
+      case 'nodachi': {
+        weapons.set([...nodachiList] as Weapon[])
+        coordinates.set([...nodachiCoordinates])
+        paths.set([...nodachiPaths])
         return
       }
       case 'maul': {

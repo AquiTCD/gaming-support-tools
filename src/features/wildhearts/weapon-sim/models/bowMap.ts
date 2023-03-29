@@ -22,6 +22,7 @@ export type BowPath = [BowCoordinate, BowCoordinate]
 export const bowPaths: BowPath[] = [
   ['1D', '4A'],
   ['1D', '4C'],
+  ['1D', '6D'],
   ['1D', '4E'],
   ['1D', '4G'],
   ['1D', '1I'],
@@ -30,6 +31,7 @@ export const bowPaths: BowPath[] = [
   ['1I', '1N'],
   ['1N', '4K'],
   ['1N', '4M'],
+  ['1N', '6N'],
   ['1N', '4O'],
   ['1N', '4Q'],
 
