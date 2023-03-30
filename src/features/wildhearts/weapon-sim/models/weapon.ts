@@ -14,7 +14,7 @@ export type Select = {
 }
 
 export type Coordinate = KatanaCoordinate | NodachiCoordinate | MaulCoordinate | BowCoordinate | WagasaCoordinate | CanonCoordinate | ClawCoordinate | StaffCoordinate
-export type Path = KatanaPath | NodatchiPath | MaulPath | BowPath | WagasaPath | CanonPath  | ClawPath | StaffPath
+export type Path = KatanaPath | NodachiPath | MaulPath | BowPath | WagasaPath | CanonPath  | ClawPath | StaffPath
 export type Paths = Path[]
 
 export type InheritedSkill = {

@@ -3,6 +3,7 @@ import katanaList from '@/assets/wildhearts/katana_list.json'
 import nodachiList from '@/assets/wildhearts/nodachi_list.json'
 import maulList from '@/assets/wildhearts/maul_list.json'
 import bowList from '@/assets/wildhearts/bow_list.json'
+import wagasaList from '@/assets/wildhearts/wagasa_list.json'
 import clawList from '@/assets/wildhearts/claw_list.json'
 import canonList from '@/assets/wildhearts/canon_list.json'
 import staffList from '@/assets/wildhearts/staff_list.json'
@@ -76,7 +77,7 @@ onMount(weapons, () => {
         return
       }
       case 'wagasa': {
-        // weapons.set([...wagasaaList] as Weapon[])
+        weapons.set([...wagasaList] as Weapon[])
         coordinates.set([...wagasaCoordinates])
         paths.set([...wagasaPaths])
         return
