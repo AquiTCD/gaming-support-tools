@@ -2,16 +2,27 @@ import { Layer, Rect, Stage, Circle, Line } from "react-konva"
 import { useStore } from '@nanostores/react'
 import Weapon from '@/features/wildhearts/weapon-sim/components/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/components/Path'
-import Mark from '@/features/wildhearts/weapon-sim/components/Pin'
+import Pin from '@/features/wildhearts/weapon-sim/components/Pin'
+import InherentCandidate from '@/features/wildhearts/weapon-sim/components/InherentCandidate'
+import InheritedCandidate from '@/features/wildhearts/weapon-sim/components/InheritedCandidate'
 import { coordinates, paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
-import { pinnedWeapons  } from '@/features/wildhearts/weapon-sim/stores/skills'
+import { pinnedWeapons, candidateSkills } from '@/features/wildhearts/weapon-sim/stores/skills'
 import useWindowSize from '@/hooks/useWindowSize'
 
 export default function Canvas(): JSX.Element {
   const $coordinates = useStore(coordinates)
   const $paths = useStore(paths)
   const $pinnedWeapons = useStore(pinnedWeapons)
+  const $candidateSkills = useStore(candidateSkills)
+  const inherentSkillsCoords = $candidateSkills.inherent?.coords
+  const inheritedSkillsCoords = [...new Set([
+    ...$candidateSkills.inherited1?.coords ?? '',
+    ...$candidateSkills.inherited2?.coords ?? '',
+    ...$candidateSkills.inherited3?.coords ?? '',
+    ...$candidateSkills.inherited4?.coords ?? '',
+    ...$candidateSkills.inherited5?.coords ?? ''
+  ])]
   // const [isClient, setIsClient] = useState(false);
   const [width, height] = useWindowSize()
   // useEffect(() => {
@@ -52,7 +63,13 @@ export default function Canvas(): JSX.Element {
         </Layer>
         <Layer>
           { $pinnedWeapons.map((coord, i) => {
-            return <Mark key={i} coord={coord} />
+            return <Pin key={i} coord={coord} />
+          })}
+          { inheritedSkillsCoords.length > 0 && inheritedSkillsCoords.map((coord, i) => {
+            return <InheritedCandidate key={i} coord={coord} />
+          })}
+          { inherentSkillsCoords && inherentSkillsCoords.map((coord, i) => {
+            return <InherentCandidate key={i} coord={coord} />
           })}
         </Layer>
       </Stage>

@@ -30,7 +30,7 @@ export function getStaticPaths() {
     <div class="flex space-x-2 text-xs md:text-sm">
       <a href="/wildhearts/armor-sim" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">防具シミュレータに移動</a>
       <a href="/wildhearts/weapon-sim/reset" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">武器種選択に戻る</a>
-      <!-- <ModalButton client:load /> -->
+      <ModalButton client:load />
     </div>
     <StateUrl path={Astro.url.pathname} client:load />
     <div class="overflow-x-scroll">

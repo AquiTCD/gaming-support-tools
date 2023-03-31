@@ -1,21 +1,30 @@
 import { atom, map } from 'nanostores'
 import type { Coordinate } from '@/features/wildhearts/weapon-sim/models/weapon'
+import type { CandidateSkill, Candidate } from '@/features/wildhearts/weapon-sim/models/skill'
 import type { Vector2d } from 'konva/lib/types'
 
 // modal store
-const initialModalState = {
+type ModalState = {
+  enhanceModal: false | Coordinate,
+  requirementsModal: boolean,
+  restoreModal: false |  Coordinate,
+  skillModal: boolean,
+  selectSkillModal: false | Candidate,
+}
+const initialModalState: ModalState = {
   enhanceModal: false,
   requirementsModal: false,
   restoreModal: false,
   skillModal: false,
+  selectSkillModal: false,
 }
-export const modalStates = map<{ [key in keyof typeof initialModalState]: boolean | Coordinate }>(initialModalState)
+export const modalStates = map<ModalState>(initialModalState)
 
 /// actions
-export const open = (modalName:keyof typeof initialModalState, value:Coordinate|true = true) => {
+export const open = (modalName:keyof ModalState, value:Coordinate|Candidate|true = true) => {
   modalStates.setKey(modalName, value)
 }
-export const close = (modalName:keyof typeof initialModalState) => {
+export const close = (modalName:keyof ModalState) => {
   modalStates.setKey(modalName, false)
 }
 
