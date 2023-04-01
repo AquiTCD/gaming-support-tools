@@ -92,7 +92,7 @@ export default function SkillModal(): JSX.Element | null {
                 </table>
               </div>
               <div className="flex justify-end items-center px-3 py-2 space-x-2">
-                <button type="button" onClick={() => close('skillModal')} className="text-amber-100 bg-gray-800 border-2 border-amber-400 hover:bg-amber-600 rounded-lg text-sm px-3 py-2 text-center">OK</button>
+                <button type="button" onClick={() => close('skillModal')} className="text-gray-800 bg-amber-300 border-2 border-amber-400 hover:bg-amber-600 rounded-lg text-sm px-3 py-2 text-center">OK</button>
               </div>
             </div>
           </div>
