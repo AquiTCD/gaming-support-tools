@@ -3,6 +3,7 @@ import RequirementsModal from '@/features/wildhearts/weapon-sim/components/Requi
 import RestoreModal from '@/features/wildhearts/weapon-sim/components/RestoreModal'
 import PreviewModal from '@/features/wildhearts/weapon-sim/components/PreviewModal'
 import SkillModal from '@/features/wildhearts/weapon-sim/components/SkillModal'
+import SelectSkillModal from '@/features/wildhearts/weapon-sim/components/SelectSkillModal'
 
 export default function GlobalModal(): JSX.Element {
   return (
@@ -12,6 +13,7 @@ export default function GlobalModal(): JSX.Element {
       <RestoreModal />
       <PreviewModal />
       <SkillModal />
+      <SelectSkillModal />
     </div>
   );
 }
