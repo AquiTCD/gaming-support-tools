@@ -1,5 +1,6 @@
 import { Layer, Rect, Stage, Circle, Line } from "react-konva"
 import { useStore } from '@nanostores/react'
+import { useEffect, useState } from 'react'
 import Weapon from '@/features/wildhearts/weapon-sim/components/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/components/Path'
 import Pin from '@/features/wildhearts/weapon-sim/components/Pin'
@@ -23,11 +24,11 @@ export default function Canvas(): JSX.Element {
     ...$candidateSkills.inherited4?.coords ?? '',
     ...$candidateSkills.inherited5?.coords ?? ''
   ])]
-  // const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [width, height] = useWindowSize()
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   const scale = {x: 1, y: 1}
   switch (true) {
     case width <= 640: {
@@ -47,6 +48,7 @@ export default function Canvas(): JSX.Element {
 
   return (
     <>
+      {isClient &&
       <Stage width={1040 * scale.x} height={1040} scaleX={scale.x} scaleY={scale.y} draggable={true}>
         <Layer>
           <Rect fill="#4b5563" width={1040} height={980} onTouchEnd={_e => { closePreview() }} />
@@ -73,6 +75,7 @@ export default function Canvas(): JSX.Element {
           })}
         </Layer>
       </Stage>
+      }
     </>
   );
 }
