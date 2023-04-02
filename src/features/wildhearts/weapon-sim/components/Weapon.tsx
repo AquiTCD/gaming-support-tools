@@ -1,5 +1,6 @@
 import { Circle } from "react-konva"
 import { useStore } from '@nanostores/react'
+import { useEffect, useState } from 'react'
 import { paths, selection } from '@/features/wildhearts/weapon-sim/stores/weapons'
 import { open, preview, closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { location } from '@/utils/utils'
@@ -18,6 +19,10 @@ const colors = {
 export default function Weapon({ coord }: Props): JSX.Element {
   const $selection = useStore(selection)
   const $paths = useStore(paths)
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const isSelected = () => {
     return Boolean($selection.find(item => item.coord === coord))
@@ -66,6 +71,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
 
   return (
     <>
+      {isClient &&
       <Circle onClick={() => {closePreview(); enhanceOrRestore()}}
         fill={color('fill')} stroke={color('stroke')}
         shadowColor={color('stroke')} shadowBlur={15} shadowEnabled={state() !== 'inactive'}
@@ -94,6 +100,7 @@ export default function Weapon({ coord }: Props): JSX.Element {
         //   closePreview()
         // }}
         />
+      }
     </>
   );
 }
