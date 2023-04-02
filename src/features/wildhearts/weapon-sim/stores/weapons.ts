@@ -28,7 +28,7 @@ export const selection = atom<Select[]>([{order:1, coord:'1I', skills:[]}])
 
 // router
 onMount(weapons, () => {
-  router.subscribe(router => {
+  return router.subscribe(router => {
     if (router?.route !== 'wildheartsWeaponSim') {
        return window.location.href = window.location.href
     }
@@ -99,9 +99,9 @@ onMount(weapons, () => {
     if (!Boolean(params.s)) { return }
 
     const decodedStr = decodeURIComponent(params.s)
-    const raw = await Buffer.from(decodedStr, 'base64')
+    const raw = Buffer.from(decodedStr, 'base64')
     const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
-    const restredSelection = restoredObj.map(obj => {
+    const restredSelection = await restoredObj.map(obj => {
       const skills = obj.s.map(skillId => {
         const coord = skillId.split('-')[0]
         const source = weapons.get().find(weapon => weapon.coord === coord)
