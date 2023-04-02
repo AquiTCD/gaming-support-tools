@@ -94,13 +94,13 @@ onMount(weapons, () => {
 })
 // query parameter loading
 onMount(weapons, () => {
-  return searchParams.subscribe(async params => {
+  return searchParams.subscribe(params => {
     // decode
     if (!Boolean(params.s)) { return }
 
     const decodedStr = decodeURIComponent(params.s)
-    const raw = await Buffer.from(decodedStr, 'base64')
-    const restoredObj = await JSON.parse(pako.inflate(raw, { to: 'string' }))
+    const raw = Buffer.from(decodedStr, 'base64')
+    const restoredObj = JSON.parse(pako.inflate(raw, { to: 'string' }))
     const restredSelection = restoredObj.map(obj => {
       const skills = obj.s.map(skillId => {
         const coord = skillId.split('-')[0]
