@@ -26,7 +26,7 @@ export default function StateUrl({ path }: Props): JSX.Element {
   const encodedStr = Buffer.from(compressed).toString('base64')
   const encodedStrForURI = encodeURIComponent(encodedStr)
   const newParams = new URLSearchParams({s:encodedStrForURI})
-  const fullUrl = `${baseUrl.toString()}?${newParams}`
+  const fullUrl = $selection.length > 1 ? `${baseUrl.toString()}?${newParams}` : baseUrl.toString()
 
   const copyToClipboard = async () => {
     const copyTarget = fullUrl

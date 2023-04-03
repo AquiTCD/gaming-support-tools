@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import React, { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { modalStates, close } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { inherentSkills, inheritedSkills, candidateSkills, setCandidate, removeCandidate } from '@/features/wildhearts/weapon-sim/stores/skills'
 import allSkillList from '@/assets/wildhearts/skill_list.json'
@@ -10,8 +10,14 @@ export default function SelectSkillModal(): JSX.Element | null {
   const $inheritedSkills = useStore(inheritedSkills)
   const $modalStates = useStore(modalStates)
   const $candidateSkills = useStore(candidateSkills)
+
   const [searchInput, setSearchInput] = useState('')
+
   const candidate = $modalStates.selectSkillModal as Candidate
+
+  useEffect(() => {
+    setSearchInput('');
+  }, [candidate])
 
   const skills = candidate === 'inherent' ? $inherentSkills : $inheritedSkills
   const bgColor = candidate === 'inherent' ? "bg-teal-200" : "bg-fuchsia-200"
