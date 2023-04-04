@@ -6,9 +6,10 @@ import Pin from '@/features/wildhearts/weapon-sim/components/Pin'
 import InherentCandidate from '@/features/wildhearts/weapon-sim/components/InherentCandidate'
 import InheritedCandidate from '@/features/wildhearts/weapon-sim/components/InheritedCandidate'
 import { coordinates, paths } from '@/features/wildhearts/weapon-sim/stores/weapons'
-import { closePreview } from '@/features/wildhearts/weapon-sim/stores/modals'
+import { closePreview, previewModalState } from '@/features/wildhearts/weapon-sim/stores/modals'
 import { pinnedWeapons, candidateSkills } from '@/features/wildhearts/weapon-sim/stores/skills'
 import useWindowSize from '@/hooks/useWindowSize'
+import { location } from '@/utils/utils'
 
 export default function Canvas(): JSX.Element {
   const $coordinates = useStore(coordinates)
@@ -23,6 +24,8 @@ export default function Canvas(): JSX.Element {
     ...$candidateSkills.inherited4?.coords ?? '',
     ...$candidateSkills.inherited5?.coords ?? ''
   ])]
+  const $previewModalState = useStore(previewModalState)
+
   // const [isClient, setIsClient] = useState(false);
   const [width, height] = useWindowSize()
   // useEffect(() => {
@@ -55,6 +58,10 @@ export default function Canvas(): JSX.Element {
           { $paths.map((coords, i) => {
             return <Path key={i} coords={coords} />
           })}
+          { $previewModalState.coord &&
+              <Circle fill="#fde047" shadowColor="#fde047"
+                shadowBlur={15} x={location[$previewModalState.coord]['x']} y={location[$previewModalState.coord]['y']} width={45} height={45} />
+           }
         </Layer>
         <Layer>
           { $coordinates.map((coord, i) => {
