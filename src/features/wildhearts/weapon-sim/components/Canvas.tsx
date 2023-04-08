@@ -34,12 +34,12 @@ export default function Canvas(): JSX.Element {
   const scale = {x: 1, y: 1}
   switch (true) {
     case width <= 640: {
-      scale.x = 0.6
+      scale.x = 0.6 // 624
       scale.y = 0.6
       break
     }
     case width <= 768: {
-      scale.x = 0.8
+      scale.x = 0.8 // 832
       scale.y = 0.8
       break
     }
@@ -47,9 +47,24 @@ export default function Canvas(): JSX.Element {
       break
     }
   }
+  const sizeClasses = () => {
+    switch (true) {
+    case width <= 640: {
+     return 'w-[624px] h-[624px]'
+    }
+    case width <= 768: {
+      return 'w-[832px] h-[832px]'
+    }
+    default: {
+      return 'h-[1040px] w-[1040px]'
+    }
+  }
+  }
 
   return (
-    <>
+    <div className='overflow-scroll h-screen w-screen'>
+    <div className={`overflow-hidden ${sizeClasses()}`}>
+    <div className='relative'>
       <Stage width={1040 * scale.x} height={1040 * scale.y} scaleX={scale.x} scaleY={scale.y} draggable={false}>
         <Layer>
           <Rect fill="#4b5563" width={1040} height={980} onTouchEnd={_e => { closePreview() }} />
@@ -80,6 +95,8 @@ export default function Canvas(): JSX.Element {
           })}
         </Layer>
       </Stage>
-    </>
+    </div>
+    </div>
+    </div>
   );
 }
