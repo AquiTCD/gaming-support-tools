@@ -27,21 +27,21 @@ export function getStaticPaths() {
 ---
 <Layout title={title} description={description} og_image={og_image} path={path}>
   <main class="bg-gray-600">
-    <div class="flex space-x-2 text-xs md:text-sm">
+    <div class="flex space-x-2 text-xs md:text-sm px-2">
       <a href="/wildhearts/armor-sim" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">防具シミュレータに移動</a>
       <a href="/wildhearts/weapon-sim/reset" class="inline-block border rounded-lg px-2 border-amber-400 text-amber-400 hover:text-gray-800 bg-gray-800 hover:bg-amber-400">武器種選択に戻る</a>
       <div class="inline-block">
         <ModalButton client:load />
       </div>
     </div>
-    <StateUrl path={Astro.url.pathname} client:load />
-    <div class="overflow-x-scroll">
-      <Canvas client:only="react" />
-      <div>
-      <Equipped client:only="react" />
-      </div>
+    <div class="px-2">
+      <StateUrl path={Astro.url.pathname} client:load />
     </div>
-    <section class="mt-2 text-xs text-amber-500">
+    <Canvas client:only="react" />
+    <div>
+      <Equipped client:only="react" />
+    </div>
+    <section class="mt-2 text-xs text-amber-500 px-2">
       <ul>
         <li>(C)コーエーテクモゲームス All rights reserved.</li>
         <li>(C)2022 Electronic Arts Inc.</li>
@@ -55,6 +55,6 @@ export function getStaticPaths() {
 <style>
   main {
     margin: auto;
-    padding: 0.8rem 1.2rem 0.8rem 1.2rem;
+    padding: 0.8rem 0;
   }
 </style>
