@@ -14,8 +14,8 @@ export const katanaCoordinates = [
          '13B',                      '13F',               '13I',               '13L',                      '13P',
   '14A', '14B',                      '14F',               '14I',               '14L',                      '14P',
   // '15A', '15B', '15C', '15D', '15E', '15F', '15G', '15H', '15I', '15J', '15K', '15L', '15M', '15N', '15O', '15P', '15Q',
-                              '16E',                                                  '16M',
-         '17B',                                                                '17L',
+                              '16E', '16F',                                           '16M',
+         '17B',                      '17F',                                    '17L',
 ] as const
 export type KatanaCoordinate = typeof katanaCoordinates[number]
 export type KatanaPath = [KatanaCoordinate, KatanaCoordinate]
@@ -164,6 +164,7 @@ export const katanaPaths: KatanaPath[] = [
   ['14A', '14B'],
   ['14B', '16E'],
   ['14F', '16E'],
+  ['14F', '16F'],
   ['14F', '14I'],
   ['14I', '16M'],
   ['14L', '16M'],
@@ -172,5 +173,9 @@ export const katanaPaths: KatanaPath[] = [
   ['14P', '17L'],
 
   ['16E', '17B'],
+  ['16E', '16F'],
+  ['16F', '17F'],
   ['16M', '17L'],
+
+  ['17B', '17F'],
 ]
