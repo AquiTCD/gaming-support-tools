@@ -1,5 +1,6 @@
 import { Layer, Rect, Stage, Circle, Line } from "react-konva"
 import { useStore } from '@nanostores/react'
+import { useState, useEffect, useRef } from 'react'
 import Weapon from '@/features/wildhearts/weapon-sim/components/Weapon'
 import Path from '@/features/wildhearts/weapon-sim/components/Path'
 import Pin from '@/features/wildhearts/weapon-sim/components/Pin'
@@ -10,6 +11,7 @@ import { closePreview, previewModalState } from '@/features/wildhearts/weapon-si
 import { pinnedWeapons, candidateSkills } from '@/features/wildhearts/weapon-sim/stores/skills'
 import useWindowSize from '@/hooks/useWindowSize'
 import { location } from '@/utils/utils'
+import debounce from "lodash/debounce";
 
 export default function Canvas(): JSX.Element {
   const $coordinates = useStore(coordinates)
@@ -49,23 +51,48 @@ export default function Canvas(): JSX.Element {
   }
   const sizeClasses = () => {
     switch (true) {
-    case width <= 640: {
-     return 'w-[624px] h-[624px]'
+      case width <= 640: {
+      return 'w-[624px] h-[624px]'
+      }
+      case width <= 768: {
+        return 'w-[832px] h-[832px]'
+      }
+      default: {
+        return 'h-[1040px] w-[1040px]'
+      }
     }
-    case width <= 768: {
-      return 'w-[832px] h-[832px]'
-    }
-    default: {
-      return 'h-[1040px] w-[1040px]'
-    }
-  }
   }
 
+  const container = useRef<HTMLDivElement>(null)
+  const stage = useRef<HTMLDivElement>(null)
+
+  useEffect(function moveStageOnScroll() {
+    const scrollContainer = container.current!
+    const canvasStage = stage.current!
+
+    const moveStage = debounce(function moveStage() {
+      const dx = scrollContainer.scrollLeft
+      const dy = scrollContainer.scrollTop
+      // const dx = scrollContainer.scrollLeft - PADDING;
+      // const dy = scrollContainer.scrollTop - PADDING;
+
+      canvasStage.container().style.transform = `translate(${dx}px, ${dy}px)`;
+      canvasStage.x(-dx);
+      canvasStage.y(-dy);
+      canvasStage.batchDraw();
+    }, 60);
+
+    scrollContainer.addEventListener("scroll", moveStage);
+    moveStage();
+
+    return () => scrollContainer.removeEventListener("scroll", moveStage);
+  }, []);
+
   return (
-    <div className='overflow-scroll h-screen w-screen'>
+    <div className='overflow-scroll h-screen w-screen' ref={container}>
     <div className={`overflow-hidden ${sizeClasses()}`}>
     <div className='relative'>
-      <Stage width={1040 * scale.x} height={1040 * scale.y} scaleX={scale.x} scaleY={scale.y} draggable={false}>
+      <Stage width={1040 * scale.x} height={1040 * scale.y} scaleX={scale.x} scaleY={scale.y} ref={stage}>
         <Layer>
           <Rect fill="#4b5563" width={1040} height={980} onTouchEnd={_e => { closePreview() }} />
         </Layer>
