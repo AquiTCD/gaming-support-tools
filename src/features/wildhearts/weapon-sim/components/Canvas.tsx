@@ -83,9 +83,13 @@ export default function Canvas(): JSX.Element {
     }, 60);
 
     scrollContainer.addEventListener("scroll", moveStage);
+    scrollContainer.addEventListener("touchMove", moveStage);
     moveStage();
 
-    return () => scrollContainer.removeEventListener("scroll", moveStage);
+    return () => {
+      scrollContainer.removeEventListener("scroll", moveStage);
+      scrollContainer.removeEventListener("touchMove", moveStage);
+    }
   }, []);
 
   return (
