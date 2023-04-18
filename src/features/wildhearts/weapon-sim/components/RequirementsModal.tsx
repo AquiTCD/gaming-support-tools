@@ -26,7 +26,6 @@ export default function RequirementsModal(): JSX.Element | null {
     allMaterials.push({ name: key, count: value })
   })
 
-
   const title = "総必要素材"
   if (Boolean(visible)) {
     const ModalHeader = () => {
@@ -53,22 +52,19 @@ export default function RequirementsModal(): JSX.Element | null {
             <div className="relative bg-gray-800 rounded-lg shadow border-4 border-amber-400">
               {ModalHeader()}
               <div className="px-4 py-2 space-y-2 grid justify-items-center ">
-                <table className="relative min-w-max table-auto text-xs md:text-sm text-gray-200">
-                  <tbody>
-                    { allMaterials.map(material => {
-                      return (
-                        <tr key={material.name}>
-                          <th className="py-1 px-2 md:px-4 border border-gray-300">{material.name}</th>
-                          <td className="py-1 px-2 md:px-4 text-right pr-10 border border-gray-300">{material.count}</td>
-                        </tr>
-                      )
-                    }) }
-                  <tr>
-                    <th className="py-1 px-2 md:px-4 border border-gray-300">総金額</th>
-                    <td className="py-1 px-2 md:px-4 text-right pr-10 border border-gray-300">{totalGold}</td>
-                  </tr>
-                  </tbody>
-                </table>
+                <div className="relative min-w-max table-auto text-xs md:text-sm text-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                  { allMaterials.map(material => {
+                    return (
+                      <div key={material.name} className="grid grid-cols-[1fr_4rem] border border-gray-300">
+                        <div className="py-1 px-2 md:px-4">{material.name}</div>
+                        <div className="py-1 px-2 md:px-4 text-right">{material.count}</div>
+                      </div>
+                  )})}
+                  <div className="grid grid-cols-[1fr_4rem] border border-gray-300">
+                    <div className="py-1 px-2 md:px-4">総金額</div>
+                    <div className="py-1 px-2 md:px-4 text-right">{totalGold}</div>
+                  </div>
+                </div>
               </div>
               <div className="flex justify-end items-center px-3 py-2 space-x-2">
                 <button type="button" onClick={() => close('requirementsModal')} className="text-gray-700 bg-amber-300 border-2 border-amber-300 hover:bg-amber-600 hover:text-amber-100 rounded-lg text-sm px-6 py-2 text-center font-bold">閉じる</button>
